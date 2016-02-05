@@ -4,8 +4,7 @@
   gather_facts: no
 
   tasks:
-  - name: actualiza apt
-    apt: update_cache=yes
+  
   - name: verifica postgres y psycopg2
     apt: name={{item}}
     with_items:
@@ -42,10 +41,21 @@
     with_items:
         - git
 
-- hosts: all
-  sudo: yes
-  gather_facts: no
+  - name: instala requerimientos de django
+    command: pip install  -r ../requirements.txt 
 
-  tasks:
-    - name: instala requerimientos de django
-      command: pip install  -r ../requirements.txt 
+  - name: migraciones de django
+    command: python /vagrant/manage.py migrate
+
+  - name: crea variables de entorno
+    command: echo 'export APPDIR=/vagrant' >> .bash_rc   
+
+  - name: Ensure that the application file permissions are set properly
+    file: path=/vagrant
+        recurse=yes
+        owner=vagrant
+        group=vagrant
+        state=directory
+
+  
+
