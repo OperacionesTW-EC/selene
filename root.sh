@@ -1,2 +1,2 @@
 echo 'holai'
-sudo su
+sudo -s
