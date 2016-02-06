@@ -1,0 +1,2 @@
+echo 'holai'
+sudo su
