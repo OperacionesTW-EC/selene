@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+{% load pipeline %}
+{% load bootstrap3 %}
+{% load fontawesome %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title %}Selene{% endblock %}</title>
+    {% load static %}
+    <link rel="shortcut icon" type="image/png" href="{% static "images/selene-ico.png" %}">
+    {% bootstrap_css %}
+    {% stylesheet 'custom' %}
+    {% fontawesome_stylesheet %}
+</head>
+<body>
+{% include "main/menu.html" %}
+<div class="container">
+    {% block body_block %}{% endblock %}
+</div>
+<div class="footer-sln">
+    <div class="container">
+        ThoughtWorks <i class="fa fa-registered"></i> 2016, Quito - Ecuador
+    </div>
+</div>
+{% javascript 'stats' %}
+{% javascript 'bootstrap' %}
+</body>
+</html>

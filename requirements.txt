@@ -4,4 +4,7 @@ django-postgrespool==0.3.0
 psycopg2==2.6
 SQLAlchemy==1.0.4
 gunicorn==19.4.5
-
+django-pipeline
+django-jquery
+django-bootstrap3
+django-fontawesome

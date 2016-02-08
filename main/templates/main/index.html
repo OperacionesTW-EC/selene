@@ -1,0 +1,86 @@
+{% extends 'selene/main.html' %}
+{% block title %}Selene - Home{% endblock %}
+{% block body_block %}
+    <div class="row banner">
+        <div class="col-md-5 ">
+            <div class="blank-space"></div>
+            <div class="row">
+                <div class="col-md-12">
+                 <span style="font-size: 30px;display: block;color: #B51B57">
+                ThoughtWorks <i class="fa fa-registered"></i>
+            </span>
+             <span style="font-size: 30px">
+                Ecuador
+            </span>
+                </div>
+            </div>
+
+            <form>
+                <div class="row">
+                    <div class="col-md-4">
+                        <label>Usuario</label>
+                    </div>
+                    <div class="col-md-8">
+                        <input type='text'  class="input-sm form-control" ng-model='username'>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-4">
+                        <label>Contraseña</label>
+                    </div>
+                    <div class="col-md-8">
+                        <input type='password' class="input-sm form-control" ng-model='password'>
+                    </div>
+
+                </div>
+                <div class="row">
+                    <div class="col-md-3 col-md-offset-9 text-right" >
+                        <a href="#" id="js-submit" class="btn btn-success btn-sm">
+                            <i class="fa fa-unlock"></i> Entrar
+                        </a>
+                    </div>
+                </div>
+            </form>
+        </div>
+        {% load static %}
+        <div class="col-md-7" style="position: relative">
+            <div class="circular-logo text-center">
+                <img src="{% static "images/tw-logo-sm.png" %}" width="92%" style="margin-top: 20px" >
+            </div>
+            <img src="{% static "images/selene.png" %}" width="100%" style="margin-top: 50px">
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-4 text-justify"  >
+            <h1>Selene </h1>
+            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+                Donec vitae metus erat. Donec at mi at elit porttitor rhoncus. Nam dignissim,
+                ligula at pretium tincidunt, metus erat tincidunt arcu, fermentum facilisis purus mi non
+                odio. Morbi vitae diam placerat, consectetur sem et, mollis diam. Pellentesque habitant
+                morbi tristique senectus et netus et malesuada fames ac turpis egestas.</p>
+        </div>
+
+        <div class="col-md-4 text-justify"  >
+            <h1>Techops team</h1>
+            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+                Donec vitae metus erat. Donec at mi at elit porttitor rhoncus. Nam dignissim,
+                ligula at pretium tincidunt, metus erat tincidunt arcu, fermentum facilisis purus mi non
+                odio. Morbi vitae diam placerat, consectetur sem et, mollis diam. Pellentesque habitant
+                morbi tristique senectus et netus et malesuada fames ac turpis egestas.</p>
+        </div>
+        <div class="col-md-4 text-justify"  >
+            <h1>Soporte</h1>
+            <p>
+                <b>Techops: </b><a href="mailto:someone@mail.com">someone@mail.com</a>
+            </p>
+            <p>
+                <b>Thoughtworks: </b><a href="#">thoughtworks.com</a>
+            </p>
+            <p>
+                <b>Olvidaste tu contraseña?</b> click <a href="#">Aquí</a>
+            </p>
+        </div>
+
+    </div>
+</div>
+{% endblock %}

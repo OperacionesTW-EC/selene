@@ -4,7 +4,7 @@
   gather_facts: no
 
   tasks:
-  
+
   - name: verifica postgres y psycopg2
     apt: name={{item}}
     with_items:
@@ -41,21 +41,55 @@
     with_items:
         - git
 
+  - name: Cambia el modo de autentificación de postgres para la máquina
+    lineinfile:
+          dest: /etc/postgresql/9.1/main/pg_hba.conf
+          regexp: '^local\s+all\s+all\s+peer$'
+          line: 'local    all             all                                    md5'
+
+  - name: Cambia el modo de autentificación de postgres para la red local
+    lineinfile:
+          dest: /etc/postgresql/9.1/main/pg_hba.conf
+          line: 'host    all             all            0.0.0.0/0               md5'
+
+  - name: Activa conecciones remotas
+    lineinfile:
+          dest: /etc/postgresql/9.1/main/postgresql.conf
+          line: "listen_addresses = '*'"
+
+  - name: Reinicia postgresql
+    command: service postgresql restart
+
+
+  - name: Cambio el usuario de apache2
+    lineinfile:
+          dest: /etc/apache2/apache2.conf
+          regexp: 'User ${APACHE_RUN_USER}$'
+          line: 'User vagrant'
+
+  - name: Cambio el grupo de apache2
+    lineinfile:
+          dest: /etc/apache2/apache2.conf
+          regexp: 'Group ${APACHE_RUN_GROUP}$'
+          line: 'Group vagrant'
+
   - name: instala requerimientos de django
-    command: pip install  -r ../requirements.txt 
+    command: pip install  -r ../requirements.txt
 
   - name: migraciones de django
     command: python /vagrant/manage.py migrate
 
   - name: crea variables de entorno
-    command: echo 'export APPDIR=/vagrant' >> .bash_rc   
+    command: echo 'export APPDIR=/vagrant' >> .bash_rc
 
-  - name: Ensure that the application file permissions are set properly
+  - name: Verifica los permisos del usuario vagrant
     file: path=/vagrant
         recurse=yes
         owner=vagrant
         group=vagrant
         state=directory
+
+
 
   
 

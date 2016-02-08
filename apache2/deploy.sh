@@ -5,7 +5,8 @@ sudo /etc/init.d/apache2 stop
 tput setaf 1;
 echo '--------------borrando versiones anteriores--------------------'
 tput sgr0;
-sudo rm /etc/apache2/sites-available/selene.com
+sudo rm /etc/apache2/sites-available/*
+sudo rm /etc/apache2/sites-enabled/*
 sudo a2dissite selene.com
 tput setaf 1;
 echo '--------------copiando archivo selene.com----------------------'

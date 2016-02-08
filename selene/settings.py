@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/1.9/ref/settings/
 """
 
 import os
+import sys
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -31,12 +32,17 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
+    'main.apps.MainConfig',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'pipeline',
+    'jquery',
+    'bootstrap3',
+    'fontawesome'
 ]
 
 MIDDLEWARE_CLASSES = [
@@ -55,7 +61,7 @@ ROOT_URLCONF = 'selene.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': ['templates'],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -101,6 +107,7 @@ AUTH_PASSWORD_VALIDATORS = [
 ]
 
 
+
 # Internationalization
 # https://docs.djangoproject.com/en/1.9/topics/i18n/
 
@@ -114,10 +121,76 @@ USE_L10N = True
 
 USE_TZ = True
 
+if 'test' in sys.argv:
+    DATABASES['default'] = {
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': 'test'
+    }
+else:
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.postgresql_psycopg2',
+            'NAME': 'selene',
+            'USER': 'postgres',
+            'PASSWORD': 'postgres',
+            'HOST': '127.0.0.1',
+            'PORT': '5432',
+        }
+    }
+
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.9/howto/static-files/
 
 STATIC_URL = '/static/'
-MEDIA_ROOT = '/vagrant/selene/static/'
-MEDIA_URL = '/static/'
+MEDIA_ROOT = '/media/'
+MEDIA_URL = '/media/'
+STATIC_ROOT = BASE_DIR+'/static/'
+
+#PIPELINE
+
+PIPELINE = {
+    'STYLESHEETS': {
+
+        'custom': {
+            'source_filenames': (
+                'css/custom.css',
+            )
+        },
+    },
+    'JAVASCRIPT': {
+        'stats': {
+            'source_filenames': (
+                'js/jquery.js',
+            ),
+            'output_filename': 'js/stats.js',
+        },
+        'bootstrap': {
+            'source_filenames': (
+                'twitter_bootstrap/js/transition.js',
+                'twitter_bootstrap/js/modal.js',
+                'twitter_bootstrap/js/dropdown.js',
+                'twitter_bootstrap/js/scrollspy.js',
+                'twitter_bootstrap/js/tab.js',
+                'twitter_bootstrap/js/tooltip.js',
+                'twitter_bootstrap/js/popover.js',
+                'twitter_bootstrap/js/alert.js',
+                'twitter_bootstrap/js/button.js',
+                'twitter_bootstrap/js/collapse.js',
+                'twitter_bootstrap/js/affix.js',
+            ),
+            'output_filename': 'js/b.js',
+        },
+    }
+}
+
+
+
+
+STATICFILES_STORAGE = 'pipeline.storage.PipelineCachedStorage'
+
+STATICFILES_FINDERS = (
+    'django.contrib.staticfiles.finders.FileSystemFinder',
+    'django.contrib.staticfiles.finders.AppDirectoriesFinder',
+    'pipeline.finders.PipelineFinder',
+)
