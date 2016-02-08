@@ -61,7 +61,7 @@ ROOT_URLCONF = 'selene.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': ['templates'],
+        'DIRS': ['templates',BASE_DIR+'/templates','/vagrant/templates'],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -73,7 +73,7 @@ TEMPLATES = [
         },
     },
 ]
-
+print TEMPLATES
 WSGI_APPLICATION = 'selene.wsgi.application'
 
 

@@ -64,13 +64,13 @@
   - name: Cambio el usuario de apache2
     lineinfile:
           dest: /etc/apache2/apache2.conf
-          regexp: 'User ${APACHE_RUN_USER}$'
+          regexp: 'User \$\{APACHE_RUN_USER} *'
           line: 'User vagrant'
 
   - name: Cambio el grupo de apache2
     lineinfile:
           dest: /etc/apache2/apache2.conf
-          regexp: 'Group ${APACHE_RUN_GROUP}$'
+          regexp: 'Group \$\{APACHE_RUN_GROUP} *'
           line: 'Group vagrant'
 
   - name: instala requerimientos de django
