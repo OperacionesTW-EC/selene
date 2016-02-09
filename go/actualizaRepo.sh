@@ -1,3 +1,3 @@
 cd /Users/user/Documents/selene/selene
-vagrant up
+/usr/local/bin/vagrant up
 exit
