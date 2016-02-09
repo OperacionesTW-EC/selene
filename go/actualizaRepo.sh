@@ -1,2 +1,2 @@
-cd /User/user/Documents/selene/selene
+cd /Users/user/Documents/selene/selene
 git pull
