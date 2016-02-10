@@ -6,3 +6,8 @@ rm -rf manage.py
 rm -rf requirements.txt
 rm -rf templates
 unzip selene.zip
+rm selene.zip
+vagrant destroy
+vagrant up
+vagrant ssh
+touch omg
