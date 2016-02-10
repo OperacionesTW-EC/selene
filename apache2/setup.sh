@@ -1,3 +1,4 @@
+export PATH=/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/bin
 cd /Users/user/selene
 rm -rf selene
 rm -rf static
@@ -11,7 +12,7 @@ unzip selene.zip
 echo 'fin del unzip'
 rm selene.zip
 echo 'rm'
-vagrant destroy
+vagrant destroy -f
 echo 'destroy'
 vagrant up
 echo 'up'
