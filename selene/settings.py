@@ -203,7 +203,7 @@ if 'test' in sys.argv:
     }
 
 try:
-    from settings_dev import *
+    from vagrantProduccion.settings_dev import *
 except ImportError as e:
     pass
 
