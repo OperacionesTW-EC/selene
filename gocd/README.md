@@ -36,7 +36,26 @@ $ vagrant plugin install vagrant-triggers
 $ vagrant up
 $ vagrant ssh
 ```
-Finalmente creamos debemos crear el pipeline de Selene
+una vez dentro de la máquina virtual, tenemos que [Generar clave publica ssh].
+Para eso hacemos nos cambia al usuario go con el que trabaja los agentes de Go CD
+```sh
+$ sudo su go
+```
+y escribimos
+```sh
+$ ssh-keygen -t rsa
+```
+Damos solo enter sin escribir nada hasta finalizar la generacion ( por favor revisar [Generar clave publica ssh]), luego copiamos nuestra clave 
+```sh
+$ cat .ssh/id_rsa.pub | ssh user@IP_ServidorDeploy 'cat >> .ssh/authorized_keys'
+```
+Finalmente probamos que al hacer ssh ya nos nos pide clave
+```sh
+$ ssh user@IP_ServidorDeploy
+```
+
+### Pipeline
+Debemos crear el pipeline de Selene
 
 **Suerte!**
 
@@ -53,5 +72,6 @@ Finalmente creamos debemos crear el pipeline de Selene
    [git]:<https://git-scm.com/> 
    [zip]:<http://packages.ubuntu.com/precise/zip> 
    [unzip]:<http://packages.ubuntu.com/precise/unzip> 
+   [Generar clave publica ssh]:<http://www.linuxproblem.org/art_9.html> 
 
 
