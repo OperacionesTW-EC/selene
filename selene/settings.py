@@ -190,17 +190,7 @@ STATICFILES_FINDERS = (
 )
 
 
-if 'test' in sys.argv:
-    DATABASES = {
-        'default': {
-            'ENGINE': 'django.db.backends.postgresql_psycopg2',
-            'NAME': 'selene',
-            'USER': 'postgres',
-            'PASSWORD': 'postgres',
-            'HOST': '10.71.23.243',
-            'PORT': '5432',
-        }
-    }
+
 
 try:
     from vagrantProduccion.settings_dev import *
