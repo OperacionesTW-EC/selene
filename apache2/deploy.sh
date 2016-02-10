@@ -11,7 +11,7 @@ sudo a2dissite selene.com
 tput setaf 1;
 echo '--------------copiando archivo selene.com----------------------'
 tput sgr0;
-sudo cp selene.com /etc/apache2/sites-available/
+sudo cp /vagrant/apache2/selene.com /etc/apache2/sites-available/
 tput setaf 1;
 echo '--------------activando sitio----------------------------------'
 tput sgr0;

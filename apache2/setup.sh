@@ -17,4 +17,4 @@ vagrant up
 echo 'up'
 vagrant ssh
 echo 'ssh'
-touch omg
+
