@@ -19,6 +19,8 @@
   sudo apt-get -y install python-pip
   sudo apt-get -y install libpq-dev
   sudo apt-get install python-dev -y
+  sudo apt-get install -y zip
+  sudo apt-get install -y unzip
   #sudo apt-get update
   echo "--------------------------Installing java--------------------------------"
   sudo apt-get install -y openjdk-7-jre
