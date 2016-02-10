@@ -185,6 +185,22 @@ PIPELINE = {
 
 
 
+try:
+    from settings_dev import *
+except ImportError as e:
+    pass
+
+try:
+    from settings_qa import *
+except ImportError as e:
+    pass
+
+try:
+    from settings_produccion import *
+except ImportError as e:
+    pass
+
+
 
 STATICFILES_STORAGE = 'pipeline.storage.PipelineCachedStorage'
 

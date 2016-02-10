@@ -1,0 +1,51 @@
+---
+- hosts: all
+  sudo: yes
+  gather_facts: no
+
+  tasks:
+
+  - name: verifica psycopg2
+    apt: name={{item}}
+    with_items:
+        - libpq-dev
+        - python-psycopg2
+
+- hosts: all
+  sudo: yes
+  gather_facts: no
+
+  tasks:
+
+  - name: Cambio el usuario de apache2
+    lineinfile:
+          dest: /etc/apache2/apache2.conf
+          regexp: 'User \$\{APACHE_RUN_USER} *'
+          line: 'User vagrant'
+
+  - name: Cambio el grupo de apache2
+    lineinfile:
+          dest: /etc/apache2/apache2.conf
+          regexp: 'Group \$\{APACHE_RUN_GROUP} *'
+          line: 'Group vagrant'
+
+  - name: instala requerimientos de django
+    command: pip install  -r ../requirements.txt
+
+  - name: migraciones de django
+    command: python /vagrant/manage.py migrate
+
+  - name: crea variables de entorno
+    command: echo 'export APPDIR=/vagrant' >> .bash_rc
+
+  - name: Verifica los permisos del usuario vagrant
+    file: path=/vagrant
+        recurse=yes
+        owner=vagrant
+        group=vagrant
+        state=directory
+
+
+
+  
+

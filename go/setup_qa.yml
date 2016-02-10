@@ -6,7 +6,7 @@
   - name: Pull sources from the repository.
     git: repo={{ project_repo }} dest={{ project_root }} force=yes
   - name: Go to the folder and execute command
-    command: chdir={{ project_root }}/go sh actualizaRepo.sh
+    command: chdir={{ project_root }}/apache2/
 
   #tasks:
   #- name: actualiza el repo

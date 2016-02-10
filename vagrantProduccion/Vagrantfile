@@ -1,0 +1,17 @@
+Vagrant.configure("2") do |config|
+  config.vm.provider :virtualbox do |virtualbox|
+        # allocate 1024 mb RAM
+        virtualbox.customize ["modifyvm", :id, "--memory", "3072"] 
+        # allocate max 50% CPU
+        virtualbox.customize ["modifyvm", :id, "--cpuexecutioncap", "70"]
+  end
+  config.vm.box = "hashicorp/precise64"
+  
+  config.vm.provision :shell, path: "vagrantFiles/paquetes.sh"
+  config.vm.provision  "ansible_local" do |ansible|
+    ansible.playbook = "vagrantFiles/selene.yml"
+  end
+  config.vm.network :forwarded_port, guest: 80, host: 80
+
+
+end
