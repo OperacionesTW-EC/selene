@@ -1,5 +1,5 @@
 export PATH=/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/bin
-cd /Users/user/selene
+cd ~/selene
 rm -rf selene
 rm -rf static
 rm -rf main
