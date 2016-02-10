@@ -6,9 +6,15 @@ rm -rf manage.py
 rm -rf requirements.txt
 rm -rf templates
 rm -rf apache2
+rm -rf e.zip
 unzip selene.zip
+echo 'fin del unzip'
 rm selene.zip
+echo 'rm'
 vagrant destroy
+echo 'destroy'
 vagrant up
+echo 'up'
 vagrant ssh
+echo 'ssh'
 touch omg
