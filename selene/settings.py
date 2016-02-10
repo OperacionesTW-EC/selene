@@ -120,22 +120,16 @@ USE_L10N = True
 
 USE_TZ = True
 
-if 'test' in sys.argv:
-    DATABASES['default'] = {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': 'test'
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'NAME': 'selene',
+        'USER': 'postgres',
+        'PASSWORD': 'postgres',
+        'HOST': '10.71.23.243',
+        'PORT': '5432',
     }
-else:
-    DATABASES = {
-        'default': {
-            'ENGINE': 'django.db.backends.postgresql_psycopg2',
-            'NAME': 'selene',
-            'USER': 'postgres',
-            'PASSWORD': 'postgres',
-            'HOST': '127.0.0.1',
-            'PORT': '5432',
-        }
-    }
+}
 
 
 # Static files (CSS, JavaScript, Images)
@@ -185,6 +179,29 @@ PIPELINE = {
 
 
 
+
+
+STATICFILES_STORAGE = 'pipeline.storage.PipelineCachedStorage'
+
+STATICFILES_FINDERS = (
+    'django.contrib.staticfiles.finders.FileSystemFinder',
+    'django.contrib.staticfiles.finders.AppDirectoriesFinder',
+    'pipeline.finders.PipelineFinder',
+)
+
+
+if 'test' in sys.argv:
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.postgresql_psycopg2',
+            'NAME': 'selene',
+            'USER': 'postgres',
+            'PASSWORD': 'postgres',
+            'HOST': '10.71.23.243',
+            'PORT': '5432',
+        }
+    }
+
 try:
     from settings_dev import *
 except ImportError as e:
@@ -200,12 +217,3 @@ try:
 except ImportError as e:
     pass
 
-
-
-STATICFILES_STORAGE = 'pipeline.storage.PipelineCachedStorage'
-
-STATICFILES_FINDERS = (
-    'django.contrib.staticfiles.finders.FileSystemFinder',
-    'django.contrib.staticfiles.finders.AppDirectoriesFinder',
-    'pipeline.finders.PipelineFinder',
-)

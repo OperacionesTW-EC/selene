@@ -1,2 +1,0 @@
-echo 'holai'
-sudo -s
