@@ -32,7 +32,6 @@ $ cp gocd <your path>
 ```
 Luego, ya dentro de la carpeta gocd ejecutamos
 ```sh
-$ vagrant plugin install vagrant-triggers
 $ vagrant up
 $ vagrant ssh
 ```
