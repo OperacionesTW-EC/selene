@@ -1,6 +1,5 @@
 
-
-from django.core.urlresolvers import reverse, resolve
+from django.core.urlresolvers import  resolve
 from django.test import TestCase
 from main import views
 

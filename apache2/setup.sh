@@ -16,6 +16,4 @@ vagrant destroy -f
 echo 'destroy'
 vagrant up
 echo 'up'
-vagrant ssh
-echo 'ssh'
 

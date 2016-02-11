@@ -79,8 +79,6 @@
   - name: migraciones de django
     command: python /vagrant/manage.py migrate
 
-  - name: crea variables de entorno
-    command: echo 'export APPDIR=/vagrant' >> .bash_rc
 
   - name: Verifica los permisos del usuario vagrant
     file: path=/vagrant

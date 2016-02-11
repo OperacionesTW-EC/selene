@@ -42,7 +42,7 @@ INSTALLED_APPS = [
     'pipeline',
     'jquery',
     'bootstrap3',
-    'fontawesome'
+    'fontawesome',
 ]
 
 MIDDLEWARE_CLASSES = [
