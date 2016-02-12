@@ -20,3 +20,4 @@ tput setaf 1;
 echo '--------------Suebiendo el servidor----------------------------'
 tput sgr0;
 sudo /etc/init.d/apache2 start
+exit
