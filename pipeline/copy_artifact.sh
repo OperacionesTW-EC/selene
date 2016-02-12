@@ -1,0 +1,1 @@
+scp /var/lib/go-server/artifacts/pipelines/Selene/$GO_PIPELINE_LABEL/create_artifact/1/Create_artifact/selene.zip $USER_DEPLOY@$IP_DEPLOY:$PATH_DEPLOY/selene
