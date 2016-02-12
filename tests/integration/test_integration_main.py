@@ -9,6 +9,3 @@ class UserItengrationTest(TransactionTestCase):
         user = User.objects.create(first_name="test")
         self.assertEqual(user.pk,1)
 
-    def test_user_pk(self):
-        user = User.objects.create(first_name="test")
-        self.assertEqual(user.pk,10)
