@@ -7,6 +7,7 @@ rm -rf manage.py
 rm -rf requirements.txt
 rm -rf templates
 rm -rf apache2
+rm -rf tests
 rm -rf e.zip
 unzip selene.zip
 echo 'fin del unzip'
