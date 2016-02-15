@@ -25,6 +25,7 @@ urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url('index', views.index),
     url(r'^', include('main.urls')),
+    url(r'^', include('devices.urls')),
 
 ]
 #url(r'^media/(?P<path>.*)$', serve, {'document_root': settings.MEDIA_ROOT}),

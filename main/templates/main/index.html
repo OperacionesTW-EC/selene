@@ -15,13 +15,14 @@
                 </div>
             </div>
 
-            <form>
+            <form action="{% url 'login'  %}" method="post">
+                {% csrf_token %}
                 <div class="row">
                     <div class="col-md-4">
                         <label>Usuario</label>
                     </div>
                     <div class="col-md-8">
-                        <input type='text'  class="input-sm form-control" ng-model='username'>
+                        <input type='text'  class="input-sm form-control" name="login">
                     </div>
                 </div>
                 <div class="row">
@@ -29,15 +30,17 @@
                         <label>Contraseña</label>
                     </div>
                     <div class="col-md-8">
-                        <input type='password' class="input-sm form-control" ng-model='password'>
+                        <input type='password' class="input-sm form-control" name='password'>
                     </div>
-
                 </div>
                 <div class="row">
                     <div class="col-md-3 col-md-offset-9 text-right" >
-                        <a href="#" id="js-submit" class="btn btn-success btn-sm">
-                            <i class="fa fa-unlock"></i> Entrar
-                        </a>
+                        <button type="submit" value="entrar" class="btn btn-success btn-sm"><i class="fa fa-unlock"></i> Entrar</button>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+
                     </div>
                 </div>
             </form>
