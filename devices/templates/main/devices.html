@@ -1,0 +1,78 @@
+{% extends 'selene/main.html' %}
+{% block title %}Selene - Devices{% endblock %}
+{% block body_block %}
+    <div class="row banner">
+        <div class="col-md-5 ">
+            <div class="blank-space"></div>
+            <div class="row">
+                <div class="col-md-12">
+                 <span style="font-size: 30px;display: block;color: #B51B57">
+                Dispositivos
+            </span>
+             <span style="font-size: 20px">
+                ThoughtWorks Ecuador
+            </span>
+                    <br><br>
+                    <span style="font-size: 16px">
+                Aquí podrás encontrar todos los dipositivos existentes.
+            </span>
+                </div>
+            </div>
+            </div>
+        {% load static %}
+        <div class="col-md-7" style="position: relative">
+            <div class="square-logo text-center">
+                <img src="{% static "images/tw-devices.jpg" %}" class="img-rounded" width="52%" style="margin-top: 50px">
+            </div>
+        </div>
+        </div>
+    <br>
+
+    <div class="row banner">
+        <table class="table table-hover">
+            <tr class="info">
+                <th>Serial</th>
+                <th>Código</th>
+                <th>Marca</th>
+                <th>Tipo</th>
+                <th>Modelo</th>
+                <th>Fecha de compra</th>
+            </tr>
+            <tr>
+                <td>000000000100</td>
+                <td>AEXTU1000</td>
+                <td>Apple</td>
+                <td>Laptop</td>
+                <td>Bla</td>
+                <td>10/12/2010</td>
+            </tr>
+            <tr>
+                <td>000000000100</td>
+                <td>AEXTU1000</td>
+                <td>Apple</td>
+                <td>Laptop</td>
+                <td>Bla</td>
+                <td>10/12/2010</td>
+            </tr>
+            <tr>
+                <td>000000000100</td>
+                <td>AEXTU1000</td>
+                <td>Apple</td>
+                <td>Laptop</td>
+                <td>Bla</td>
+                <td>10/12/2010</td>
+            </tr>
+            <tr>
+                <td>000000000100</td>
+                <td>AEXTU1000</td>
+                <td>Apple</td>
+                <td>Laptop</td>
+                <td>Bla</td>
+                <td>10/12/2010</td>
+            </tr>
+    </table>
+
+
+
+</div>
+{% endblock %}
