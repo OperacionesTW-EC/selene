@@ -1,0 +1,12 @@
+.idea
+.idea/*
+.vagrant
+*.iml
+*.zip
+.DS_Store
+*.pyc
+static/admin
+static/fontawesome
+static/js
+main/build
+settings_dev.py
