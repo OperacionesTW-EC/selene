@@ -9,6 +9,7 @@ static/admin
 static/fontawesome
 static/js
 main/build
+settings_dev.py
 build/
 *.egg-info/
 *.egg
