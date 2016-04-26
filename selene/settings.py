@@ -15,7 +15,7 @@ import sys
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-LOGIN_URL="home"
+LOGIN_URL = "home"
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/1.9/howto/deployment/checklist/
@@ -62,7 +62,7 @@ ROOT_URLCONF = 'selene.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': ['templates',BASE_DIR+'/templates','/vagrant/templates'],
+        'DIRS': ['templates', BASE_DIR+'/templates', '/vagrant/templates'],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -179,9 +179,6 @@ PIPELINE = {
 }
 
 
-
-
-
 STATICFILES_STORAGE = 'pipeline.storage.PipelineCachedStorage'
 
 STATICFILES_FINDERS = (
@@ -190,16 +187,6 @@ STATICFILES_FINDERS = (
     'pipeline.finders.PipelineFinder',
 )
 
-
-if 'test' in sys.argv:
-    DATABASES['default'] = {
-        'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'selene_test',
-        'USER': 'postgres',
-        'PASSWORD': 'postgres',
-        'HOST': '127.0.0.1',
-        'PORT': '5432',
-    }
 
 try:
     from vagrantProduccion.settings_dev import *
@@ -215,4 +202,3 @@ try:
     from settings_produccion import *
 except ImportError as e:
     pass
-
