@@ -187,12 +187,6 @@ STATICFILES_FINDERS = (
     'pipeline.finders.PipelineFinder',
 )
 
-
-try:
-    from vagrantProduccion.settings_dev import *
-except ImportError as e:
-    pass
-
 try:
     from settings_qa import *
 except ImportError as e:
@@ -202,3 +196,13 @@ try:
     from settings_produccion import *
 except ImportError as e:
     pass
+
+if 'test' in sys.argv:
+    DATABASES['default'] = {
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'NAME': 'selene_test',
+        'USER': 'postgres',
+        'PASSWORD': 'postgres',
+        'HOST': '127.0.0.1',
+        'PORT': '5432',
+    }
