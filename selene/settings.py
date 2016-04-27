@@ -143,11 +143,10 @@ PIPELINE = {
         },
     },
     'JAVASCRIPT': {
-        'stats': {
+        'jquery': {
             'source_filenames': (
                 'js/jquery.js',
-            ),
-            'output_filename': 'js/stats.js',
+            )
         },
         'bootstrap': {
             'source_filenames': (

@@ -10,4 +10,8 @@ def devices(request):
     context = {}
     return HttpResponse(template.render(context, request))
 
+def device_form(request):
+    template = loader.get_template('main/device_form.html')
+    context = {}
+    return HttpResponse(template.render(context, request))
 

@@ -1,0 +1,60 @@
+{% extends 'selene/main.html' %}
+{% block title %}Selene - Devices{% endblock %}
+{% block body_block %}
+{% load static %}
+<script src='{% static "plugins/bootstrap-datepicker/bootstrap-datepicker.js" %}'></script>
+<link rel="stylesheet" type="text/css" href='{% static "plugins/bootstrap-datepicker/bootstrap.css" %}'>
+<div class="row">
+    <div class="col-md-2">Tipo</div>
+    <div class="col-md-5">
+        <select class="form-control">
+            <option>Laptop</option>
+        </select>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-2">Marca</div>
+    <div class="col-md-5">
+        <select class="form-control">
+            <option>Apple</option>
+        </select>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-2">Activo</div>
+    <div class="col-md-2">
+        <button type="button" class="btn btn-default">Si</button>
+        <button type="button" class="btn btn-default">No</button>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-2">Serial</div>
+    <div class="col-md-5">
+        <input class="form-control" type="text">
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-2">Modelo</div>
+    <div class="col-md-5">
+        <input class="form-control" type="text">
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-2">Fecha</div>
+    <div class="col-md-5">
+        <input class="form-control datepicker" type="text">
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-2">Propiedad</div>
+    <div class="col-md-5">
+        <select class="form-control">
+            <option>TW</option>
+            <option>Cliente</option>
+        </select>
+    </div>
+</div>
+<script type="text/javascript">
+    $('.datepicker').datepicker();
+</script>
+{% endblock %}
