@@ -77,10 +77,6 @@ TEMPLATES = [
 ]
 WSGI_APPLICATION = 'selene.wsgi.application'
 
-
-# Password validation
-# https://docs.djangoproject.com/en/1.9/ref/settings/#auth-password-validators
-
 AUTH_PASSWORD_VALIDATORS = [
     {
         'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator',
@@ -176,6 +172,29 @@ STATICFILES_FINDERS = (
     'pipeline.finders.PipelineFinder',
 )
 
+try:
+    from vagrantProduccion import settings_dev
+except ImportError as e:
+    pass
 
+try:
+    from settings_qa import *
+except ImportError as e:
+    pass
+
+try:
+    from settings_produccion import *
+except ImportError as e:
+    pass
+
+if 'test' in sys.argv:
+    DATABASES['default'] = {
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'NAME': 'selene_test',
+        'USER': 'postgres',
+        'PASSWORD': 'postgres',
+        'HOST': 'db',
+        'PORT': '5432',
+    }
 
 TEST_RUNNER = 'django_nose.NoseTestSuiteRunner'
