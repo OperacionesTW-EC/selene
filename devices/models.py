@@ -14,3 +14,13 @@ class DeviceType(models.Model):
 
     def __str__(self):
         return '%s(%s)' % (self.name, self.code)
+
+class DeviceBrand(models.Model):
+    name = models.CharField(verbose_name=_(u'Nombre'), max_length=50, unique=True)
+
+    def __str__(self):
+        return self.name
+
+    class Meta:
+        verbose_name = _(u'Marca de Dispositivo')
+        verbose_name_plural = _(u'Marcas de Dispositivo')
