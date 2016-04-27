@@ -15,5 +15,6 @@ build/
 *.egg
 pip-delete-this-directory.txt
 .coverage
+cover
 
 

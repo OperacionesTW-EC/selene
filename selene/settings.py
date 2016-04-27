@@ -44,6 +44,7 @@ INSTALLED_APPS = [
     'jquery',
     'bootstrap3',
     'fontawesome',
+    'django_nose'
 ]
 
 MIDDLEWARE_CLASSES = [
@@ -77,17 +78,6 @@ TEMPLATES = [
 WSGI_APPLICATION = 'selene.wsgi.application'
 
 
-# Database
-# https://docs.djangoproject.com/en/1.9/ref/settings/#databases
-
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
-    }
-}
-
-
 # Password validation
 # https://docs.djangoproject.com/en/1.9/ref/settings/#auth-password-validators
 
@@ -111,7 +101,7 @@ AUTH_PASSWORD_VALIDATORS = [
 # Internationalization
 # https://docs.djangoproject.com/en/1.9/topics/i18n/
 
-LANGUAGE_CODE = 'en-us'
+LANGUAGE_CODE = 'es-ES'
 
 TIME_ZONE = 'UTC'
 
@@ -188,6 +178,11 @@ STATICFILES_FINDERS = (
 )
 
 try:
+    from vagrantProduccion import settings_dev
+except ImportError as e:
+    pass
+
+try:
     from settings_qa import *
 except ImportError as e:
     pass
@@ -206,3 +201,6 @@ if 'test' in sys.argv:
         'HOST': '127.0.0.1',
         'PORT': '5432',
     }
+
+
+TEST_RUNNER = 'django_nose.NoseTestSuiteRunner'
