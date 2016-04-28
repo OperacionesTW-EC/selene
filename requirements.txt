@@ -22,10 +22,11 @@ pbr==1.9.1
 psycopg2==2.6
 python-mimeparse==1.5.2
 python-subunit==1.2.0
-six==1.10.0
+six
 sure==1.2.24
 testtools==2.1.0
 traceback2==1.4.0
 unittest2==1.1.0
-virtualenv==13.1.0
+virtualenv
 wsgiref==0.1.2
+factory_boy==2.7.0

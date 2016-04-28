@@ -115,9 +115,9 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
         'NAME': 'selene',
-        'USER': 'postgres',
-        'PASSWORD': 'postgres',
-        'HOST': '10.71.23.243',
+        'USER': os.environ['DB_USER'],
+        'PASSWORD': os.environ['DB_PASS'],
+        'HOST': os.environ['DB_URL'],
         'PORT': '5432',
     }
 }
@@ -176,30 +176,8 @@ STATICFILES_FINDERS = (
     'pipeline.finders.PipelineFinder',
 )
 
-try:
-    from vagrantProduccion import settings_dev
-except ImportError as e:
-    pass
 
-try:
-    from settings_qa import *
-except ImportError as e:
-    pass
 
-try:
-    from settings_produccion import *
-except ImportError as e:
-    pass
-
-if 'test' in sys.argv:
-    DATABASES['default'] = {
-        'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'selene_test',
-        'USER': 'postgres',
-        'PASSWORD': 'postgres',
-        'HOST': '127.0.0.1',
-        'PORT': '5432',
-    }
 
 
 TEST_RUNNER = 'django_nose.NoseTestSuiteRunner'

@@ -1,90 +1,91 @@
 {% extends 'selene/main.html' %}
 {% block title %}Selene - Home{% endblock %}
 {% block body_block %}
-    <div class="row banner">
-        <div class="col-md-5 ">
-            <div class="blank-space"></div>
-            <div class="row">
-                <div class="col-md-12">
+    <div class="container">
+        <div class="row banner">
+            <div class="col-md-5 ">
+                <div class="blank-space"></div>
+                <div class="row">
+                    <div class="col-md-12">
                  <span style="font-size: 30px;display: block;color: #B51B57">
                 ThoughtWorks <i class="fa fa-registered"></i>
             </span>
              <span style="font-size: 30px">
                 Ecuador
             </span>
+                    </div>
                 </div>
+
+                <form action="{% url 'login'  %}" method="post">
+                    {% csrf_token %}
+                    <div class="row">
+                        <div class="col-md-4">
+                            <label>Usuario</label>
+                        </div>
+                        <div class="col-md-8">
+                            <input type='text'  class="input-sm form-control" name="login">
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-4">
+                            <label>Contraseña</label>
+                        </div>
+                        <div class="col-md-8">
+                            <input type='password' class="input-sm form-control" name='password'>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-3 col-md-offset-9 text-right" >
+                            <button type="submit" value="entrar" class="btn btn-success btn-sm"><i class="fa fa-unlock"></i> Entrar</button>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+
+                        </div>
+                    </div>
+                </form>
+            </div>
+            {% load static %}
+            <div class="col-md-7" style="position: relative">
+                <div class="circular-logo text-center">
+                    <img src="{% static "images/twlogosm.png" %}" width="92%" style="margin-top: 20px" >
+                </div>
+                <img src="{% static "images/selene.png" %}" width="100%" style="margin-top: 50px">
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-4 text-justify"  >
+                <h1>Selene </h1>
+                <p>Es una herramienta que centraliza la información y facilita la
+                    toma de decisiones del equipo de Techops. Controla el
+                    inventario registrando dispositivos y llevando un historial de su estado.
+                    <br>Selene fue construido para facilitar la
+                    gestión del equipo de Techops y Opex de la oficina de ThoughtWorks Quito. </br>
+                </p>
             </div>
 
-            <form action="{% url 'login'  %}" method="post">
-                {% csrf_token %}
-                <div class="row">
-                    <div class="col-md-4">
-                        <label>Usuario</label>
-                    </div>
-                    <div class="col-md-8">
-                        <input type='text'  class="input-sm form-control" name="login">
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-md-4">
-                        <label>Contraseña</label>
-                    </div>
-                    <div class="col-md-8">
-                        <input type='password' class="input-sm form-control" name='password'>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-md-3 col-md-offset-9 text-right" >
-                        <button type="submit" value="entrar" class="btn btn-success btn-sm"><i class="fa fa-unlock"></i> Entrar</button>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-md-12">
-
-                    </div>
-                </div>
-            </form>
-        </div>
-        {% load static %}
-        <div class="col-md-7" style="position: relative">
-            <div class="circular-logo text-center">
-                <img src="{% static "images/twlogosm.png" %}" width="92%" style="margin-top: 20px" >
+            <div class="col-md-4 text-justify"  >
+                <h1>Techops team</h1>
+                <p> Es el equipo encargado de, entre otras cosas, llevar el control sobre el
+                    hardware e infraestructura necesaria para el funcionamiento de ThoughtWorks.
+                    <br>El respondable en la oficina de Quito es Freddy Escobar.
+                </p>
             </div>
-            <img src="{% static "images/selene.png" %}" width="100%" style="margin-top: 50px">
+
+            <div class="col-md-4 text-justify"  >
+                <h1>Soporte</h1>
+                <p>
+                    <b>Techops: </b><a href="mailto:fescobar@thoughtworks.com">fescobar@thoughtworks.com</a>
+                </p>
+                <p>
+                    <b>Thoughtworks: </b><a href="#">thoughtworks.com</a>
+                </p>
+                <p>
+                    <b>¿Olvidaste tu contraseña?</b> ¡Haz click <a href="mailito:sceli@thoughtworks.com">aquí</a>!
+                </p>
+            </div>
+
         </div>
     </div>
-    <div class="row">
-        <div class="col-md-4 text-justify"  >
-            <h1>Selene </h1>
-            <p>Es una herramienta que centraliza la información y facilita la
-                toma de decisiones del equipo de Techops. Controla el
-                inventario registrando dispositivos y llevando un historial de su estado.
-            <br>Selene fue construido para facilitar la
-                gestión del equipo de Techops y Opex de la oficina de ThoughtWorks Quito. </br>
-            </p>
-        </div>
-
-        <div class="col-md-4 text-justify"  >
-            <h1>Techops team</h1>
-            <p> Es el equipo encargado de, entre otras cosas, llevar el control sobre el
-                hardware e infraestructura necesaria para el funcionamiento de ThoughtWorks.
-                <br>El respondable en la oficina de Quito es Freddy Escobar.
-            </p>
-        </div>
-
-        <div class="col-md-4 text-justify"  >
-            <h1>Soporte</h1>
-            <p>
-                <b>Techops: </b><a href="mailto:fescobar@thoughtworks.com">fescobar@thoughtworks.com</a>
-            </p>
-            <p>
-                <b>Thoughtworks: </b><a href="#">thoughtworks.com</a>
-            </p>
-            <p>
-                <b>¿Olvidaste tu contraseña?</b> ¡Haz click <a href="mailito:sceli@thoughtworks.com">aquí</a>!
-            </p>
-        </div>
-
-    </div>
-</div>
 {% endblock %}

@@ -38,7 +38,7 @@ class TestDeviceType:
         assert_raises(ValidationError, another_device.full_clean)
 
     def test_should_show_name_and_code_as_string_representation(self):
-        assert_equal(str(self.device_type), 'some_name(A)')
+        assert_equal(str(self.device_type), 'some_name (A)')
 
     def test_model_is_registered_in_admin(self):
         from django.contrib import admin
