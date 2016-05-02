@@ -16,5 +16,6 @@ build/
 pip-delete-this-directory.txt
 .coverage
 cover
+.env
 
 
