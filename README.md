@@ -12,6 +12,41 @@ El presente documento te ayudará a levantar los ambientes de GO CD, QA y Produc
 * [VirtualBox] - version 5.0.12
 * [vagrant-triggers]
 
+### Usando Docker
+
+Guía de instalación con Docker para Mac
+
+* Instalar [docker toolbox]: <https://www.docker.com/products/docker-toolbox>
+* Para crear la máquina, ejecutar el comando: 
+```sh
+  $ docker-machine create --driver virtualbox default
+```
+
+  Nota: El último argumento es el nombre de la máquina 
+  Para conectarse con la nueva máquina, ejecutar el comando:
+  eval "$(docker-machine env default)"
+  
+* Ejecutar el contenedor con el comando:
+```sh
+  $ docker-compose up
+```
+Comandos de ayuda:
+
+Mostrar el listado de máquinas:
+```sh
+  $ docker-machine ls
+```
+Obtener el IP de la máquina:​
+```sh
+  $ docker-machine ip default
+```
+Conectarse:
+```sh
+  $ docker run -it busybox sh
+```
+Referencia: https://docs.docker.com/machine/get-started/ 
+
+
 ### Crear GO CD 
 Revisar README de la carpeta gocd
 ### Crear Producción
