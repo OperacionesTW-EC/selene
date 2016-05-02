@@ -111,6 +111,7 @@ USE_L10N = True
 
 USE_TZ = True
 
+
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
@@ -121,7 +122,6 @@ DATABASES = {
         'PORT': '5432',
     }
 }
-
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.9/howto/static-files/
@@ -175,8 +175,6 @@ STATICFILES_FINDERS = (
     'django.contrib.staticfiles.finders.AppDirectoriesFinder',
     'pipeline.finders.PipelineFinder',
 )
-
-
 
 
 

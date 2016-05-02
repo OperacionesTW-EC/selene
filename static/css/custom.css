@@ -73,3 +73,61 @@ body{
     box-shadow: 0 0 2px rgba(0, 0, 0, 0.4);
     border-radius: 3px;
 }
+
+.datepicker{
+padding:10px
+}
+.datepicker-days table td{
+   text-align: center;
+   cursor: pointer;
+   border-radius: 3px;
+}
+.datepicker-days table td:hover{
+    background-color: #286090;
+    color:white;
+}
+.datepicker-switch{
+    cursor: pointer;
+    text-align: center;
+}
+
+th.next{
+    cursor: pointer;
+    text-align:center;
+    border-radius: 3px;
+}
+th.next:hover{
+     background-color: #EEEEEE;
+}
+
+th.prev {
+    cursor: pointer;
+    text-align:center;
+     border-radius: 3px;
+}
+
+th.prev:hover{
+     background-color: #EEEEEE;
+}
+
+.datepicker table tr td span {
+    display: block;
+    width: 23%;
+    height: 54px;
+    line-height: 54px;
+    float: left;
+    margin: 1%;
+    cursor: pointer;
+    border-radius: 4px;
+        text-align: center;
+}
+
+.datepicker table tr td span:hover {
+    background-color: #286090;
+    color:white;
+}
+
+.selected {
+    background-color: #286090;
+    color: white;
+}

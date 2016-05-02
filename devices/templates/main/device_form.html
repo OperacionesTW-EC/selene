@@ -1,26 +1,30 @@
 {% extends 'selene/main.html' %}
 {% block title %}Selene - Devices{% endblock %}
 {% block body_block %}
-    {% load static %}
-    <div class="title">
-        <div class="container">
-            <div class="row" style="margin-top: 0px">
-                <div class="col-md-10 col-md-offset-2">
-                    Registro de dispositivos
-                </div>
+{% load static %}
+{% load custom_field %}
+<div class="title">
+    <div class="container">
+        <div class="row" style="margin-top: 0px">
+            <div class="col-md-10 col-md-offset-2">
+                Registro de dispositivos
             </div>
         </div>
     </div>
-    <div class="container">
-        <script src='{% static "plugins/bootstrap-datepicker/bootstrap-datepicker.js" %}'></script>
-        <link rel="stylesheet" type="text/css" href='{% static "plugins/bootstrap-datepicker/bootstrap.css" %}'>
+</div>
+<div class="container">
+    <script src='{% static "plugins/bootstrap-datepicker/bootstrap-datepicker.js" %}'></script>
+    <link rel="stylesheet" type="text/css" href='{% static "plugins/bootstrap-datepicker/bootstrap.css" %}'>
+    <form id="device_form" action="save_device" method="POST">
+        {% csrf_token %}
         <div class="col-md-8 col-md-offset-2 page-content">
             <div class="row">
                 <div class="col-md-12 ">
                     <label>Tipo</label>
                 </div>
                 <div class="col-md-12">
-                   {{ form.types }}
+                    {{form.device_type|addcss:"form-control"}}
+
                 </div>
             </div>
             <div class="row">
@@ -28,7 +32,7 @@
                     <label>Marca</label>
                 </div>
                 <div class="col-md-12">
-                    {{ form.brands }}
+                    {{form.device_brand|addcss:"form-control"}}
                 </div>
             </div>
             <div class="row">
@@ -36,8 +40,9 @@
                     <label>Activo </label>
                 </div>
                 <div class="col-md-12">
-                    <button type="button" class="btn btn-default">Si</button>
-                    <button type="button" class="btn btn-default">No</button>
+                    <button id="si" type="button" class="btn btn-default asset-chk" data-value="1">Si</button>
+                    {{form.asset}}
+                    <button id="no" type="button" class="btn btn-default asset-chk" data-value="0">No</button>
                 </div>
             </div>
             <div class="row">
@@ -45,7 +50,8 @@
                     <label>Serial</label>
                 </div>
                 <div class="col-md-12">
-                    {{ form.serial_number}}
+                    {{form.serial_number|addcss:"form-control"}}
+
                 </div>
             </div>
             <div class="row">
@@ -53,7 +59,8 @@
                     <label>Modelo</label>
                 </div>
                 <div class="col-md-12">
-                    {{ form.model}}
+                    {{form.model|addcss:"form-control"}}
+
                 </div>
             </div>
             <div class="row">
@@ -61,7 +68,8 @@
                     <label>Fecha</label>
                 </div>
                 <div class="col-md-12">
-                    {{ form.purchase_date}}
+                    {{form.purchase_date|addcss:"form-control"}}
+
                 </div>
             </div>
             <div class="row">
@@ -69,20 +77,38 @@
                     <label>Propiedad</label>
                 </div>
                 <div class="col-md-12">
-                    {{ form.ownership}}
+                    {{form.ownership|addcss:"form-control"}}
+
                 </div>
             </div>
             <div class="row">
                 <div class="col-md-2">
-                    <a href="#" class="btn btn-primary">
+                    <a href="#" class="btn btn-primary" id="save">
                         <i class="fa fa-save"></i> Guardar
                     </a>
                 </div>
             </div>
             <script type="text/javascript">
-                $('.datepicker').datepicker();
+                $('#id_purchase_date').datepicker({
+                format: 'yyyy-mm-dd'
+                });
+                $('#save').click(function(){
+                    $('#device_form').submit()
+                });
+                $('.asset-chk').click(function(){
+                    var button = $(this);
+                    if(button.data('value') == 1){
+                     $('#si').addClass('selected');
+                     $('#no').removeClass('selected');
+                    }
+                    else{
+                     $('#no').addClass('selected');
+                     $('#si').removeClass('selected');
+                    }
+                    $('#id_asset').val($(this).data('value'));
+                });
             </script>
         </div>
-
-    </div>
+    </form>
+</div>
 {% endblock %}
