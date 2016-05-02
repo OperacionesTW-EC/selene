@@ -21,11 +21,11 @@ Guía de instalación con Docker para Mac
 ```sh
   $ docker-machine create --driver virtualbox default
 ```
-
   Nota: El último argumento es el nombre de la máquina 
-  Para conectarse con la nueva máquina, ejecutar el comando:
+* Para conectarse con la nueva máquina, ejecutar el comando:
+```sh  
   eval "$(docker-machine env default)"
-  
+```
 * Ejecutar el contenedor con el comando:
 ```sh
   $ docker-compose up
