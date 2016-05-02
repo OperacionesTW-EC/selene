@@ -34,9 +34,7 @@ class Device(models.Model):
 
     def required_if_asset(self):
         if self.asset == 1 and self.__check_required_fields():
-            raise ValidationError(
-                _('Serial Number field is required')
-            )
+            raise ValidationError(_('El número de serie, modelo y fecha de compra son obligatorios si selecciona el campo activo'), code='invalid')
 
     def clean(self):
         self.required_if_asset()

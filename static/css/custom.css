@@ -127,7 +127,26 @@ th.prev:hover{
     color:white;
 }
 
-.selected {
+.asset-chk.selected {
     background-color: #286090;
     color: white;
 }
+.asset-chk:active, .asset-chk:hover{
+    background-color: #286090;
+    color: white;
+}
+p{
+  padding: 7px;
+  border-radius:3px;
+
+}
+
+.errorlist{
+  list-style: none !important;
+}
+
+.label-field-error{
+color:red;
+display: inline-block;
+}
+

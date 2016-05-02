@@ -1,8 +1,8 @@
 from django.http import HttpResponseRedirect
 from django.http import HttpResponse
-from django.shortcuts import render
 from django.template import loader
 from forms import DeviceForm
+from django.contrib import messages
 
 
 def devices(request):
@@ -15,12 +15,18 @@ def devices(request):
 def device_form(request):
     template = loader.get_template('main/device_form.html')
     form = DeviceForm()
+    if request.method == 'POST':
+        print 'test', request.POST
+        form = DeviceForm(request.POST)
+        if form.is_valid():
+            form.save()
+            messages.add_message(request, messages.SUCCESS, 'Dispositivo registrado correctamente')
+        else:
+            messages.add_message(request, messages.ERROR, 'El formulario tiene errores')
     context = {'form': form}
     return HttpResponse(template.render(context, request))
 
 def save_device(request):
-    if request.method == 'POST':
-        form = DeviceForm(request.POST)
-        if form.is_valid():
-            form.save()
-    return HttpResponseRedirect("/devices", {'algo': True})
+
+
+    return HttpResponseRedirect("/device_form", {'algo': True})

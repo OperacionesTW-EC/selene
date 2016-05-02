@@ -30,3 +30,5 @@ unittest2==1.1.0
 virtualenv
 wsgiref==0.1.2
 factory_boy==2.7.0
+WebTest
+django-webtest
