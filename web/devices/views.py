@@ -1,9 +1,9 @@
-from django.http import HttpResponseRedirect
 from django.http import HttpResponse
 from django.template import loader
 from forms import DeviceForm
 from django.contrib import messages
-
+from rest_framework import viewsets
+from devices.serializers import *
 
 def devices(request):
     print request.GET
@@ -26,7 +26,7 @@ def device_form(request):
     context = {'form': form}
     return HttpResponse(template.render(context, request))
 
-def save_device(request):
 
-
-    return HttpResponseRedirect("/device_form", {'algo': True})
+class DeviceTypeViewSet(viewsets.ModelViewSet):
+    queryset = DeviceType.objects.all()
+    serializer_class = DeviceTypeSerializer

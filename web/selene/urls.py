@@ -15,17 +15,23 @@ Including another URLconf
 """
 from django.conf.urls import url, include
 from django.contrib import admin
-from django.http import HttpResponseRedirect
 
 from main import views
-from django.views.static import serve
-from selene import  settings
+from devices.views import DeviceTypeViewSet
+
+from rest_framework import routers
+
+router = routers.DefaultRouter()
+router.register(r'device_types', DeviceTypeViewSet)
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url('index', views.index),
     url(r'^', include('main.urls')),
     url(r'^', include('devices.urls')),
+    url(r'^', include(router.urls)),
+    url(r'^api-auth/', include('rest_framework.urls', namespace='rest_framework'))
+
 
 ]
-#url(r'^media/(?P<path>.*)$', serve, {'document_root': settings.MEDIA_ROOT}),
+

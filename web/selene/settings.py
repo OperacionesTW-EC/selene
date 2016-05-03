@@ -44,7 +44,9 @@ INSTALLED_APPS = [
     'jquery',
     'bootstrap3',
     'fontawesome',
-    'django_nose'
+    'django_nose',
+    'rest_framework',
+    'corsheaders'
 ]
 
 MIDDLEWARE_CLASSES = [
@@ -56,6 +58,8 @@ MIDDLEWARE_CLASSES = [
     'django.contrib.auth.middleware.SessionAuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'corsheaders.middleware.CorsMiddleware',
+    'django.middleware.common.CommonMiddleware',
 ]
 
 ROOT_URLCONF = 'selene.urls'
@@ -93,6 +97,9 @@ AUTH_PASSWORD_VALIDATORS = [
 ]
 
 
+REST_FRAMEWORK = {
+    'PAGE_SIZE': 10
+}
 
 # Internationalization
 # https://docs.djangoproject.com/en/1.9/topics/i18n/
@@ -172,6 +179,8 @@ PIPELINE = {
         },
     }
 }
+
+CORS_ORIGIN_ALLOW_ALL = True
 
 
 STATICFILES_STORAGE = 'pipeline.storage.PipelineCachedStorage'
