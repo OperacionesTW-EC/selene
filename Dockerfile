@@ -4,4 +4,4 @@ RUN mkdir /code
 WORKDIR /code
 ADD . /code/
 RUN pip install -r requirements.txt
-CMD python manage.py runserver 0.0.0.0:8000
+CMD bash -c "sleep 3 && python manage.py runserver 0.0.0.0:8000"
