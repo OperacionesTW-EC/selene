@@ -114,8 +114,8 @@ DATABASES = {
         'NAME': os.environ['DB_NAME'],
         'USER': os.environ['DB_USER'],
         'PASSWORD': os.environ['DB_PASS'],
-        'HOST': os.environ['DB_URL'],
-        'PORT': '5432',
+        'HOST': os.environ['DB_PORT_5432_TCP_ADDR'],
+        'PORT': os.environ['DB_PORT_5432_TCP_PORT'],
     }
 }
 
