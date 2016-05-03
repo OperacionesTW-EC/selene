@@ -3,11 +3,10 @@ db:
   env_file: ./db/.env
   ports:
     - 5432:5432
-web:
-  build: ./web
-  env_file: ./web/.env
+backend:
+  build: ./backend
   volumes:
-    - ./web:/code
+    - ./backend:/code
   ports:
     - 8000:8000
   links:

@@ -118,9 +118,9 @@ USE_TZ = True
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': os.environ['DB_NAME'],
-        'USER': os.environ['DB_USER'],
-        'PASSWORD': os.environ['DB_PASS'],
+        'NAME': os.environ['DB_1_ENV_POSTGRES_DB'],
+        'USER': os.environ['DB_1_ENV_POSTGRES_USER'],
+        'PASSWORD': os.environ['DB_1_ENV_POSTGRES_PASSWORD'],
         'HOST': os.environ['DB_PORT_5432_TCP_ADDR'],
         'PORT': os.environ['DB_PORT_5432_TCP_PORT'],
     }
