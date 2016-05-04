@@ -1,6 +1,6 @@
 db:
   build: ./db
-  env_file: ./db/.env
+  env_file: ./db/config/db/.env
   ports:
     - 5432:5432
 backend:

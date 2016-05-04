@@ -1,0 +1,3 @@
+[submodule "db/config"]
+	path = db/config
+	url = git@bitbucket.org:selenetwec/selene-config.git
