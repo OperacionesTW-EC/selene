@@ -1,17 +1,19 @@
 from django.core.exceptions import ValidationError
+from model_mommy import mommy
 from nose.tools import *
-from devices.factories import *
+from devices.models import DeviceType
 
 
 class TestDevice:
 
     def setup(self):
-        self.device = DeviceFactory.build(asset=0)
+        device_type, _ = DeviceType.objects.get_or_create(code='L', name='Laptop')
+        self.device = mommy.make('Device', device_type=device_type)
 
     def test_should_be_valid_with_valid_field_values(self):
         assert_is_none(self.device.full_clean())
 
-    def test_should_be_invalidad_when_ownership_is_larger_than_2(self):
+    def test_should_be_invalid_when_ownership_is_larger_than_2(self):
         self.device.ownership = 'qbc'
         assert_raises(ValidationError, self.device.full_clean)
 

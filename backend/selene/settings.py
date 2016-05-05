@@ -46,7 +46,7 @@ INSTALLED_APPS = [
     'fontawesome',
     'django_nose',
     'rest_framework',
-    'corsheaders'
+    'corsheaders',
 ]
 
 MIDDLEWARE_CLASSES = [
