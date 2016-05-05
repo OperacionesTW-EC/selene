@@ -3,4 +3,4 @@
 	url = git@bitbucket.org:selenetwec/selene-config.git
 [submodule "ui"]
 	path = ui
-	url = git@github.com:OperacionesTW-EC/selene-ui.git
+	url = https://github.com/OperacionesTW-EC/selene-ui.git
