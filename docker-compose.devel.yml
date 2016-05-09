@@ -1,0 +1,20 @@
+db:
+  extends:
+    file: docker-compose.common.yml
+    service: db_base
+backend:
+  extends:
+    file: docker-compose.common.yml
+    service: backend_base
+  volumes:
+    - ./backend:/app
+  links:
+    - db
+ui:
+  extends:
+    file: docker-compose.common.yml
+    service: ui_base
+  volumes:
+    - ./ui/src:/ui/src
+  links:
+    - backend
