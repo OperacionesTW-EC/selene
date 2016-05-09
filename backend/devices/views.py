@@ -30,3 +30,11 @@ def device_form(request):
 class DeviceTypeViewSet(viewsets.ModelViewSet):
     queryset = DeviceType.objects.all()
     serializer_class = DeviceTypeSerializer
+
+class DeviceBrandViewSet(viewsets.ModelViewSet):
+    queryset = DeviceBrand.objects.all()
+    serializer_class = DeviceBrandSerializer
+
+class DeviceViewSet(viewsets.ModelViewSet):
+    queryset = Device.objects.all()
+    serializer_class = DeviceSerializer

@@ -17,12 +17,14 @@ from django.conf.urls import url, include
 from django.contrib import admin
 
 from main import views
-from devices.views import DeviceTypeViewSet
+from devices.views import *
 
 from rest_framework import routers
 
 router = routers.DefaultRouter()
 router.register(r'device_types', DeviceTypeViewSet)
+router.register(r'device_brands', DeviceBrandViewSet)
+router.register(r'devices', DeviceViewSet)
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
