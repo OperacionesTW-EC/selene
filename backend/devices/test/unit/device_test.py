@@ -2,6 +2,7 @@ from django.core.exceptions import ValidationError
 from model_mommy import mommy
 from nose.tools import *
 from devices.models import DeviceType
+from devices.models import Device
 
 
 class TestDevice:
@@ -43,3 +44,6 @@ class TestDevice:
         self.device.asset = 1
         self.device.purchase_date = None
         assert_raises(ValidationError, self.device.full_clean)
+
+    def test_should_be_ordered_by_device_type(self):
+        assert_equal(str(Device._meta.ordering), "[u'device_type']")

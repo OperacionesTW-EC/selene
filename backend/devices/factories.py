@@ -2,8 +2,14 @@ import factory
 from . import models
 from faker import Factory as FakerFactory
 import random
+import string
 
 faker = FakerFactory.create()
+
+
+def random_letter():
+    string.letters = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ'
+    return random.choice(string.letters)
 
 
 class DeviceTypeFactory(factory.DjangoModelFactory):
@@ -11,7 +17,7 @@ class DeviceTypeFactory(factory.DjangoModelFactory):
         model = models.DeviceType
 
     name = factory.Faker('name')
-    code = 'L'
+    code = random_letter()
 
 
 class DeviceBrandFactory(factory.DjangoModelFactory):

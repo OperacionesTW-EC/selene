@@ -46,6 +46,8 @@ class Device(models.Model):
     serial_number = models.CharField(max_length=50, blank=True, null=True)
     model = models.CharField(max_length=50, blank=True, null=True)
     purchase_date = models.DateField(blank=True, null=True)
-
+    
+    class Meta:
+        ordering = ['device_type']
 
 

@@ -50,3 +50,5 @@ class TestDeviceType:
 
     def test_verbose_name_plural(self):
         assert_equal(str(DeviceType._meta.verbose_name_plural), "Tipos de Dispositivo")
+
+
