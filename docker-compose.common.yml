@@ -1,17 +1,14 @@
 db_base:
   build: ./db
-  container_name: selene_db
   env_file: ./config/db/default.env
   ports:
     - 5432:5432
 backend_base:
   build: ./backend
-  container_name: selene_backend
   ports:
     - 8000:8000
 ui_base:
   build: ./ui
-  container_name: selene_ui
   env_file: ./config/ui/default.env
   ports:
     - 8080:8080
