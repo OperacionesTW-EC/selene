@@ -1,106 +1,174 @@
 # Selene
-
-
-### Version
+## Version
 0.1
 
-### Antecedente
-El presente documento te ayudará a levantar los ambientes de GO CD, QA y Producción
+## Antecedente
+El presente documento te ayudará a levantar los ambientes de GO CD, QA y Producción, además, de dar una introducción de los comandos más usados para la arquitectura seleccionada.
 
-### Requisitos de la maquina donde se quiere levantar los ambientes
-* [Vagrant] - version 1.8.0
-* [VirtualBox] - version 5.0.12
-* [vagrant-triggers]
-
-### Usando Docker
-
+## Usando Docker
 Guía de instalación con Docker para Mac
+- Instalar [docker-toolbox]:
 
-* Instalar [docker toolbox]
-```sh
+  ```sh
   $ brew cask install dockertoolbox
-```
-* Para crear la máquina, ejecutar el comando:
-```sh
+  ```
+
+- Para crear la máquina, ejecutar el comando:
+
+  ```sh
   $ docker-machine create --driver virtualbox default
-```
+  ```
+
   Nota: El último argumento es el nombre de la máquina
-* Para conectarse con la nueva máquina, ejecutar el comando:
-```sh  
-  eval "$(docker-machine env default)"
-```
+
+- Para conectarse con la nueva máquina, ejecutar el comando:
+
+  ```sh
+  $ eval "$(docker-machine env default)"
+  ```
+
   Nota: Ejecutar antes para usos posteriores de docker.
 
-* Ejecutar el contenedor con el comando:
-```sh
-  $ docker-compose up
-```
-Comandos de ayuda:
+- Ejecutar el contenedor con el comando:
 
-Iniciar máquina:
-```sh
+  ```sh
+  $ docker-compose -f docker-compose.devel.yml up
+  ```
+
+### Comandos de ayuda
+- Iniciar máquina:
+
+  ```sh
   $ docker-machine start default
-```
+  ```
+
   Nota: Se debe ejecutar si se muestra el siguiente mensaje "Error checking TLS connection: Host is not running"
 
-Mostrar el listado de máquinas:
-```sh
+- Mostrar el listado de máquinas:
+
+  ```sh
   $ docker-machine ls
-```
-Obtener el IP de la máquina:​
-```sh
+  ```
+
+- Obtener el IP de la máquina:​
+
+  ```sh
   $ docker-machine ip default
-```
-Conectarse:
-```sh
-  $ docker run -it busybox sh
-```
-Referencia: https://docs.docker.com/machine/get-started/
+  ```
 
+## Comandos Git Submodule
+- Luego de clonar el proyecto:
 
-### Crear GO CD
-Revisar README de la carpeta gocd
-### Crear Producción
-De la carpeta vagrantProduccion copiar los documentos
-* file Vagrantfile
-* file settings_produccion
-* folder vagrantfiles
-A la carpeta /usr/your_user/selene
+  ```sh
+  $ git submodule init
+  ```
 
-### Crear QA
-De la carpeta vagrantProduccion copiar los documentos
-* file Vagrantfile
-* file settings_qa
-* folder vagrantfiles
-A la carpeta /usr/your_user/selene
+- Actualizar submodules:
 
-### Contenido de maquina QA y Produccion
+  ```sh
+  $ git submodule update
+  ```
 
-Las maquinas virtuales estan instalada con las siguientes características:
+  Nota: Si no se tiene acceso al submodule `config`, se puede actualizar solo ui:  git submodule update ui
 
-* [Ubuntu]- distribución
-* [Python]- version 2.7
-* [Pip]
-* [zip]
-* [unzip]
-* [apache2]
+- Importante moverse a branch master en submodule:
 
+  ```sh
+  $ cd ui
+  $ git checkout master
+  ```
 
-**Suerte!**
+## NPM
+- Instalar node y nvm:
 
-[//]: # (These are reference links used in the body of this note and get stripped out when the markdown processor does its job. There is no need to format nicely because it shouldn't be seen. Thanks SO - http://stackoverflow.com/questions/4823468/store-comments-in-markdown-syntax)
+  ```sh
+  $ brew install node
+  $ npm install -g nvm
+  ```
 
-   [Ubuntu]: <http://www.ubuntu.com/>
-   [Java]: <http://openjdk.java.net/install/>
-   [Python]: <https://www.python.org/>
-   [Pip]: <https://pypi.python.org/pypi/pip>
-   [Go server]:<https://www.go.cd/>
-   [Go agent]:<https://www.go.cd/>
-   [Vagrant]:<https://www.vagrantup.com/>
-   [VirtualBox]:<https://www.virtualbox.org/>
-   [git]:<https://git-scm.com/>
-   [zip]:<http://packages.ubuntu.com/precise/zip>
-   [unzip]:<http://packages.ubuntu.com/precise/unzip>
-   [apache2]:<https://help.ubuntu.com/lts/serverguide/httpd.html>
-   [vagrant-triggers]: <https://github.com/emyl/vagrant-triggers>
-   [docker toolbox]: <https://www.docker.com/products/docker-toolbox/>
+  Verificar la versión instalada:
+
+  ```sh
+  $ node --version
+  ```
+
+- Descargar e instalar la versión de NVM
+
+  ```sh
+  $ nvm download 4.4.4
+  $ nvm build 4.4.4
+  $ nvm install 4.4.4
+  ```
+
+- Instalar las dependencias de nuestra aplicación. Dentro del directorio `ui` ejecutar:
+
+  ```sh
+  $ npm install
+  ```
+
+- Iniciar aplicación:
+  ```sh
+  $ npm start
+  ```
+
+## PostgreSQL en mac
+- Instalación:
+
+  ```sh
+  $ brew install postgresql
+  $ initdb /usr/local/var/postgres -E utf8
+  $ brew services start postgres
+  ```
+
+- Crear usuario/db postgres:
+
+  ```sh
+  $ psql postgres
+  postgres=# create user postgres password 'postgres';
+  postgres=# alter user postgres WITH SUPERUSER;
+  postgres=# create database selene;
+  postgres=#\q
+  ```
+
+- Cambiar de método de autenticación a md5 en archivo `/usr/local/var/postgres/pg_hba.conf`
+
+## Python en mac
+
+- Instalación:
+  ```sh
+  $ brew install python
+  $ pip install --upgrade setuptools
+  $ pip install --upgrade pip
+  $ pip install virtualenv
+  ```
+
+- Crear venv:
+  ```sh
+  $ virtualenv seleneenv
+  $ source seleneenv/bin/activate
+  $ pip install -r requirements.txt
+  ```
+
+- Salir del venv:
+  ```sh
+  $ deactivate
+  ```
+
+- Iniciar aplicación:
+  ```sh
+  #!/bin/bash
+  export DB_1_ENV_POSTGRES_DB=selene
+  export DB_1_ENV_POSTGRES_USER=postgres
+  export DB_1_ENV_POSTGRES_PASSWORD=postgres
+  export DB_PORT_5432_TCP_ADDR=127.0.0.1
+  export DB_PORT_5432_TCP_PORT=5432
+  python manage.py runserver 0.0.0.0:8000
+  ```
+
+## TODO
+- [ ] Ilustración de última arquitectura
+- [ ] Diagrama de componentes
+- [ ] Comandos intalación de python en mac
+- [ ] Usar local-docker.sh
+
+[docker-toolbox]: (https://www.docker.com/products/docker-toolbox/)
