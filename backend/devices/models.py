@@ -39,6 +39,9 @@ class Device(models.Model):
     def clean(self):
         self.required_if_asset()
 
+    def device_type_name(self):
+        return self.device_type.name
+
     device_type = models.ForeignKey('DeviceType')
     device_brand = models.ForeignKey('DeviceBrand')
     asset = models.IntegerField()
@@ -46,8 +49,6 @@ class Device(models.Model):
     serial_number = models.CharField(max_length=50, blank=True, null=True)
     model = models.CharField(max_length=50, blank=True, null=True)
     purchase_date = models.DateField(blank=True, null=True)
-    
+
     class Meta:
         ordering = ['device_type']
-
-
