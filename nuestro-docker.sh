@@ -31,7 +31,7 @@ usage()
 
 cmd()
 {
-    local function_name=$1; shift;
+    local function_name=${FUNCNAME[1]}
     local command="$*"
     echo -e "\n########## $function_name ##########\n"
     echo $command
@@ -122,7 +122,7 @@ clean_all_containers()
     if [ -n "$container_ids"  ]
     then
         echo Removing Old Containers:
-        cmd $FUNCNAME $docker_cmd rm -f $container_ids
+        cmd $docker_cmd rm -f $container_ids
         echo
     fi
 }
@@ -133,7 +133,7 @@ clean_all_images()
     if [ -n "$image_ids"  ]
     then
         echo Removing ALL Images:
-        cmd $FUNCNAME $docker_cmd rmi -f $image_ids
+        cmd $docker_cmd rmi -f $image_ids
     fi
 }
 
@@ -143,7 +143,7 @@ clean_image()
     if [ -n "$image_id"  ]
     then
         echo Removing Image $1:
-        cmd $FUNCNAME $docker_cmd rmi -f $1
+        cmd $docker_cmd rmi -f $1
         echo
     fi
 }
@@ -158,12 +158,12 @@ clean_project_images()
 
 compose_up()
 {
-    cmd $FUNCNAME $compose_cmd up -d
+    cmd $compose_cmd up -d
 }
 
 compose_build()
 {
-    cmd $FUNCNAME $compose_cmd build
+    cmd $compose_cmd build
 }
 
 db()
@@ -171,13 +171,13 @@ db()
     wait_for_compose_up_seconds=3
     sleep $wait_for_compose_up_seconds
     container=${backend_image}_1
-    cmd $FUNCNAME $docker_cmd exec $container python manage.py migrate
-    cmd $FUNCNAME $docker_cmd exec $container python manage.py loaddata user.json
+    cmd $docker_cmd exec $container python manage.py migrate
+    cmd $docker_cmd exec $container python manage.py loaddata user.json
 }
 
 run_tests()
 {
-    cmd $FUNCNAME $compose_cmd run --rm $backend_service python manage.py test
+    cmd $compose_cmd run --rm $backend_service python manage.py test
 }
 run()
 {
