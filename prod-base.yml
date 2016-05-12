@@ -1,0 +1,17 @@
+db:
+  env_file: ./config/db/prod.env
+  ports:
+    - 5432:5432
+  volumes:
+    - ./db/data:/var/lib/postgresql/data
+backend:
+  ports:
+    - 8000:8000
+  links:
+    - db
+ui:
+  env_file: ./config/ui/prod.env
+  ports:
+    - 80:80
+  links:
+    - backend

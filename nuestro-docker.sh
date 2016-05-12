@@ -6,12 +6,14 @@ if [[ "$BASH_VERSION" =~ ^[0-3] ]];then
     exit 1
 fi
 
-DOCKER=docker
-COMPOSE=docker-compose
-DB=selene_db
-BACKEND=selene_backend
-UI=selene_ui
-YAML=docker-compose.devel.yml
+docker_cmd=docker
+compose_cmd=docker-compose
+db_image=selene_db
+backend_image=selene_backend
+backend_service=backend
+ui_image=selene_ui
+default_target_env='local'
+target_env=$default_target_env
 declare -A operations
 
 usage()
@@ -22,14 +24,32 @@ usage()
     echo "     Examples:"
     echo "       $ $0 clean"
     echo "       $ $0 build"
+    echo "       $ $0 prod build"
     echo "       $ $0 up db"
     exit 1
 }
 
+cmd()
+{
+    local function_name=$1; shift;
+    local command="$*"
+    echo -e "\n########## $function_name ##########\n"
+    echo $command
+
+    eval "$command"
+
+    local rc=$?
+    if [ "$rc" != 0 ];then
+        echo -e "\t'$command' falló con '$rc'"
+        echo -e "\ten función '$function_name'"
+        exit $rc
+    fi
+}
+
 exit_on_error()
 {
-    function_name=$1
-    rc=$2
+    local function_name=$1
+    local rc=$2
     if [ "$rc" != 0 ];then
         echo "función '$function_name' falló con '$rc'"
         exit $rc
@@ -48,6 +68,12 @@ parse_args()
                 [Cc]lean | CLEAN )
                     operations[CLEAN]=1
                     ;;
+                [Rr]m-containers | RM-CONTAINERS )
+                    operations[CLEAN_CONTAINERS]=1
+                    ;;
+                [Rr]m-all-images | RM-ALL-IMAGES )
+                    operations[CLEAN_ALL_IMAGES]=1
+                    ;;
                 [Bb]uild | BUILD )
                     operations[BUILD]=1
                     ;;
@@ -63,6 +89,9 @@ parse_args()
                 [Aa]ll | ALL )
                     operations[ALL]=1
                     ;;
+                local | ci | qa | uat | prod )
+                    target_env=$arg
+                    ;;
             esac
         done
         # if 'all' included, remove others
@@ -77,79 +106,97 @@ parse_args()
         fi
     fi
 }
-clean_containers()
+
+set_compose_file()
 {
-    container_ids=$($DOCKER ps -aq)
+    if [ "$target_env" == prod ];then
+      export COMPOSE_FILE=prod-base.yml:prod-build.yml
+    else
+      export COMPOSE_FILE=docker-compose.devel.yml
+    fi
+}
+
+clean_all_containers()
+{
+    container_ids=$($docker_cmd ps -aq)
     if [ -n "$container_ids"  ]
     then
         echo Removing Old Containers:
-        $DOCKER rm -f $container_ids
-        exit_on_error $FUNCNAME $?
+        cmd $FUNCNAME $docker_cmd rm -f $container_ids
         echo
+    fi
+}
+
+clean_all_images()
+{
+    image_ids=$($docker_cmd images -aq)
+    if [ -n "$image_ids"  ]
+    then
+        echo Removing ALL Images:
+        cmd $FUNCNAME $docker_cmd rmi -f $image_ids
     fi
 }
 
 clean_image()
 {
-    image_id=$($DOCKER images -q $1)
+    image_id=$($docker_cmd images -q $1)
     if [ -n "$image_id"  ]
     then
         echo Removing Image $1:
-        $DOCKER rmi -f $1
-        exit_on_error $FUNCNAME $?
+        cmd $FUNCNAME $docker_cmd rmi -f $1
         echo
     fi
 }
 
-clean_images()
+clean_project_images()
 {
-    for i in $DB $BACKEND $UI
+    for i in $db_image $backend_image $ui_image
     do
         clean_image $i
-        exit_on_error $FUNCNAME $?
     done
 }
 
 compose_up()
 {
-    $COMPOSE -f $YAML up -d
-    exit_on_error $FUNCNAME $?
+    cmd $FUNCNAME $compose_cmd up -d
 }
 
 compose_build()
 {
-    $COMPOSE -f $YAML build
-    exit_on_error $FUNCNAME $?
+    cmd $FUNCNAME $compose_cmd build
 }
 
 db()
 {
     wait_for_compose_up_seconds=3
     sleep $wait_for_compose_up_seconds
-    container=${BACKEND}_1
-    $DOCKER exec $container python manage.py migrate
-    exit_on_error $FUNCNAME $?
-    $DOCKER exec $container python manage.py loaddata user.json
-    exit_on_error $FUNCNAME $?
+    container=${backend_image}_1
+    cmd $FUNCNAME $docker_cmd exec $container python manage.py migrate
+    cmd $FUNCNAME $docker_cmd exec $container python manage.py loaddata user.json
 }
 
 run_tests()
 {
-    $DOCKER exec "Alguien arrégleme por fa"
-    exit_on_error $FUNCNAME $?
+    cmd $FUNCNAME $compose_cmd run --rm $backend_service python manage.py test
 }
 run()
 {
 
     if [ ${operations[CLEAN]} ]; then
-        clean_containers
-        clean_images
+        clean_all_containers
+        clean_project_images
+    fi
+    if [ ${operations[CLEAN_CONTAINERS]} ]; then
+        clean_all_containers
+    fi
+    if [ ${operations[CLEAN_ALL_IMAGES]} ]; then
+        clean_all_images
     fi
     if [ ${operations[BUILD]} ]; then
         compose_build
     fi
     if [ ${operations[UP]} ]; then
-        clean_containers
+        clean_all_containers
         compose_up
     fi
     if [ ${operations[DB]} ]; then
@@ -159,8 +206,8 @@ run()
         run_tests
     fi
     if [ ${operations[ALL]} ]; then
-        clean_containers
-        clean_images
+        clean_all_containers
+        clean_project_images
         compose_build
         compose_up
         db
@@ -168,4 +215,5 @@ run()
     fi
 }
 parse_args $*
+set_compose_file
 run

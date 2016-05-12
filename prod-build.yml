@@ -1,0 +1,6 @@
+db:
+  build: ./db
+backend:
+  build: ./backend
+ui:
+  build: ./ui

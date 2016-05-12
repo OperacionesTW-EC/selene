@@ -1,0 +1,6 @@
+db:
+  image: selene_db
+backend:
+  image: selene_backend
+ui:
+  image: selene_ui
