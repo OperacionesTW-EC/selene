@@ -14,15 +14,9 @@ class DeviceBrandSerializer(serializers.HyperlinkedModelSerializer):
         fields = ('id', 'name')
 
 
-#class DeviceSerializer(serializers.HyperlinkedModelSerializer):
-#    device_type = DeviceTypeSerializer(many=False, read_only=True)
-#    device_brand = DeviceBrandSerializer(many=False, read_only=True)
-#    class Meta:
-#        model = Device
-#        fields = ('id', 'device_type', 'device_brand', 'asset', 'ownership', 'serial_number', 'model', 'purchase_date')
-
 class DeviceSerializer(serializers.ModelSerializer):
     device_type_name = serializers.CharField(read_only=True)
+    device_brand_name = serializers.CharField(read_only=True)
     class Meta:
         model = Device
-        fields = ('id', 'device_type_name' , 'device_type', 'device_brand', 'asset', 'ownership', 'serial_number', 'model', 'purchase_date')
+        fields = ('id', 'device_type_name', 'device_brand_name', 'device_type', 'device_brand', 'asset', 'ownership', 'serial_number', 'model', 'purchase_date')

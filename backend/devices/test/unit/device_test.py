@@ -2,14 +2,16 @@ from django.core.exceptions import ValidationError
 from model_mommy import mommy
 from nose.tools import *
 from devices.models import DeviceType
+from devices.models import DeviceBrand
 from devices.models import Device
 
 
 class TestDevice:
 
     def setup(self):
-        device_type, _ = DeviceType.objects.get_or_create(code='L', name='Laptop')
-        self.device = mommy.make('Device', device_type=device_type)
+        self.device_type, _ = DeviceType.objects.get_or_create(code='L', name='Laptop')
+        self.device_brand, _ = DeviceBrand.objects.get_or_create(name='Some brand')
+        self.device = mommy.make('Device', device_type=self.device_type, device_brand=self.device_brand)
 
     def test_should_be_valid_with_valid_field_values(self):
         assert_is_none(self.device.full_clean())
@@ -47,3 +49,10 @@ class TestDevice:
 
     def test_should_be_ordered_by_device_type(self):
         assert_equal(str(Device._meta.ordering), "[u'device_type']")
+
+    def test_device_type_name_should_return_the_name_of_the_device_type(self):
+        assert_equal(self.device.device_type_name(), self.device_type.name)
+
+    def test_device_brand_name_should_return_the_name_of_the_device_brand(self):
+        assert_equal(self.device.device_brand_name(), self.device_brand.name)
+

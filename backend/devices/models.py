@@ -42,6 +42,9 @@ class Device(models.Model):
     def device_type_name(self):
         return self.device_type.name
 
+    def device_brand_name(self):
+        return self.device_brand.name
+
     device_type = models.ForeignKey('DeviceType')
     device_brand = models.ForeignKey('DeviceBrand')
     asset = models.IntegerField()
