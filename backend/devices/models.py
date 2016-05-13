@@ -49,7 +49,7 @@ class Device(models.Model):
         return self.generate_code()+'{0:04d}'.format(self.sequence)
 
     def generate_code(self):
-        return self.ownership.upper()+"-"+self.device_type.code.upper()+"-" + ("A" if self.asset else "E")+'-'
+        return self.ownership.upper()+("A" if self.asset else "E")+self.device_type.code.upper()
 
     def calculate_next_sequence_value(self):
         last_device_with_same_code = Device.objects.filter(code=self.code).order_by('-sequence')

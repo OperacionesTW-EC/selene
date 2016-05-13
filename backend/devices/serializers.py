@@ -18,6 +18,7 @@ class DeviceSerializer(serializers.ModelSerializer):
     device_type_name = serializers.CharField(read_only=True)
     device_brand_name = serializers.CharField(read_only=True)
     full_code = serializers.CharField(read_only=True)
+    purchase_date = serializers.DateField(required=False)
     class Meta:
         model = Device
         fields = ('id', 'device_type_name', 'full_code', 'device_brand_name', 'device_type', 'device_brand', 'asset', 'ownership', 'serial_number', 'model', 'purchase_date')

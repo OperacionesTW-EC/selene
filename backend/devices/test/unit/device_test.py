@@ -76,14 +76,14 @@ class TestDevice:
     def test_should_set_device_code_to_twla(self):
         self.device.ownership = 'TW'
         self.device.save()
-        assert_equals(self.device.code, 'TW-L-A-')
+        assert_equals(self.device.code, 'TWAL')
 
     def test_should_set_device_code_to_clme(self):
         self.device.device_type = DeviceType.objects.get_or_create(code='M', name='Mouse')[0]
         self.device.asset = 0
         self.device.ownership = 'CL'
         self.device.save()
-        assert_equals(self.device.code, 'CL-M-E-')
+        assert_equals(self.device.code, 'CLEM')
 
     def test_should_set_sequence_to_1(self):
         self.device.ownership = 'TW'
@@ -102,4 +102,4 @@ class TestDevice:
     def test_full_code_should_return_twla0001(self):
         self.device.ownership = 'TW'
         self.device.save()
-        assert_equals(self.device.full_code(), 'TW-L-A-0001')
+        assert_equals(self.device.full_code(), 'TWAL0001')
