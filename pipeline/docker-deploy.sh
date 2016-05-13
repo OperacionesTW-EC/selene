@@ -3,14 +3,15 @@
 project=$(pwd | xargs basename)
 artifact_name=${project}.tar.gz
 
-path_deploy='/opt/admin/selene'
-user_deploy=root
-ip_deploy=10.71.23.244
+# Concentrate external dependencies up here, please! :-)
+path_deploy=${PATH_DEPLOY:? "var unset, please export"}
+user_deploy=${USER_DEPLOY:? "var unset, please export"}
+ip_deploy=${IP_DEPLOY:? "var unset, please export"}
 
 docker_cmd=docker
 compose_cmd=docker-compose
 ssh_cmd="cmd ssh $user_deploy@$ip_deploy "
-scp_cmd=scp
+scp_cmd="cmd scp "
 
 db_image=${project}_db
 backend_image=${project}_backend
@@ -134,7 +135,7 @@ build_artifact()
 
 copy_artifact()
 {
-  cmd "$scp_cmd $artifact_name $user_deploy@$ip_deploy:$path_deploy/$artifact_name"
+  $scp_cmd "$artifact_name $user_deploy@$ip_deploy:$path_deploy/$artifact_name"
 }
 
 clean_old_artifacts()
