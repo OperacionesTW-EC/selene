@@ -9,6 +9,6 @@ class TestDeviceSerializer():
         assert_equal(DeviceSerializer.Meta.model, Device)
 
     def test_should_include_fields_definition(self):
-        assert_equal(DeviceSerializer.Meta.fields, ('id', 'device_type_name', 'device_brand_name', 'device_type', 'device_brand', 'asset',
+        assert_equal(DeviceSerializer.Meta.fields, ('id', 'device_type_name', 'full_code', 'device_brand_name', 'device_type', 'device_brand', 'asset',
                                                     'ownership', 'serial_number', 'model', 'purchase_date'))
 
