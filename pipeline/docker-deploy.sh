@@ -1,6 +1,6 @@
 #! /usr/bin/env bash
 
-project=selene
+project=$(pwd | xargs dirname | xargs basename)
 artifact_name=${project}.tar.gz
 
 path_deploy='/opt/admin/selene'
