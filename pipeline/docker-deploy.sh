@@ -3,9 +3,13 @@
 project=selene
 artifact_name=${project}.tar.gz
 
+path_deploy='/opt/admin/selene'
+user_deploy=root
+ip_deploy=10.71.23.244
+
 docker_cmd=docker
 compose_cmd=docker-compose
-ssh_cmd=ssh
+ssh_cmd="cmd ssh $user_deploy@$ip_deploy "
 scp_cmd=scp
 
 db_image=${project}_db
@@ -15,9 +19,16 @@ base_config=prod-base.yml
 build_config=prod-build.yml
 up_config=prod-up.yml
 
-path_deploy='/opt/admin/selene'
-user_deploy=root
-ip_deploy=10.71.23.244
+usage()
+{
+    echo Usage:
+    echo "     $ $0 [-n|--dry-run][-d|--debug] [function_name...]"
+    echo
+    echo "     Examples:"
+    echo "       $ $0"
+    echo "       $ $0 -d -n build"
+    echo "       $ $0 copy_artifact decompress_artifact"
+}
 
 heading()
 {
@@ -25,35 +36,26 @@ heading()
 }
 cmd()
 {
-    # ':' means no-op
-    # assign a value if function_name is not set
-    : ${function_name:=${FUNCNAME[1]}}
-
+    local function_name=${FUNCNAME[1]}
     local command="$*"
-    if [ -z "$no_echo" ]; then
+
+    if [[ -z $no_echo ]]; then
       heading $function_name
       echo $command
     fi
 
-    if [ -z "$dry_run" ]; then
+    if [[ -z $dry_run ]]; then
       eval "$command"
       local rc=$?
 
-      if [ "$rc" != 0 ];then
+      if [[ $rc != 0 ]];then
         echo -e "\t'$command' falló con '$rc'"
         echo -e "\ten función '$function_name'"
         exit $rc
       fi
     fi
-    unset -v function_name
     unset -v no_echo
   }
-
-cmd_remote()
-{
-  function_name=${FUNCNAME[1]}
-  cmd $ssh_cmd $user_deploy@$ip_deploy $1
-}
 
 get_project_container_ids()
 {
@@ -66,7 +68,7 @@ get_project_container_ids()
 clean_project_containers()
 {
     get_project_container_ids
-    if [ -n "$container_ids" ] # 1st element non-empty?
+    if [[ -n $container_ids ]] # 1st element non-empty?
     then
         echo Removing Old Containers:
         cmd $docker_cmd rm -f $container_ids
@@ -89,7 +91,7 @@ get_project_image_ids()
 clean_project_images()
 {
     get_project_image_ids
-    if [ -n "$image_ids" ] # 1st element non-empty?
+    if [[ -n $image_ids ]] # 1st element non-empty?
     then
         cmd $docker_cmd rmi -f "${image_ids[@]}"
     fi
@@ -137,18 +139,18 @@ copy_artifact()
 
 clean_old_artifacts()
 {
-  cmd_remote "rm -rfv $path_deploy/${project}*.tar*"
+  $ssh_cmd "rm -rfv $path_deploy/${project}*.tar*"
 }
 
 decompress_artifact()
 {
-  cmd_remote "gunzip $path_deploy/$artifact_name"
-  cmd_remote "tar --directory $path_deploy -xv -f $path_deploy/${project}.tar"
+  $ssh_cmd "gunzip $path_deploy/$artifact_name"
+  $ssh_cmd "tar --directory $path_deploy -xv -f $path_deploy/${project}.tar"
 }
 
 load_image()
 {
-  cmd_remote "time $docker_cmd load -i $path_deploy/$1"
+  $ssh_cmd "time $docker_cmd load -i $path_deploy/$1"
 }
 load_images()
 {
@@ -160,43 +162,40 @@ load_images()
 
 launch_containers()
 {
-  cmd_remote "$compose_cmd -f $path_deploy/$base_config -f $path_deploy/$up_config up -d"
+  $ssh_cmd "$compose_cmd -f $path_deploy/$base_config -f $path_deploy/$up_config up -d"
 }
 
 django_db_migrate()
 {
   wait_for_compose_up_seconds=13
-  sleep $wait_for_compose_up_seconds
   container=${backend_image}_1
-  cmd_remote "$docker_cmd exec $container python manage.py migrate"
-  cmd_remote "$docker_cmd exec $container python manage.py loaddata user.json"
+  $ssh_cmd "\"sleep $wait_for_compose_up_seconds && $docker_cmd exec $container python manage.py migrate\""
+  $ssh_cmd "$docker_cmd exec $container python manage.py loaddata user.json"
 }
 
 parse_args()
 {
+  functions_from_cmd_line=()
   for arg in $@
   do
     case "$arg" in
-      -d | --debug | d | debug )
+      -d | --debug )
         PS4=' ${LINENO}: ${FUNCNAME[0]:+${FUNCNAME[0]}(): }'
         set -x
         ;;
-      -n | --dry*run | n | dry | dry*run )
+      -n | --dry*run )
         dry_run='true'
         ;;
-      [Pp]ackage | PACKAGE )
-        package='true'
-        ;;
-      [Dd]eploy | DEPLOY )
-        deploy='true'
-        ;;
+      * )
+        if declare -f $arg > /dev/null; then
+          functions_from_cmd_line+=("$arg")
+        else
+          echo "'$arg' is not a declared function"
+          usage
+          exit 1
+        fi
     esac
   done
-  # do both 'package' and 'deploy' if neither are set
-  if [[ -z "$package" && -z "$deploy" ]]; then
-    package='true'
-    deploy='true'
-  fi
 }
 
 set_script_variables()
@@ -205,11 +204,15 @@ set_script_variables()
   set_images_and_services
 }
 
-package()
+build()
 {
   clean_project_containers
   clean_project_images
   compose_build
+}
+
+package()
+{
   clean_build_products
   save_images
   build_artifact
@@ -225,7 +228,17 @@ deploy()
   django_db_migrate
 }
 
+run()
+{
+  if [[ $functions_from_cmd_line ]]; then
+    for user_cmd in ${functions_from_cmd_line[@]}; do
+      $user_cmd
+    done
+  else
+    build
+    package
+    deploy
+  fi
+}
 set_script_variables $*
-# conditionally run package or deploy or both
-[ -n "$package" ] && package
-[ -n "$deploy" ] && deploy
+run
