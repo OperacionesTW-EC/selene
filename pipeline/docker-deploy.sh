@@ -1,21 +1,23 @@
-#! /usr/bin/env bash -e
+#! /usr/bin/env bash
+
+project=selene
+artifact_name=${project}.tar.gz
 
 docker_cmd=docker
 compose_cmd=docker-compose
 ssh_cmd=ssh
 scp_cmd=scp
-project=selene
-path_deploy='/opt/admin/selene'
+
 db_image=${project}_db
 backend_image=${project}_backend
 ui_image=${project}_ui
 base_config=prod-base.yml
 build_config=prod-build.yml
 up_config=prod-up.yml
-user=root
-deploy_host=10.71.23.244
 
-artifact_name=${project}.tar.gz
+path_deploy='/opt/admin/selene'
+user_deploy=root
+ip_deploy=10.71.23.244
 
 heading()
 {
@@ -23,7 +25,10 @@ heading()
 }
 cmd()
 {
+    # ':' means no-op
+    # assign a value if function_name is not set
     : ${function_name:=${FUNCNAME[1]}}
+
     local command="$*"
     if [ -z "$no_echo" ]; then
       heading $function_name
@@ -47,7 +52,7 @@ cmd()
 cmd_remote()
 {
   function_name=${FUNCNAME[1]}
-  cmd $ssh_cmd $user@$deploy_host $1
+  cmd $ssh_cmd $user_deploy@$ip_deploy $1
 }
 
 get_project_container_ids()
@@ -61,7 +66,7 @@ get_project_container_ids()
 clean_project_containers()
 {
     get_project_container_ids
-    if [ "${#container_ids[@]}" > 0 ]
+    if [ -n "$container_ids" ] # 1st element non-empty?
     then
         echo Removing Old Containers:
         cmd $docker_cmd rm -f $container_ids
@@ -76,7 +81,7 @@ get_project_image_ids()
     for i in "${our_images[@]}"
     do
       no_echo='true'
-      image_ids+=($(cmd $docker_cmd images -q $i))
+      image_ids+=($(cmd $docker_cmd images -q $i)) # append to array
     done
     unset -v no_echo
 }
@@ -84,7 +89,7 @@ get_project_image_ids()
 clean_project_images()
 {
     get_project_image_ids
-    if [ "${#image_ids[@]}" > 0 ]
+    if [ -n "$image_ids" ] # 1st element non-empty?
     then
         cmd $docker_cmd rmi -f "${image_ids[@]}"
     fi
@@ -127,7 +132,7 @@ build_artifact()
 
 copy_artifact()
 {
-  cmd "$scp_cmd $artifact_name $user@$deploy_host:$path_deploy/$artifact_name"
+  cmd "$scp_cmd $artifact_name $user_deploy@$ip_deploy:$path_deploy/$artifact_name"
 }
 
 clean_old_artifacts()
