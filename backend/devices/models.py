@@ -75,3 +75,16 @@ class Device(models.Model):
     sequence = models.IntegerField()
     code = models.CharField(max_length=10)
 
+
+class Project(models.Model):
+    name = models.CharField(max_length=50)
+
+    def __str__(self):
+        return self.name
+
+    class Meta:
+        verbose_name = _(u'Proyecto')
+        verbose_name_plural = _(u'Proyectos')
+
+
+
