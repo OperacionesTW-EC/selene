@@ -77,15 +77,15 @@ clean_project_containers()
     fi
 }
 
-get_project_image_ids()
+get_loaded_images()
 {
     heading $FUNCNAME
-    running_image_names=()
+    loaded_image_names=()
     for i in "${our_images[@]}"
     do
       no_echo='true'
       if [[ -n $(cmd $docker_cmd images -q $i) ]]; then
-        running_image_names+=($i) # append to array
+        loaded_image_names+=($i) # append to array
       fi
     done
     unset -v no_echo
@@ -93,10 +93,10 @@ get_project_image_ids()
 
 clean_project_images()
 {
-    get_project_image_ids
-    if [[ -n $running_image_names ]] # 1st element non-empty?
+    get_loaded_images
+    if [[ -n $loaded_image_names ]] # 1st element non-empty?
     then
-        cmd $docker_cmd rmi -f "${running_image_names[@]}"
+        cmd $docker_cmd rmi -f "${loaded_image_names[@]}"
     fi
 }
 
