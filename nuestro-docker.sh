@@ -137,6 +137,11 @@ clean_all_images()
     fi
 }
 
+clean_old_pyc_files()
+{
+  cmd find . -type f -name '*.pyc' -delete
+}
+
 clean_image()
 {
     image_id=$($docker_cmd images -q $1)
@@ -183,6 +188,7 @@ run()
 {
 
     if [ ${operations[CLEAN]} ]; then
+        clean_old_pyc_files
         clean_all_containers
         clean_project_images
     fi
@@ -193,9 +199,11 @@ run()
         clean_all_images
     fi
     if [ ${operations[BUILD]} ]; then
+        clean_old_pyc_files
         compose_build
     fi
     if [ ${operations[UP]} ]; then
+        clean_old_pyc_files
         clean_all_containers
         compose_up
     fi
@@ -206,6 +214,7 @@ run()
         run_tests
     fi
     if [ ${operations[ALL]} ]; then
+        clean_old_pyc_files
         clean_all_containers
         clean_project_images
         compose_build
