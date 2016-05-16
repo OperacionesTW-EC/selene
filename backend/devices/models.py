@@ -12,6 +12,7 @@ class DeviceType(models.Model):
     class Meta:
         verbose_name = _(u'Tipo de Dispositivo')
         verbose_name_plural = _(u'Tipos de Dispositivo')
+        ordering = ['name']
 
     def __str__(self):
         return '%s (%s)' % (self.name, self.code)
