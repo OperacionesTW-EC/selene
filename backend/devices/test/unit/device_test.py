@@ -2,9 +2,7 @@ from django.core.exceptions import ValidationError
 from model_mommy import mommy
 from nose.tools import *
 from devices.models import DeviceType
-from devices.models import DeviceBrand
 from devices.models import Device
-from datetime import date
 
 
 class TestDevice:
@@ -103,3 +101,18 @@ class TestDevice:
         self.device.ownership = 'TW'
         self.device.save()
         assert_equals(self.device.full_code(), 'TWAL0001')
+
+    @raises(ValueError)
+    def test_should_be_invalid_without_device_state(self):
+        self.device.device_state = None
+
+    @raises(ValueError)
+    def test_should_be_invalid_without_device_brand(self):
+        self.device.device_brand = None
+
+    @raises(ValueError)
+    def test_should_be_invalid_without_device_type(self):
+        self.device.device_type = None
+
+    def test_device_state_name_should_return_the_name_of_the_device_state(self):
+        assert_equal(self.device.device_state_name(), self.device.device_state.name)

@@ -6,3 +6,4 @@ from devices.models import *
 admin.site.register(DeviceType)
 admin.site.register(DeviceBrand)
 admin.site.register(Project)
+admin.site.register(DeviceState)

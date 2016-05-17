@@ -14,6 +14,7 @@ class DeviceType(models.Model):
         verbose_name_plural = _(u'Tipos de Dispositivo')
         ordering = ['name']
 
+
     def __str__(self):
         return '%s (%s)' % (self.name, self.code)
 
@@ -27,6 +28,17 @@ class DeviceBrand(models.Model):
     class Meta:
         verbose_name = _(u'Marca de Dispositivo')
         verbose_name_plural = _(u'Marcas de Dispositivo')
+
+
+class DeviceState(models.Model):
+    name = models.CharField(max_length=50, unique=True)
+
+    def __str__(self):
+        return self.name
+
+    class Meta:
+        verbose_name = _(u'Estado de Dispositivo')
+        verbose_name_plural = _(u'Estados de Dispositivo')
 
 
 class Device(models.Model):
@@ -45,6 +57,9 @@ class Device(models.Model):
 
     def device_brand_name(self):
         return self.device_brand.name
+
+    def device_state_name(self):
+        return self.device_state.name
 
     def full_code(self):
         return self.generate_code()+'{0:04d}'.format(self.sequence)
@@ -75,6 +90,7 @@ class Device(models.Model):
     purchase_date = models.DateField(blank=True, null=True)
     sequence = models.IntegerField()
     code = models.CharField(max_length=10)
+    device_state = models.ForeignKey('DeviceState')
 
 
 class Project(models.Model):
@@ -86,6 +102,5 @@ class Project(models.Model):
     class Meta:
         verbose_name = _(u'Proyecto')
         verbose_name_plural = _(u'Proyectos')
-
 
 
