@@ -1,5 +1,10 @@
 db:
   image: selene_db
+  entrypoint:
+    - chcon
+    - -Rt
+    - svirt_sandbox_file_t
+    - /var/lib/postgresql/data
 backend:
   image: selene_backend
 ui:
