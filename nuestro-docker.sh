@@ -6,12 +6,12 @@ if [[ "$BASH_VERSION" =~ ^[0-3] ]];then
     exit 1
 fi
 
+project=$(pwd | xargs basename)
 docker_cmd=docker
 compose_cmd=docker-compose
-db_image=selene_db
-backend_image=selene_backend
-backend_service=backend
-ui_image=selene_ui
+db_image=${project}_db
+backend_image=${project}_backend
+ui_image=${project}_ui
 default_target_env='local'
 target_env=$default_target_env
 declare -A operations
@@ -130,10 +130,10 @@ clean_all_containers()
 clean_all_images()
 {
     image_ids=$($docker_cmd images -aq)
-    if [ -n "$image_ids"  ]
+    if [[ -n $image_ids ]]
     then
         echo Removing ALL Images:
-        cmd $docker_cmd rmi -f $image_ids
+        $docker_cmd rmi -f $image_ids
     fi
 }
 
