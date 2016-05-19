@@ -39,3 +39,12 @@ class DeviceViewSet(viewsets.ModelViewSet):
     queryset = Device.objects.all()
     serializer_class = DeviceSerializer
 
+class ProjectViewSet(viewsets.ModelViewSet):
+    queryset = Project.objects.all()
+    serializer_class = ProjectSerializer
+
+class AssignmentViewSet(viewsets.ModelViewSet):
+    queryset = Assignment.objects.all()
+    serializer_class = AssignmentSerializer
+
+

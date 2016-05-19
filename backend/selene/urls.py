@@ -25,6 +25,8 @@ router = routers.DefaultRouter()
 router.register(r'device_types', DeviceTypeViewSet)
 router.register(r'device_brands', DeviceBrandViewSet)
 router.register(r'devices', DeviceViewSet)
+router.register(r'projects', ProjectViewSet)
+router.register(r'assignments', AssignmentViewSet)
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
@@ -33,7 +35,5 @@ urlpatterns = [
     url(r'^', include('devices.urls')),
     url(r'^', include(router.urls)),
     url(r'^api-auth/', include('rest_framework.urls', namespace='rest_framework'))
-
-
 ]
 

@@ -14,6 +14,17 @@ class DeviceBrandSerializer(serializers.HyperlinkedModelSerializer):
         fields = ('id', 'name')
 
 
+class ProjectSerializer(serializers.HyperlinkedModelSerializer):
+    class Meta:
+        model = Project
+        fields = ('id', 'name')
+
+class AssignmentSerializer(serializers.HyperlinkedModelSerializer):
+    class Meta:
+        model = Assignment
+        fields = ('id', 'project')
+
+
 class DeviceSerializer(serializers.ModelSerializer):
     device_type_name = serializers.CharField(read_only=True)
     device_brand_name = serializers.CharField(read_only=True)
@@ -24,7 +35,7 @@ class DeviceSerializer(serializers.ModelSerializer):
         default_device_state = DeviceState.objects.get_or_create(name='Disponible')[0]
         device_state = serializers.ModelField(model_field=Device()._meta.get_field('device_state'), default=default_device_state)
     except Exception:
-        print 'aaa'
+        print 'devicestate Table does not exist'
 
     class Meta:
         model = Device

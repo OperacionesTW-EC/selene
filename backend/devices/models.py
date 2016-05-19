@@ -104,3 +104,21 @@ class Project(models.Model):
         verbose_name_plural = _(u'Proyectos')
 
 
+class Assignment(models.Model):
+    assignee_name = models.CharField(max_length=50)
+    project = models.ForeignKey('Project')
+
+    class Meta:
+        verbose_name = _(u'Asignación')
+        verbose_name_plural = _(u'Asignaciones')
+
+
+class DeviceAssignment(models.Model):
+    device = models.ForeignKey('Device')
+    assignment = models.ForeignKey('Assignment')
+
+    class Meta:
+        verbose_name = _(u'Asignación de Dispositivos')
+        verbose_name_plural = _(u'Asignaciones de Dispositivos')
+
+
