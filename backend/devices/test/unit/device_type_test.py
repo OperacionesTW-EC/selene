@@ -21,8 +21,8 @@ class TestDeviceType:
         assert_raises(ValidationError, self.device_type.full_clean)
 
     def test_name_should_be_unique(self):
-        mommy.make('DeviceType', name='Some name')
-        another_device = mommy.prepare('DeviceType', name='Some name')
+        mommy.make('DeviceType', name='Some name', code='X')
+        another_device = mommy.prepare('DeviceType', name='Some name', code='X')
         assert_raises(ValidationError, another_device.full_clean)
 
     def test_should_be_invalid_without_code(self):
@@ -50,5 +50,3 @@ class TestDeviceType:
 
     def test_verbose_name_plural(self):
         assert_equal(str(DeviceType._meta.verbose_name_plural), "Tipos de Dispositivo")
-
-
