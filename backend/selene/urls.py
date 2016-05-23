@@ -28,12 +28,12 @@ router.register(r'devices', DeviceViewSet)
 router.register(r'projects', ProjectViewSet)
 router.register(r'assignments', AssignmentViewSet)
 
+
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url('index', views.index),
     url(r'^', include('main.urls')),
     url(r'^', include('devices.urls')),
     url(r'^', include(router.urls)),
-    url(r'^api-auth/', include('rest_framework.urls', namespace='rest_framework'))
+    url(r'^api-auth/', include('rest_framework.urls', namespace='rest_framework')),
 ]
-

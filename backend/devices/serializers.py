@@ -2,6 +2,7 @@ from rest_framework import serializers
 from devices.models import *
 
 
+
 class DeviceTypeSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = DeviceType
@@ -19,10 +20,21 @@ class ProjectSerializer(serializers.HyperlinkedModelSerializer):
         model = Project
         fields = ('id', 'name')
 
-class AssignmentSerializer(serializers.HyperlinkedModelSerializer):
+
+class AssignmentSerializer(serializers.ModelSerializer):
+    depth = 1
+
+
     class Meta:
         model = Assignment
-        fields = ('id', 'project')
+        fields = ('id', 'assignee_name', 'project_name', 'project', 'devices')
+
+
+class DeviceAssignmentSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = DeviceAssignment
+        fields = ('id', 'assignment', 'device')
 
 
 class DeviceSerializer(serializers.ModelSerializer):
