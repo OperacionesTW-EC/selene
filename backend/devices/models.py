@@ -106,11 +106,12 @@ class Project(models.Model):
 
 class Assignment(models.Model):
     assignee_name = models.CharField(max_length=50)
-    project = models.ForeignKey('Project')
+    project = models.ForeignKey('Project', null=True)
     devices = models.ManyToManyField(Device, through='DeviceAssignment')
 
     def project_name(self):
-        return self.project.name
+        if self.project:
+            return self.project.name
 
     class Meta:
         verbose_name = _(u'Asignación')

@@ -3,6 +3,7 @@ from django.core.exceptions import ValidationError
 from model_mommy import mommy
 from nose.tools import *
 from devices.models import Assignment
+from devices.serializers import AssignmentSerializer
 
 class TestAssignment:
 
@@ -26,9 +27,9 @@ class TestAssignment:
     def test_verbose_name_plural(self):
         assert_equal(str(Assignment._meta.verbose_name_plural), "Asignaciones")
 
-    @raises(ValueError)
-    def test_should_be_invalid_without_project(self):
+    def test_should_be_valid_without_project(self):
         self.assignment.project = None
+        assert_equal(True, AssignmentSerializer(data=self.assignment.__dict__).is_valid())
 
     def test_model_is_registered_in_admin(self):
         from django.contrib import admin

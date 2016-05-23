@@ -24,7 +24,6 @@ class ProjectSerializer(serializers.HyperlinkedModelSerializer):
 class AssignmentSerializer(serializers.ModelSerializer):
     depth = 1
 
-
     class Meta:
         model = Assignment
         fields = ('id', 'assignee_name', 'project_name', 'project', 'devices')

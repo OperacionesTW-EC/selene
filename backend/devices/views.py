@@ -67,18 +67,18 @@ class AssignmentViewSet(viewsets.ModelViewSet):
                 device_assignment.save()
             return Response({'status': 'asignacion creada'})
         else:
-            return Response(serializer.errors,
-                            status=status.HTTP_400_BAD_REQUEST)
+            return Response(serializer.errors,status=status.HTTP_400_BAD_REQUEST)
 
     def get_assignment_by_request_data(self, data):
         assignment = Assignment()
         assignment.assignee_name = data['assignee_name']
-        assignment.project_id = data['project']
+        if 'project' in data:
+            assignment.project_id = data['project']
         return assignment
 
     def update_device_state(self, device_id):
         device = Device.objects.get(pk=device_id)
-        device.device_state = DeviceState.objects.get_or_create(name='No Disponible')[0]
+        device.device_state = DeviceState.objects.get(name='No disponible')
         device.save()
         return device
 
