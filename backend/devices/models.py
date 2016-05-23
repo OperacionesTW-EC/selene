@@ -30,7 +30,7 @@ class DeviceBrand(models.Model):
         verbose_name_plural = _(u'Marcas de Dispositivo')
 
 
-class DeviceState(models.Model):
+class DeviceStatus(models.Model):
     name = models.CharField(max_length=50, unique=True)
 
     def __str__(self):
@@ -58,8 +58,8 @@ class Device(models.Model):
     def device_brand_name(self):
         return self.device_brand.name
 
-    def device_state_name(self):
-        return self.device_state.name
+    def device_status_name(self):
+        return self.device_status.name
 
     def full_code(self):
         return self.generate_code()+'{0:04d}'.format(self.sequence)
@@ -90,7 +90,7 @@ class Device(models.Model):
     purchase_date = models.DateField(blank=True, null=True)
     sequence = models.IntegerField()
     code = models.CharField(max_length=10)
-    device_state = models.ForeignKey('DeviceState')
+    device_status = models.ForeignKey('DeviceStatus')
 
 
 class Project(models.Model):

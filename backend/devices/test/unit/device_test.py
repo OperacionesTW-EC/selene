@@ -103,8 +103,8 @@ class TestDevice:
         assert_equals(self.device.full_code(), 'TWAL0001')
 
     @raises(ValueError)
-    def test_should_be_invalid_without_device_state(self):
-        self.device.device_state = None
+    def test_should_be_invalid_without_device_status(self):
+        self.device.device_status = None
 
     @raises(ValueError)
     def test_should_be_invalid_without_device_brand(self):
@@ -114,5 +114,5 @@ class TestDevice:
     def test_should_be_invalid_without_device_type(self):
         self.device.device_type = None
 
-    def test_device_state_name_should_return_the_name_of_the_device_state(self):
-        assert_equal(self.device.device_state_name(), self.device.device_state.name)
+    def test_device_status_name_should_return_the_name_of_the_device_status(self):
+        assert_equal(self.device.device_status_name(), self.device.device_status.name)

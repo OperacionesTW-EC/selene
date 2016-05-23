@@ -44,13 +44,13 @@ class TestAssignmet:
         assignment = Assignment.objects.get(assignee_name='Test')
         assert_is_not_none(assignment)
 
-    def test_should_set_device_state_to_unavailable(self):
-        self.device.device_state = DeviceState.objects.get(name='Disponible')
+    def test_should_set_device_status_to_unavailable(self):
+        self.device.device_status = DeviceStatus.objects.get(name='Disponible')
         self.device.model = 'model 201'
         self.device.save()
         self.request.data = {'assignee_name': 'Jose', 'project': self.project.id, 'devices': [self.device.id]}
         self.assignment_view.create(self.request)
-        assert_equal((Device.objects.get(model='model 201')).device_state.name, (DeviceState.objects.get(name='No disponible')).name)
+        assert_equal((Device.objects.get(model='model 201')).device_status.name, (DeviceStatus.objects.get(name='No disponible')).name)
 
     def test_project_should_not_be_required(self):
         del self.request.data['project']

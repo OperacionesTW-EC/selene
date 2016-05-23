@@ -62,7 +62,7 @@ class AssignmentViewSet(viewsets.ModelViewSet):
         if serializer.is_valid():
             assignment.save()
             for device_id in devices_ids:
-                device = self.update_device_state(device_id)
+                device = self.update_device_status(device_id)
                 device_assignment = DeviceAssignment(device=device, assignment=assignment)
                 device_assignment.save()
             return Response({'status': 'asignacion creada'})
@@ -76,9 +76,9 @@ class AssignmentViewSet(viewsets.ModelViewSet):
             assignment.project_id = data['project']
         return assignment
 
-    def update_device_state(self, device_id):
+    def update_device_status(self, device_id):
         device = Device.objects.get(pk=device_id)
-        device.device_state = DeviceState.objects.get(name='No disponible')
+        device.device_status = DeviceStatus.objects.get(name='No disponible')
         device.save()
         return device
 

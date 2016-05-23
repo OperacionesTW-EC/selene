@@ -21,7 +21,7 @@ class Queries():
         join devices_deviceassignment as deviceassignment on device.id = deviceassignment.device_id
         join devices_assignment as assignment on assignment.id = deviceassignment.assignment_id
         join devices_project as project on project.id = assignment.project_id
-        where device.device_state_id=3;
+        where device.device_status_id=3;
         """
         cursor = connection.cursor()
         cursor.execute(sql)
