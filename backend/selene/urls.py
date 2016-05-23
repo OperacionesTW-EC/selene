@@ -15,10 +15,8 @@ Including another URLconf
 """
 from django.conf.urls import url, include
 from django.contrib import admin
-
 from main import views
 from devices.views import *
-
 from rest_framework import routers
 
 router = routers.DefaultRouter()
@@ -36,4 +34,5 @@ urlpatterns = [
     url(r'^', include('devices.urls')),
     url(r'^', include(router.urls)),
     url(r'^api-auth/', include('rest_framework.urls', namespace='rest_framework')),
+    url(r'^assigned_devices/', AssignedDeviceList.as_view(), name='assigned_devices')
 ]

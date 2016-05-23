@@ -2,11 +2,12 @@ from django.http import HttpResponse
 from django.template import loader
 from forms import DeviceForm
 from django.contrib import messages
-from rest_framework import viewsets
+from rest_framework import viewsets, generics
 from devices.serializers import *
 from rest_framework.response import Response
 from rest_framework import status
 from devices.models import *
+from devices.queries import Queries
 
 
 def devices(request):
@@ -20,7 +21,6 @@ def device_form(request):
     template = loader.get_template('main/device_form.html')
     form = DeviceForm()
     if request.method == 'POST':
-        print 'test', request.POST
         form = DeviceForm(request.POST)
         if form.is_valid():
             form.save()
@@ -81,3 +81,15 @@ class AssignmentViewSet(viewsets.ModelViewSet):
         device.device_state = DeviceState.objects.get_or_create(name='No Disponible')[0]
         device.save()
         return device
+
+
+class AssignedDeviceList(generics.ListCreateAPIView):
+    queryset = Queries().assigned_devices()
+    serializer_class = AssignedDeviceSerializer
+
+    def list(self, request):
+        queryset = self.get_queryset()
+        serializer = AssignedDeviceSerializer(queryset, many=True)
+        return Response(serializer.data)
+
+

@@ -53,3 +53,20 @@ class DeviceSerializer(serializers.ModelSerializer):
         model = Device
         fields = ('id', 'device_type_name', 'full_code', 'device_brand_name', 'device_type', 'device_brand', 'asset',
               'ownership', 'serial_number', 'model', 'purchase_date', 'device_state', 'device_state_name')
+
+
+class AssignedDeviceSerializer(serializers.ModelSerializer):
+    full_code = serializers.CharField(read_only=True)
+    device_type_name = serializers.CharField(read_only=True)
+    device_brand_name = serializers.CharField(read_only=True)
+    assign_date = serializers.DateField(required=False)
+    return_date = serializers.DateField(required=False)
+    end_date = serializers.DateField(required=False)
+    assignee_name = serializers.CharField(read_only=True)
+    project = serializers.CharField(read_only=True)
+
+    class Meta:
+        model = Device
+        fields = ('id', 'full_code', 'device_type_name', 'device_brand_name',
+                  'assign_date', 'return_date','end_date', 'assignee_name',
+                  'project')

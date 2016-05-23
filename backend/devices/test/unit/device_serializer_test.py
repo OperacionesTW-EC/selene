@@ -1,7 +1,6 @@
 from nose.tools import *
-
-from devices.models import *
 from devices.serializers import *
+
 
 class TestDeviceSerializer():
 
