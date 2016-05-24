@@ -21,14 +21,6 @@ class ProjectSerializer(serializers.HyperlinkedModelSerializer):
         fields = ('id', 'name')
 
 
-class AssignmentSerializer(serializers.ModelSerializer):
-    depth = 1
-
-    class Meta:
-        model = Assignment
-        fields = ('id', 'assignee_name', 'project_name', 'project', 'devices')
-
-
 class DeviceAssignmentSerializer(serializers.ModelSerializer):
 
     class Meta:
@@ -52,6 +44,13 @@ class DeviceSerializer(serializers.ModelSerializer):
         model = Device
         fields = ('id', 'device_type_name', 'full_code', 'device_brand_name', 'device_type', 'device_brand', 'asset',
               'ownership', 'serial_number', 'model', 'purchase_date', 'device_status', 'device_status_name')
+
+
+class AssignmentSerializer(serializers.ModelSerializer):
+    devices = DeviceSerializer(many=True, read_only=True)
+    class Meta:
+        model = Assignment
+        fields = ('id', 'assignee_name', 'project_name', 'project', 'devices')
 
 
 class AssignedDeviceSerializer(serializers.ModelSerializer):
