@@ -84,17 +84,12 @@ class AssignmentViewSet(viewsets.ModelViewSet):
 
 
 class AssignedDeviceList(generics.ListCreateAPIView):
-    queryset = None
-    serializer_class = AssignedDeviceSerializer
 
-    def get_queryset(self):
-        global queryset
-        if not self.queryset:
-            self.queryset = Queries().assigned_devices()
-        return self.queryset
+    serializer_class = AssignedDeviceSerializer
 
     def list(self, request):
         serializer = AssignedDeviceSerializer(self.get_queryset(), many=True)
         return Response(serializer.data)
 
-
+    def get_queryset(self):
+        return Queries().assigned_devices()
