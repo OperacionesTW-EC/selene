@@ -34,6 +34,7 @@ class DeviceStatus(models.Model):
     name = models.CharField(max_length=50, unique=True)
     DISPONIBLE = 'Disponible'
     NO_DISPONIBLE = 'No Disponible'
+    ASIGNADO = 'Asignado'
 
     def __str__(self):
         return self.name

@@ -1,4 +1,5 @@
 from django.db import connection
+from devices.models import DeviceStatus
 
 
 class Queries():
@@ -17,12 +18,13 @@ class Queries():
           project.name as project
         from devices_device as device
         join devices_devicebrand as brand on device.device_brand_id=brand.id
+        join devices_devicestatus as status on device.device_status_id=status.id
         join devices_devicetype as type on device.device_type_id=type.id
         join devices_deviceassignment as deviceassignment on device.id = deviceassignment.device_id
         join devices_assignment as assignment on assignment.id = deviceassignment.assignment_id
         join devices_project as project on project.id = assignment.project_id
-        where device.device_status_id=3;
-        """
+        where status.name= '%s';
+        """ % DeviceStatus.ASIGNADO
         cursor = connection.cursor()
         cursor.execute(sql)
         return self.dictfetchall(cursor)
