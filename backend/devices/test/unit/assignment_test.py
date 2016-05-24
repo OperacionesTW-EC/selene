@@ -17,6 +17,10 @@ class TestAssignment:
         self.assignment.assignee_name = None
         assert_raises(ValidationError, self.assignment.full_clean)
 
+    def test_should_be_invalid_without_assignment_date(self):
+        self.assignment.assignment_datetime = None
+        assert_raises(ValidationError, self.assignment.full_clean)
+
     def test_should_be_invalid_with_name_too_long(self):
         self.assignment.assignee_name = 'This name is too long and has more than 50 characters, so it is invalid'
         assert_raises(ValidationError, self.assignment.full_clean)

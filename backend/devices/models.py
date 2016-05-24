@@ -3,6 +3,7 @@ from __future__ import unicode_literals
 from django.core.exceptions import ValidationError
 from django.db import models
 from django.utils.translation import ugettext_lazy as _
+from django.utils import timezone
 
 
 class DeviceType(models.Model):
@@ -109,6 +110,7 @@ class Project(models.Model):
 
 class Assignment(models.Model):
     assignee_name = models.CharField(max_length=50)
+    assignment_datetime = models.DateTimeField(blank=False, null=False, default=timezone.now())
     project = models.ForeignKey('Project', null=True)
     devices = models.ManyToManyField(Device, through='DeviceAssignment')
 

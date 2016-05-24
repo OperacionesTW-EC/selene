@@ -1,0 +1,79 @@
+[
+{
+    "model": "devices.devicetype",
+    "pk": 1,
+    "fields": {
+        "name": "Laptop",
+        "code": "L"
+    }
+},
+{
+    "model": "devices.devicebrand",
+    "pk": 1,
+    "fields": {
+        "name": "Dell"
+    }
+},
+{
+    "model": "devices.devicestatus",
+    "pk": 1,
+    "fields": {
+        "name": "Disponible"
+    }
+},
+{
+    "model": "devices.devicestatus",
+    "pk": 2,
+    "fields": {
+        "name": "No Disponible"
+    }
+},
+{
+    "model": "devices.device",
+    "pk": 1,
+    "fields": {
+        "device_type": 1,
+        "device_brand": 1,
+        "asset": 1,
+        "ownership": "TW",
+        "serial_number": "4324242",
+        "model": "43432423",
+        "purchase_date": "2016-05-03",
+        "sequence": 1,
+        "code": "TWAL",
+        "device_status": 2
+    }
+},
+{
+    "model": "devices.project",
+    "pk": 1,
+    "fields": {
+        "name": "Selena"
+    }
+},
+{
+    "model": "devices.assignment",
+    "pk": 1,
+    "fields": {
+        "assignee_name": "Jose",
+        "assignment_date": "2016-05-24T16:41:17.679Z",
+        "project": 1
+    }
+},
+{
+    "model": "devices.deviceassignment",
+    "pk": 1,
+    "fields": {
+        "device": 1,
+        "assignment": 1
+    }
+},
+{
+    "model": "devices.deviceassignment",
+    "pk": 2,
+    "fields": {
+        "device": 1,
+        "assignment": 1
+    }
+}
+]

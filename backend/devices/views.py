@@ -65,7 +65,7 @@ class AssignmentViewSet(viewsets.ModelViewSet):
                 device = self.update_device_status(device_id)
                 device_assignment = DeviceAssignment(device=device, assignment=assignment)
                 device_assignment.save()
-            return Response({'status': 'asignacion creada'})
+            return Response({'status': 'asignacion creada', 'id': assignment.id})
         else:
             return Response(serializer.errors,status=status.HTTP_400_BAD_REQUEST)
 
