@@ -51,7 +51,7 @@ class TestAssignmet:
         device.model = 'model 201'
         device.save()
         self.get_response(self.build_request(devices=[device.id]))
-        assert_equal((Device.objects.get(model='model 201')).device_status.name, (DeviceStatus.objects.get(name=DeviceStatus.NO_DISPONIBLE)).name)
+        assert_equal((Device.objects.get(model='model 201')).device_status.name, (DeviceStatus.objects.get(name=DeviceStatus.ASIGNADO)).name)
 
     def test_project_should_not_be_required(self):
         request = self.build_request()

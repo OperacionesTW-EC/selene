@@ -78,7 +78,7 @@ class AssignmentViewSet(viewsets.ModelViewSet):
 
     def update_device_status(self, device_id):
         device = Device.objects.get(pk=device_id)
-        device.device_status = DeviceStatus.objects.get(name=DeviceStatus.NO_DISPONIBLE)
+        device.device_status = DeviceStatus.objects.get(name=DeviceStatus.ASIGNADO)
         device.save()
         return device
 
