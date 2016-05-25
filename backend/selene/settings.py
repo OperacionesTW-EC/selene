@@ -32,7 +32,6 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
-    'main.apps.MainConfig',
     'devices.apps.DevicesConfig',
     'django.contrib.admin',
     'django.contrib.auth',
@@ -40,10 +39,6 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'pipeline',
-    'jquery',
-    'bootstrap3',
-    'fontawesome',
     'django_nose',
     'rest_framework',
     'corsheaders',
@@ -114,7 +109,6 @@ USE_L10N = True
 
 USE_TZ = True
 
-
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
@@ -134,42 +128,6 @@ MEDIA_ROOT = '/media/'
 MEDIA_URL = '/media/'
 STATIC_ROOT = BASE_DIR+'/static/'
 
-#PIPELINE
-
-PIPELINE = {
-    'STYLESHEETS': {
-
-        'custom': {
-            'source_filenames': (
-                'css/custom.css',
-            )
-        },
-    },
-    'JAVASCRIPT': {
-        'jquery': {
-            'source_filenames': (
-                'js/jquery.js',
-            )
-        },
-        'bootstrap': {
-            'source_filenames': (
-                'twitter_bootstrap/js/transition.js',
-                'twitter_bootstrap/js/modal.js',
-                'twitter_bootstrap/js/dropdown.js',
-                'twitter_bootstrap/js/scrollspy.js',
-                'twitter_bootstrap/js/tab.js',
-                'twitter_bootstrap/js/tooltip.js',
-                'twitter_bootstrap/js/popover.js',
-                'twitter_bootstrap/js/alert.js',
-                'twitter_bootstrap/js/button.js',
-                'twitter_bootstrap/js/collapse.js',
-                'twitter_bootstrap/js/affix.js',
-            ),
-            'output_filename': 'js/b.js',
-        },
-    }
-}
-
 CORS_ORIGIN_ALLOW_ALL = True
 
 
@@ -177,8 +135,7 @@ STATICFILES_STORAGE = 'pipeline.storage.PipelineCachedStorage'
 
 STATICFILES_FINDERS = (
     'django.contrib.staticfiles.finders.FileSystemFinder',
-    'django.contrib.staticfiles.finders.AppDirectoriesFinder',
-    'pipeline.finders.PipelineFinder',
+    'django.contrib.staticfiles.finders.AppDirectoriesFinder'
 )
 
 TEST_RUNNER = 'django_nose.NoseTestSuiteRunner'
