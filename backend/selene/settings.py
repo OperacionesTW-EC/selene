@@ -91,9 +91,14 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
-
 REST_FRAMEWORK = {
-    'PAGE_SIZE': 10000
+    'PAGE_SIZE': 10000,
+    'DEFAULT_AUTHENTICATION_CLASSES': (
+        'rest_framework.authentication.TokenAuthentication',
+    ),
+    'DEFAULT_PERMISSION_CLASSES': (
+        'rest_framework.permissions.AllowAny',
+    ),
 }
 
 # Internationalization
