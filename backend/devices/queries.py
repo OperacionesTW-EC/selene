@@ -11,7 +11,7 @@ class Queries():
           device.code || lpad(device.sequence::text, 4, '0') as full_code,
           type.name as device_type_name,
           brand.name as device_brand_name ,
-          now()::date as assign_date ,
+          assignment.assignment_datetime::date as assign_date ,
           now()::date as return_date ,
           now()::date as end_date ,
           assignment.assignee_name,
@@ -23,7 +23,8 @@ class Queries():
         join devices_deviceassignment as deviceassignment on device.id = deviceassignment.device_id
         join devices_assignment as assignment on assignment.id = deviceassignment.assignment_id
         join devices_project as project on project.id = assignment.project_id
-        where status.name= '%s';
+        where status.name= '%s'
+        order by assignment.assignment_datetime DESC ;
         """ % DeviceStatus.ASIGNADO
         cursor = connection.cursor()
         cursor.execute(sql)
