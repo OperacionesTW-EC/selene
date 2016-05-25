@@ -48,9 +48,10 @@ class DeviceSerializer(serializers.ModelSerializer):
 
 class AssignmentSerializer(serializers.ModelSerializer):
     devices = DeviceSerializer(many=True, read_only=True)
+
     class Meta:
         model = Assignment
-        fields = ('id', 'assignee_name', 'project_name', 'project', 'devices')
+        fields = ('id', 'assignee_name', 'project_name', 'project', 'devices', 'assignment_datetime')
 
 
 class AssignedDeviceSerializer(serializers.ModelSerializer):

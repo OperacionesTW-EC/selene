@@ -5,6 +5,7 @@ from nose.tools import *
 from devices.models import Assignment
 from devices.serializers import AssignmentSerializer
 
+
 class TestAssignment:
 
     def setup(self):
@@ -35,7 +36,4 @@ class TestAssignment:
         self.assignment.project = None
         assert_equal(True, AssignmentSerializer(data=self.assignment.__dict__).is_valid())
 
-    def test_model_is_registered_in_admin(self):
-        from django.contrib import admin
-        assert_true(Assignment in admin.site._registry)
 
