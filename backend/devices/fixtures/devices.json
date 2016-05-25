@@ -25,7 +25,7 @@
     "model": "devices.devicestatus",
     "pk": 2,
     "fields": {
-        "name": "No Disponible"
+        "name": "Asignado"
     }
 },
 {
