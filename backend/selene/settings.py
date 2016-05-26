@@ -135,9 +135,6 @@ STATIC_ROOT = BASE_DIR+'/static/'
 
 CORS_ORIGIN_ALLOW_ALL = True
 
-
-STATICFILES_STORAGE = 'pipeline.storage.PipelineCachedStorage'
-
 STATICFILES_FINDERS = (
     'django.contrib.staticfiles.finders.FileSystemFinder',
     'django.contrib.staticfiles.finders.AppDirectoriesFinder'

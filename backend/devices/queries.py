@@ -11,12 +11,13 @@ class Queries():
           device.code || lpad(device.sequence::text, 4, '0') as full_code,
           type.name as device_type_name,
           brand.name as device_brand_name ,
-          assignment.assignment_datetime::date as assign_date ,
           now()::date as return_date ,
           now()::date as end_date ,
           assignment.assignee_name,
-          project.name as project
-        from devices_device as device
+          project.name as project,"""
+        sql += self.first_assign_date() + ","
+        sql += self.last_assign_date()
+        sql += """from devices_device as device
         join devices_devicebrand as brand on device.device_brand_id=brand.id
         join devices_devicestatus as status on device.device_status_id=status.id
         join devices_devicetype as type on device.device_type_id=type.id
@@ -24,11 +25,39 @@ class Queries():
         join devices_assignment as assignment on assignment.id = deviceassignment.assignment_id
         join devices_project as project on project.id = assignment.project_id
         where status.name= '%s'
-        order by assignment.assignment_datetime DESC ;
+        order by assignment.assignment_datetime DESC;
         """ % DeviceStatus.ASIGNADO
         cursor = connection.cursor()
         cursor.execute(sql)
         return self.dictfetchall(cursor)
+
+    def first_assign_date(self):
+        sql = self.assign_date_query()
+        sql += """
+        ORDER BY  assignment.assignment_datetime
+        LIMIT 1 ) as first_assignment_date
+        """
+        return sql
+
+    def last_assign_date(self):
+        sql = self.assign_date_query()
+        sql += """
+        ORDER BY  assignment.assignment_datetime DESC
+        LIMIT 1
+        ) as last_assignment_date
+        """
+        return sql
+
+    def assign_date_query(self):
+        return """(SELECT
+        assignment.assignment_datetime ::date
+        FROM
+        devices_deviceassignment as deviceassignment,
+        devices_assignment as  assignment
+        WHERE
+        assignment.id = deviceassignment.assignment_id AND
+        deviceassignment.device_id = device.id
+        """
 
     def dictfetchall(self, cursor):
         columns = [col[0] for col in cursor.description]
