@@ -9,12 +9,12 @@ from django.utils import timezone
 class DeviceType(models.Model):
     name = models.CharField(verbose_name=_(u'Nombre'), max_length=50, unique=True)
     code = models.CharField(verbose_name=_(u'Código'), max_length=1, unique=True)
+    life_time =  models.IntegerField(verbose_name=_(u'Tiempo de Vida'), blank=True, null=True)
 
     class Meta:
         verbose_name = _(u'Tipo de Dispositivo')
         verbose_name_plural = _(u'Tipos de Dispositivo')
         ordering = ['name']
-
 
     def __str__(self):
         return '%s (%s)' % (self.name, self.code)
@@ -129,5 +129,3 @@ class DeviceAssignment(models.Model):
     class Meta:
         verbose_name = _(u'Asignación de Dispositivos')
         verbose_name_plural = _(u'Asignaciones de Dispositivos')
-
-

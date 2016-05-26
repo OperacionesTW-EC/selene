@@ -6,7 +6,7 @@ from devices.models import *
 class DeviceTypeSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = DeviceType
-        fields = ('id', 'name', 'code')
+        fields = ('id', 'name', 'code', 'life_time')
 
 
 class DeviceBrandSerializer(serializers.HyperlinkedModelSerializer):
