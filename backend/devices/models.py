@@ -4,7 +4,7 @@ from django.core.exceptions import ValidationError
 from django.db import models
 from django.utils.translation import ugettext_lazy as _
 from django.utils import timezone
-
+import datetime
 
 class DeviceType(models.Model):
     name = models.CharField(verbose_name=_(u'Nombre'), max_length=50, unique=True)
@@ -45,6 +45,7 @@ class DeviceStatus(models.Model):
 
 
 class Device(models.Model):
+
     def __check_required_fields(self):
         return self.serial_number in (None, '') or self.model in (None, '') or self.purchase_date in (None, '')
 
@@ -66,6 +67,21 @@ class Device(models.Model):
 
     def full_code(self):
         return self.generate_code()+'{0:04d}'.format(self.sequence)
+
+    def calculate_dates(self):
+        self.calculate_first_assignment_date()
+        self.calculate_end_date()
+
+    def calculate_first_assignment_date(self):
+        query = DeviceAssignment.objects.filter(device=self)
+        asignments = [ device_assignment.assignment for device_assignment in query ]
+        if len(asignments) is 0: return
+        asignments.sort(key=lambda date: date.assignment_datetime, reverse=False)
+        self.first_assignment_date = asignments[0].assignment_datetime
+
+    def calculate_end_date(self):
+        if self.device_type.life_time is None: return
+        self.end_date = self.first_assignment_date + datetime.timedelta(days=self.device_type.life_time*365)
 
     def generate_code(self):
         return self.ownership.upper()+("A" if self.asset else "E")+self.device_type.code.upper()
@@ -94,7 +110,8 @@ class Device(models.Model):
     sequence = models.IntegerField()
     code = models.CharField(max_length=10)
     device_status = models.ForeignKey('DeviceStatus')
-
+    first_assignment_date = None
+    end_date = None
 
 class Project(models.Model):
     name = models.CharField(max_length=50)

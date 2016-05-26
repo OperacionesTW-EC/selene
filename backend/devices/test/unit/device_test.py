@@ -3,7 +3,8 @@ from model_mommy import mommy
 from nose.tools import *
 from devices.models import DeviceType
 from devices.models import Device
-
+from django.utils import timezone
+import datetime
 
 class TestDevice:
 
@@ -116,3 +117,39 @@ class TestDevice:
 
     def test_device_status_name_should_return_the_name_of_the_device_status(self):
         assert_equal(self.device.device_status_name(), self.device.device_status.name)
+
+    def test_calculate_dates_should_set_the_date_of_its_first_assignment(self):
+        self.device.save()
+        assigment = mommy.prepare_recipe('devices.assignment_recipe')
+        assigment.save()
+        device_assigment = mommy.prepare_recipe('devices.device_assignment_recipe', device=self.device, assignment=assigment)
+        device_assigment.save()
+        later_assigment = mommy.prepare_recipe('devices.assignment_recipe')
+        later_assigment.assignment_datetime = timezone.now() + datetime.timedelta(0,3)
+        later_assigment.save()
+        later_device_assigment = mommy.prepare_recipe('devices.device_assignment_recipe', device=self.device, assignment=later_assigment)
+        later_device_assigment.save()
+        self.device.calculate_dates()
+        assert_equal(assigment.assignment_datetime, self.device.first_assignment_date)
+
+    def test_calculate_dates_should_set_none_if_it_is_not_assigned(self):
+        self.device.save()
+        self.device.calculate_dates()
+        assert_equal(self.device.first_assignment_date, None)
+
+    def test_calculate_dates_should_set_the_date_of_its_life_time(self):
+        self.device.save()
+        self.device.device_type.life_time = 3
+        self.device.device_type.save()
+        assigment = mommy.prepare_recipe('devices.assignment_recipe')
+        assigment.save()
+        device_assigment = mommy.prepare_recipe('devices.device_assignment_recipe', device=self.device, assignment=assigment)
+        device_assigment.save()
+        self.device.calculate_dates()
+        date_diff = self.device.end_date - self.device.first_assignment_date
+        assert_equal(date_diff.days, 3*365)
+
+    def test_calculate_dates_should_set_none_if_device_type_life_time_its_none(self):
+        self.device.save()
+        self.device.calculate_dates()
+        assert_equal(self.device.end_date, None)

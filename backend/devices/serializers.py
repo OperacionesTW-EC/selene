@@ -34,6 +34,9 @@ class DeviceSerializer(serializers.ModelSerializer):
     device_status_name = serializers.CharField(read_only=True)
     full_code = serializers.CharField(read_only=True)
     purchase_date = serializers.DateField(required=False)
+    first_assignment_date = serializers.DateTimeField(required=False)
+    end_date = serializers.DateTimeField(required=False)
+
     try:
         default_device_status = DeviceStatus.objects.get_or_create(name=DeviceStatus.DISPONIBLE)[0]
         device_status = serializers.ModelField(model_field=Device()._meta.get_field('device_status'), default=default_device_status)
@@ -42,8 +45,12 @@ class DeviceSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Device
-        fields = ('id', 'device_type_name', 'full_code', 'device_brand_name', 'device_type', 'device_brand', 'asset',
-                  'ownership', 'serial_number', 'model', 'purchase_date', 'device_status', 'device_status_name')
+        fields = ('id', 'device_type_name', 'full_code', 'device_brand_name',
+                  'device_type', 'device_brand', 'asset',
+                  'ownership', 'serial_number', 'model', 'purchase_date',
+                  'device_status', 'device_status_name',
+                  'first_assignment_date', 'end_date'
+                  )
 
 
 class AssignmentSerializer(serializers.ModelSerializer):
