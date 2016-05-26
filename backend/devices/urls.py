@@ -4,5 +4,5 @@ from devices import views
 
 
 urlpatterns =[
-                url(r'^device_form$', views.device_form, name='device_form')
+                
             ]

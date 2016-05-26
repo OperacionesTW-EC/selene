@@ -1,35 +1,9 @@
-from django.http import HttpResponse
-from django.template import loader
-from forms import DeviceForm
-from django.contrib import messages
 from rest_framework import viewsets, generics
 from devices.serializers import *
 from rest_framework.response import Response
 from rest_framework import status
 from devices.models import *
 from devices.queries import Queries
-
-
-def devices(request):
-    print request.GET
-    template = loader.get_template('main/devices.html')
-    context = {}
-    return HttpResponse(template.render(context, request))
-
-
-def device_form(request):
-    template = loader.get_template('main/device_form.html')
-    form = DeviceForm()
-    if request.method == 'POST':
-        form = DeviceForm(request.POST)
-        if form.is_valid():
-            form.save()
-            messages.add_message(request, messages.SUCCESS, 'Dispositivo registrado exitosamente')
-        else:
-            messages.add_message(request, messages.ERROR, 'El formulario tiene errores')
-    context = {'form': form}
-    return HttpResponse(template.render(context, request))
-
 
 class DeviceTypeViewSet(viewsets.ModelViewSet):
     queryset = DeviceType.objects.all()

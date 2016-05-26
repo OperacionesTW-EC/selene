@@ -80,7 +80,7 @@ class Device(models.Model):
         self.first_assignment_date = asignments[0].assignment_datetime
 
     def calculate_end_date(self):
-        if self.device_type.life_time is None: return
+        if self.device_type.life_time is None or self.first_assignment_date is None: return
         self.end_date = self.first_assignment_date + datetime.timedelta(days=self.device_type.life_time*365)
 
     def generate_code(self):
