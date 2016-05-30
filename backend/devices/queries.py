@@ -11,7 +11,7 @@ class Queries():
           device.code || lpad(device.sequence::text, 4, '0') as full_code,
           type.name as device_type_name,
           brand.name as device_brand_name ,
-          now()::date as return_date ,
+          assignment.expected_return_date as return_date ,
           assignment.assignee_name,
           project.name as project,"""
         sql += self.first_assign_date() + " as first_assignment_date, "

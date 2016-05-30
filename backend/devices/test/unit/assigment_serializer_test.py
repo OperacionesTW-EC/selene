@@ -8,5 +8,4 @@ class TestAssigmentSerializer():
         assert_equal(AssignmentSerializer.Meta.model, Assignment)
 
     def test_should_include_fields_definition(self):
-        assert_equal(AssignmentSerializer.Meta.fields, ('id', 'assignee_name', 'project_name', 'project', 'devices', 'assignment_datetime'))
-
+        assert_equal(AssignmentSerializer.Meta.fields, ('id', 'assignee_name', 'project_name', 'project', 'devices', 'assignment_datetime', 'expected_return_date'))
