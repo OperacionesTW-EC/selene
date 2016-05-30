@@ -64,3 +64,9 @@ class TestAssignmet:
         self.get_response(self.build_request(assignee_name='Name'))
         assignment_datetime = Assignment.objects.get(assignee_name='Name').assignment_datetime
         assert_equal(assignment_datetime.strftime(fmt), timezone.now().strftime(fmt))
+
+    def test_should_include_the_expected_return_date_if_any(self):
+        response = self.get_response(self.build_request(expected_return_date='2010-05-30'))
+        assignment = Assignment.objects.get(expected_return_date='2010-05-30')
+        assert_equal(response.status_code, 200)
+        assert_is_not_none(assignment)

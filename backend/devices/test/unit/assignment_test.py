@@ -22,6 +22,10 @@ class TestAssignment:
         self.assignment.assignment_datetime = None
         assert_raises(ValidationError, self.assignment.full_clean)
 
+    def test_should_be_valid_without_expected_return_date(self):
+        self.assignment.expected_return_date = None
+        assert_equal(True, AssignmentSerializer(data=self.assignment.__dict__).is_valid())
+
     def test_should_be_invalid_with_name_too_long(self):
         self.assignment.assignee_name = 'This name is too long and has more than 50 characters, so it is invalid'
         assert_raises(ValidationError, self.assignment.full_clean)

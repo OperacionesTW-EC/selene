@@ -130,6 +130,7 @@ class Project(models.Model):
 class Assignment(models.Model):
     assignee_name = models.CharField(max_length=50)
     assignment_datetime = models.DateTimeField(blank=False, null=False, default=timezone.now())
+    expected_return_date = models.DateField(blank=True, null=True)
     project = models.ForeignKey('Project', null=True)
     devices = models.ManyToManyField(Device, through='DeviceAssignment')
 

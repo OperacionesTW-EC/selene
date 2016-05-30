@@ -53,6 +53,8 @@ class AssignmentViewSet(viewsets.ModelViewSet):
         assignment.assignee_name = data['assignee_name']
         if 'project' in data:
             assignment.project_id = data['project']
+        if 'expected_return_date' in data:
+            assignment.expected_return_date = data['expected_return_date']
         return assignment
 
     def update_device_status(self, device_id):
