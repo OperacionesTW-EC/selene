@@ -18,7 +18,7 @@ class DeviceBrandViewSet(viewsets.ModelViewSet):
 class DeviceViewSet(viewsets.ModelViewSet):
     def get_queryset(self):
         queryset = Device.objects.all()
-        [ a.calculate_dates() for a in queryset ]
+        [a.calculate_dates() for a in queryset]
         return queryset
 
     queryset = Device.objects.all()

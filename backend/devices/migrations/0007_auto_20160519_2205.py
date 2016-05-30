@@ -37,6 +37,5 @@ class Migration(migrations.Migration):
             model_name='deviceassignment',
             name='device',
             field=models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='devices.Device'),
-        ),
-        migrations.RunSQL("insert into devices_devicestate values (default, 'No disponible')"),
+        )
     ]

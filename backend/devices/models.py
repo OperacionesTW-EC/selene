@@ -6,10 +6,11 @@ from django.utils.translation import ugettext_lazy as _
 from django.utils import timezone
 import datetime
 
+
 class DeviceType(models.Model):
     name = models.CharField(verbose_name=_(u'Nombre'), max_length=50, unique=True)
     code = models.CharField(verbose_name=_(u'Código'), max_length=1, unique=True)
-    life_time =  models.IntegerField(verbose_name=_(u'Tiempo de Vida'), blank=True, null=True)
+    life_time = models.IntegerField(verbose_name=_(u'Tiempo de Vida'), blank=True, null=True)
 
     class Meta:
         verbose_name = _(u'Tipo de Dispositivo')
@@ -45,13 +46,14 @@ class DeviceStatus(models.Model):
 
 
 class Device(models.Model):
-
     def __check_required_fields(self):
         return self.serial_number in (None, '') or self.model in (None, '') or self.purchase_date in (None, '')
 
     def validate_required_fields(self):
         if self.asset == 1 and self.__check_required_fields():
-            raise ValidationError(_('El número de serie, modelo y fecha de compra son obligatorios si selecciona el campo activo'), code='invalid')
+            raise ValidationError(
+                _('El número de serie, modelo y fecha de compra son obligatorios si selecciona el campo activo'),
+                code='invalid')
 
     def clean(self):
         self.validate_required_fields()
@@ -66,7 +68,7 @@ class Device(models.Model):
         return self.device_status.name
 
     def full_code(self):
-        return self.generate_code()+'{0:04d}'.format(self.sequence)
+        return self.generate_code() + '{0:04d}'.format(self.sequence)
 
     def calculate_dates(self):
         self.calculate_first_assignment_date()
@@ -74,17 +76,17 @@ class Device(models.Model):
 
     def calculate_first_assignment_date(self):
         query = DeviceAssignment.objects.filter(device=self)
-        asignments = [ device_assignment.assignment for device_assignment in query ]
+        asignments = [device_assignment.assignment for device_assignment in query]
         if len(asignments) is 0: return
         asignments.sort(key=lambda date: date.assignment_datetime, reverse=False)
         self.first_assignment_date = asignments[0].assignment_datetime
 
     def calculate_end_date(self):
         if self.device_type.life_time is None or self.first_assignment_date is None: return
-        self.end_date = self.first_assignment_date + datetime.timedelta(days=self.device_type.life_time*365)
+        self.end_date = self.first_assignment_date + datetime.timedelta(days=self.device_type.life_time * 365)
 
     def generate_code(self):
-        return self.ownership.upper()+("A" if self.asset else "E")+self.device_type.code.upper()
+        return self.ownership.upper() + ("A" if self.asset else "E") + self.device_type.code.upper()
 
     def calculate_next_sequence_value(self):
         last_device_with_same_code = Device.objects.filter(code=self.code).order_by('-sequence')
@@ -112,6 +114,7 @@ class Device(models.Model):
     device_status = models.ForeignKey('DeviceStatus')
     first_assignment_date = None
     end_date = None
+
 
 class Project(models.Model):
     name = models.CharField(max_length=50)

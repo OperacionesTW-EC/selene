@@ -9,7 +9,7 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('devices', '0010_update_device_status_data'),
+        ('devices', '0009_auto_20160523_2208'),
     ]
 
     operations = [

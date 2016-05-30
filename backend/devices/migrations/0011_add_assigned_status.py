@@ -12,7 +12,7 @@ def insert_assigned_status(apps, schema_editor):
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('devices', '0010_update_device_status_data'),
+        ('devices', '0009_auto_20160523_2208'),
     ]
     operations = [
         migrations.RunPython(insert_assigned_status),

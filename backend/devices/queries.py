@@ -12,18 +12,18 @@ class Queries():
           type.name as device_type_name,
           brand.name as device_brand_name ,
           now()::date as return_date ,
-          now()::date as end_date ,
           assignment.assignee_name,
           project.name as project,"""
-        sql += self.first_assign_date() + ","
-        sql += self.last_assign_date()
-        sql += """from devices_device as device
+        sql += self.first_assign_date() + " as first_assignment_date, "
+        sql += self.last_assign_date() + " as last_assignment_date, "
+        sql += self.calculate_end_date()
+        sql += """ from devices_device as device
         join devices_devicebrand as brand on device.device_brand_id=brand.id
         join devices_devicestatus as status on device.device_status_id=status.id
         join devices_devicetype as type on device.device_type_id=type.id
         join devices_deviceassignment as deviceassignment on device.id = deviceassignment.device_id
         join devices_assignment as assignment on assignment.id = deviceassignment.assignment_id
-        join devices_project as project on project.id = assignment.project_id
+        left join devices_project as project on project.id = assignment.project_id
         where status.name= '%s'
         order by assignment.assignment_datetime DESC;
         """ % DeviceStatus.ASIGNADO
@@ -35,7 +35,7 @@ class Queries():
         sql = self.assign_date_query()
         sql += """
         ORDER BY  assignment.assignment_datetime
-        LIMIT 1 ) as first_assignment_date
+        LIMIT 1 )
         """
         return sql
 
@@ -44,7 +44,7 @@ class Queries():
         sql += """
         ORDER BY  assignment.assignment_datetime DESC
         LIMIT 1
-        ) as last_assignment_date
+        )
         """
         return sql
 
@@ -58,6 +58,10 @@ class Queries():
         assignment.id = deviceassignment.assignment_id AND
         deviceassignment.device_id = device.id
         """
+
+    def calculate_end_date(self):
+        sql = self.first_assign_date() + " + (type.life_time*365) as end_date"
+        return sql
 
     def dictfetchall(self, cursor):
         columns = [col[0] for col in cursor.description]
