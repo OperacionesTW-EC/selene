@@ -64,7 +64,7 @@ def insert_from_csv(apps, schema_editor):
         device_assignment.save()
 
     def parse_line(line):
-        parts = line.decode('UTF-8').split(",")
+        parts = line.split(",")
         full_code = parts[FILE_COLUMNS['full_code']].strip()
         if full_code in (None, ''): return
         device = create_device(parts)
@@ -86,6 +86,3 @@ class Migration(migrations.Migration):
     operations = [
         migrations.RunPython(insert_from_csv),
     ]
-
-
-

@@ -56,7 +56,7 @@ class TestDevice:
         assert_raises(ValidationError, self.device.full_clean)
 
     def test_should_be_ordered_by_device_type(self):
-        assert_equal(str(Device._meta.ordering), "[u'device_type']")
+        assert_equal(str(Device._meta.ordering), "['device_type']")
 
     def test_device_type_name_should_return_the_name_of_the_device_type(self):
         assert_equal(self.device.device_type_name(), self.device.device_type.name)
