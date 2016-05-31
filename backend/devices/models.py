@@ -11,6 +11,7 @@ class DeviceType(models.Model):
     name = models.CharField(verbose_name=_(u'Nombre'), max_length=50, unique=True)
     code = models.CharField(verbose_name=_(u'Código'), max_length=1, unique=True)
     life_time = models.IntegerField(verbose_name=_(u'Tiempo de Vida'), blank=True, null=True)
+    LAPTOP_CODE = 'L'
 
     class Meta:
         verbose_name = _(u'Tipo de Dispositivo')

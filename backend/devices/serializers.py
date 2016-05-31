@@ -68,11 +68,10 @@ class AssignedDeviceSerializer(serializers.ModelSerializer):
     end_date = serializers.DateField(required=False)
     assignee_name = serializers.CharField(read_only=True)
     project = serializers.CharField(read_only=True)
-    first_assignment_date = serializers.DateField(required=False)
-    last_assignment_date = serializers.DateField(required=False)
+    assignment_date = serializers.DateField(required=False)
 
     class Meta:
         model = models.Device
         fields = ('id', 'full_code', 'device_type_name', 'device_brand_name',
                   'return_date', 'end_date', 'assignee_name',
-                  'project', 'first_assignment_date', 'last_assignment_date')
+                  'project', 'assignment_date')

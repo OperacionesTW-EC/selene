@@ -14,9 +14,8 @@ class Queries():
           assignment.expected_return_date as return_date ,
           assignment.assignee_name,
           project.name as project,"""
-        sql += self.first_assign_date() + " as first_assignment_date, "
-        sql += self.last_assign_date() + " as last_assignment_date, "
-        sql += self.calculate_end_date()
+        sql += self.assignment_date() + " as assignment_date, "
+        sql += self.calculate_end_date() + "  as end_date "
         sql += """ from devices_device as device
         join devices_devicebrand as brand on device.device_brand_id=brand.id
         join devices_devicestatus as status on device.device_status_id=status.id
@@ -30,6 +29,10 @@ class Queries():
         cursor = connection.cursor()
         cursor.execute(sql)
         return self.dictfetchall(cursor)
+
+    def assignment_date(self):
+        sql = "case when type.code = 'L' then " + self.first_assign_date() + " else " + self.last_assign_date() + " end "
+        return sql
 
     def first_assign_date(self):
         sql = self.assign_date_query()
@@ -60,7 +63,7 @@ class Queries():
         """
 
     def calculate_end_date(self):
-        sql = self.first_assign_date() + " + (type.life_time*365) as end_date"
+        sql = self.assignment_date() + " + (type.life_time*365)"
         return sql
 
     def dictfetchall(self, cursor):

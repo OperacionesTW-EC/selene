@@ -17,16 +17,16 @@ TWEA0010,Adaptadores,No,TW,,A,Apple,Adaptador VGA Thunderbolt,,Proyecto1 ,Asigna
 TWEA0011,Adaptadores,No,TW,,A,Apple,Adaptador VGA Thunderbolt,,Proyecto1 ,Asignado,Ramon Valdez,,,,
 TWEA0012,Adaptadores,No,TW,,A,Apple,Adaptador VGA Thunderbolt,,Proyecto2,Asignado,Juan sin Miedo,,,,
 TWEA0013,Adaptadores,No,TW,,A,Apple,Adaptador VGA Thunderbolt,,Proyecto6,Asignado,Florinda Mesa,,,,
-TWAC0001,Computador,Si,TW,C07MN3KPDWYL,C,Apple,MacMini,10/12/2015,Cables,Disponible,Pepe Fernandez,,,,
-TWAC0002,Computador,Si,TW,C07NX9DZG1HW,C,Apple,MacMini,7/9/2015,Proyecto6,Asignado,Florinda Mesa,,,,
-TWAC0003,Computador,Si,TW,C07PK18EG1HV,C,Apple,MacMini,9/13/2014,Cables,Disponible,Pepe Fernandez,,,,server room. Nueva
-TWAC0004,Computador,Si,TW,C07M35PMDWYL,C,Apple,MacMini,6/10/2014,Proyecto2,Asignado,Juan sin Miedo,,,,server room
-TWAC0005,Computador,Si,TW,C07KX1R7DWYL,C,Apple,MacMini,8/22/2013,Cables,Asignado,Pepe Fernandez,,,,Deploy Studio
-TWAC0010,Computador,Si,TW,C07KW0XAVWYL,C,Apple,MacMini,8/21/2013,Office&Devices,Asignado,Pepe Fernandez,,,,
-TWAC0007,Computador,Si,TW,C07L80E9DWYL,C,Apple,MacMini,10/25/2013,Office&Devices,Asignado,Pepe Fernandez,,,,
-TWAC0008,Computador,Si,TW,C07NX03RG1HV,C,Apple,MacMini,11/20/2014,Office&Devices,Asignado,Pepe Fernandez,,,,
-TWAC0009,Computador,Si,TW,C07PK16VG1HV,C,Apple,MacMini,10/12/2015,Office&Devices,Asignado,Pepe Fernandez,,,,
-TWAC0006,Computador,Si,TW,C07N512NDWYL,C,Apple,MacMini,11/20/2014,Office&Devices,Asignado,Pepe Fernandez,,,,
+TWAL0001,Laptop,Si,TW,C07MN3KPDWYL,L,Apple,MacMini,10/12/2015,Cables,Disponible,Pepe Fernandez,01/01/2014,,,
+TWAL0002,Laptop,Si,TW,C07NX9DZG1HW,L,Apple,MacMini,7/9/2015,Proyecto6,Asignado,Florinda Mesa,01/01/2015,,,
+TWAL0003,Laptop,Si,TW,C07PK18EG1HV,L,Apple,MacMini,9/13/2014,Cables,Disponible,Pepe Fernandez,01/01/2016,,,server room. Nueva
+TWAL0004,Laptop,Si,TW,C07M35PMDWYL,L,Apple,MacMini,6/10/2014,Proyecto2,Asignado,Juan sin Miedo,01/01/2013,,,server room
+TWAL0005,Laptop,Si,TW,C07KX1R7DWYL,L,Apple,MacMini,8/22/2013,Cables,Asignado,Pepe Fernandez,01/01/2014,,,Deploy Studio
+TWAL0010,Laptop,Si,TW,C07KW0XAVWYL,L,Apple,MacMini,8/21/2013,Office&Devices,Asignado,Pepe Fernandez,01/01/2015,,,
+TWAL0007,Laptop,Si,TW,C07L80E9DWYL,L,Apple,MacMini,10/25/2013,Office&Devices,Asignado,Pepe Fernandez,01/01/2016,,,
+TWAL0008,Laptop,Si,TW,C07NX03RG1HV,L,Apple,MacMini,11/20/2014,Office&Devices,Asignado,Pepe Fernandez,01/01/2013,,,
+TWAL0009,Laptop,Si,TW,C07PK16VG1HV,L,Apple,MacMini,10/12/2015,Office&Devices,Asignado,Pepe Fernandez,01/01/2014,,,
+TWAL0006,Laptop,Si,TW,C07N512NDWYL,L,Apple,MacMini,11/20/2014,Office&Devices,Asignado,Pepe Fernandez,01/01/2015,,,
 CTAC0001,Computador,No,CT,7LVQBY1-D,C,Dell,,,Proyecto3,Asignado,Don Ramon,,,,
 CTAC0002,Computador,No,CT,7LVPBY1,C,Dell,,,Proyecto3,Asignado,Don Ramon,,,,
 CTAC0003,Computador,No,CT,7LTQBY1,C,Dell,,,Proyecto3,Asignado,Don Ramon,,,,
