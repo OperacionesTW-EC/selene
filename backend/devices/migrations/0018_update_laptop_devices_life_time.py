@@ -6,7 +6,7 @@ from django.db import migrations
 
 def update_laptop_device_type(apps, schema_editor):
     from devices.models import DeviceType
-    device = DeviceType.objects.get(code=DeviceType.LAPTOP_CODE)
+    device = DeviceType.objects.get_or_create(code=DeviceType.LAPTOP_CODE, name=DeviceType.LAPTOP_NAME)[0]
     device.life_time = 3
     device.save()
 
@@ -19,6 +19,3 @@ class Migration(migrations.Migration):
     operations = [
         migrations.RunPython(update_laptop_device_type),
     ]
-
-
-
