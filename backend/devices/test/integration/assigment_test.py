@@ -1,12 +1,11 @@
 # coding=utf8
-from django.core.exceptions import ValidationError
 from model_mommy import mommy
-from nose.tools import *
-from devices.models import *
-from devices.views import *
+from nose.tools import assert_regexp_matches, assert_equal, assert_not_equal, assert_is_not_none
+from devices import models
+from devices import views
 from django.test import RequestFactory
 from django.utils import timezone
-from rest_framework import status
+
 
 class TestAssignmet:
 
@@ -16,7 +15,7 @@ class TestAssignmet:
         self.device_type = None
 
     def setup(self):
-        self.project = Project(name='Selene')
+        self.project = models.Project(name='Selene')
         self.device = mommy.prepare_recipe('devices.device_recipe')
         self.device.model = 'model 200'
         self.device.save()
@@ -29,7 +28,7 @@ class TestAssignmet:
         return request
 
     def get_response(self, request):
-        return AssignmentViewSet().create(request)
+        return views.AssignmentViewSet().create(request)
 
     def test_good_request_should_return_success_message(self):
         assert_regexp_matches(self.get_response(self.build_request()).data['status'], 'creada')
@@ -43,7 +42,7 @@ class TestAssignmet:
 
     def test_should_save_a_new_assignment(self):
         self.get_response(self.build_request(assignee_name='Test'))
-        assignment = Assignment.objects.get(assignee_name='Test')
+        assignment = models.Assignment.objects.get(assignee_name='Test')
         assert_is_not_none(assignment)
 
     def test_should_set_device_status_to_unavailable(self):
@@ -51,22 +50,22 @@ class TestAssignmet:
         device.model = 'model 201'
         device.save()
         self.get_response(self.build_request(devices=[device.id]))
-        assert_equal((Device.objects.get(model='model 201')).device_status.name, (DeviceStatus.objects.get(name=DeviceStatus.ASIGNADO)).name)
+        assert_equal((models.Device.objects.get(model='model 201')).device_status.name, (models.DeviceStatus.objects.get(name=models.DeviceStatus.ASIGNADO)).name)
 
     def test_project_should_not_be_required(self):
         request = self.build_request()
         del request.data['project']
-        response = AssignmentViewSet().create(request)
+        response = views.AssignmentViewSet().create(request)
         assert_equal(response.status_code, 200)
 
     def test_should_set_the_assignment_date(self):
         fmt = "%d-%m-%Y %H:%M"
         self.get_response(self.build_request(assignee_name='Name'))
-        assignment_datetime = Assignment.objects.get(assignee_name='Name').assignment_datetime
+        assignment_datetime = models.Assignment.objects.get(assignee_name='Name').assignment_datetime
         assert_equal(assignment_datetime.strftime(fmt), timezone.now().strftime(fmt))
 
     def test_should_include_the_expected_return_date_if_any(self):
         response = self.get_response(self.build_request(expected_return_date='2010-05-30'))
-        assignment = Assignment.objects.get(expected_return_date='2010-05-30')
+        assignment = models.Assignment.objects.get(expected_return_date='2010-05-30')
         assert_equal(response.status_code, 200)
         assert_is_not_none(assignment)

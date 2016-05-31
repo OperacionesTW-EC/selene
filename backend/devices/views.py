@@ -38,7 +38,7 @@ class AssignmentViewSet(viewsets.ModelViewSet):
     def create(self, request):
         assignment = self.get_assignment_by_request_data(request.data)
         devices_ids = request.data['devices']
-        serializer = models.AssignmentSerializer(data=request.data)
+        serializer = serializers.AssignmentSerializer(data=request.data)
         if serializer.is_valid():
             assignment.save()
             for device_id in devices_ids:
@@ -70,7 +70,7 @@ class AssignedDeviceList(generics.ListCreateAPIView):
     serializer_class = serializers.AssignedDeviceSerializer
 
     def list(self, request):
-        serializer = models.AssignedDeviceSerializer(self.get_queryset(), many=True)
+        serializer = serializers.AssignedDeviceSerializer(self.get_queryset(), many=True)
         return Response(serializer.data)
 
     def get_queryset(self):
