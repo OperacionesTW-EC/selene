@@ -1,4 +1,5 @@
 # coding=utf8
+from mock import MagicMock
 from model_mommy import mommy
 from nose.tools import assert_regexp_matches, assert_equal, assert_not_equal, assert_is_not_none
 from devices import models
@@ -59,10 +60,12 @@ class TestAssignmet:
         assert_equal(response.status_code, 200)
 
     def test_should_set_the_assignment_date(self):
+        expected_time = timezone.now()
+        timezone.now = MagicMock(return_value=expected_time)
         fmt = "%d-%m-%Y %H:%M"
         self.get_response(self.build_request(assignee_name='Name'))
         assignment_datetime = models.Assignment.objects.get(assignee_name='Name').assignment_datetime
-        assert_equal(assignment_datetime.strftime(fmt), timezone.now().strftime(fmt))
+        assert_equal(assignment_datetime.strftime(fmt), expected_time.strftime(fmt))
 
     def test_should_include_the_expected_return_date_if_any(self):
         response = self.get_response(self.build_request(expected_return_date='2010-05-30'))

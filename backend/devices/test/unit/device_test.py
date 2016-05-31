@@ -5,6 +5,7 @@ from devices.models import DeviceType
 from devices.models import Device
 from django.utils import timezone
 import datetime
+from mock import patch
 
 class TestDevice:
 
@@ -153,3 +154,7 @@ class TestDevice:
         self.device.save()
         self.device.calculate_dates()
         assert_equal(self.device.end_date, None)
+
+    @patch('devices.models.Device.calculate_dates')
+    def test_device_should_invoke_calculate_dates_on_init(self, mock):
+        assert_true(mock.called_once)

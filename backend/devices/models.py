@@ -47,6 +47,11 @@ class DeviceStatus(models.Model):
 
 
 class Device(models.Model):
+
+    def __init__(self, *args, **kwargs):
+        super(Device, self).__init__(*args, **kwargs)
+        self.calculate_dates()
+
     def __check_required_fields(self):
         return self.serial_number in (None, '') or self.model in (None, '') or self.purchase_date in (None, '')
 
@@ -77,14 +82,20 @@ class Device(models.Model):
 
     def calculate_first_assignment_date(self):
         query = DeviceAssignment.objects.filter(device=self)
-        asignments = [device_assignment.assignment for device_assignment in query]
-        if len(asignments) is 0: return
-        asignments.sort(key=lambda date: date.assignment_datetime, reverse=False)
-        self.first_assignment_date = asignments[0].assignment_datetime
+        assignments = [device_assignment.assignment for device_assignment in query]
+        if len(assignments) is 0: return
+        assignments.sort(key=lambda date: date.assignment_datetime, reverse=False)
+        self.first_assignment_date = assignments[0].assignment_datetime
+
+    def should_calculate_end_date(self):
+        if not hasattr(self, 'device_type') or self.device_type.life_time is None or self.first_assignment_date is None:
+            return False
+        return True
 
     def calculate_end_date(self):
-        if self.device_type.life_time is None or self.first_assignment_date is None: return
-        self.end_date = self.first_assignment_date + datetime.timedelta(days=self.device_type.life_time * 365)
+        if self.should_calculate_end_date():
+            self.end_date = self.first_assignment_date + datetime.timedelta(days=self.device_type.life_time * 365)
+        return None
 
     def generate_code(self):
         return self.ownership.upper() + ("A" if self.asset else "E") + self.device_type.code.upper()
