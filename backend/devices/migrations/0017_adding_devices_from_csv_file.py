@@ -11,7 +11,8 @@ def insert_from_csv(apps, schema_editor):
     try:
         FILE_PATH = os.environ['DEVICE_FILE_PATH']
     except Exception:
-        FILE_PATH = 'devices/migrations/devices.csv'
+        migrations_abs_path = os.path.dirname(os.path.realpath(__file__))
+        FILE_PATH = '%s/devices.csv' % migrations_abs_path
 
     FILE_COLUMNS = {'full_code': 0,
                     'device_type_name': 1,

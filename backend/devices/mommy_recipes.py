@@ -2,17 +2,17 @@ from datetime import date
 from model_mommy.recipe import Recipe
 import random
 from model_mommy import mommy
-from devices.models import *
+from devices import models
 
-assignment_recipe = Recipe(Assignment,
-                           project=Project.objects.get_or_create(name='Futbolmatch')[0],
+assignment_recipe = Recipe(models.Assignment,
+                           project=models.Project.objects.get_or_create(name='Futbolmatch')[0],
                            assignee_name='Nombre Apellido'
                            )
 
-device_recipe = Recipe(Device,
-                       device_type=DeviceType.objects.get_or_create(code='L', name='Laptop')[0],
-                       device_brand=DeviceBrand.objects.get_or_create(name='Some brand')[0],
-                       device_status=DeviceStatus.objects.get_or_create(name=DeviceStatus.DISPONIBLE)[0],
+device_recipe = Recipe(models.Device,
+                       device_type=models.DeviceType.objects.get_or_create(code='L', name='Laptop')[0],
+                       device_brand=models.DeviceBrand.objects.get_or_create(name='Some brand')[0],
+                       device_status=models.DeviceStatus.objects.get_or_create(name=models.DeviceStatus.DISPONIBLE)[0],
                        asset=1,
                        ownership=random.choice(['CL', 'TW']),
                        serial_number='123123',
@@ -21,7 +21,7 @@ device_recipe = Recipe(Device,
                        code='code'
                        )
 
-device_assignment_recipe = Recipe(DeviceAssignment,
+device_assignment_recipe = Recipe(models.DeviceAssignment,
                                   device=mommy.prepare_recipe('devices.device_recipe'),
                                   assignment=mommy.prepare_recipe('devices.assignment_recipe')
                                   )

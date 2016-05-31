@@ -15,15 +15,15 @@ Including another URLconf
 """
 from django.conf.urls import url, include
 from django.contrib import admin
-from devices.views import *
+from devices import views
 from rest_framework import routers
 
 router = routers.DefaultRouter()
-router.register(r'device_types', DeviceTypeViewSet)
-router.register(r'device_brands', DeviceBrandViewSet)
-router.register(r'devices', DeviceViewSet)
-router.register(r'projects', ProjectViewSet)
-router.register(r'assignments', AssignmentViewSet)
+router.register(r'device_types', views.DeviceTypeViewSet)
+router.register(r'device_brands', views.DeviceBrandViewSet)
+router.register(r'devices', views.DeviceViewSet)
+router.register(r'projects', views.ProjectViewSet)
+router.register(r'assignments', views.AssignmentViewSet)
 
 
 urlpatterns = [
@@ -31,5 +31,5 @@ urlpatterns = [
     url(r'^', include('devices.urls')),
     url(r'^', include(router.urls)),
     url(r'^api-auth/', include('rest_framework.urls', namespace='rest_framework')),
-    url(r'^assigned_devices/', AssignedDeviceList.as_view(), name='assigned_devices')
+    url(r'^assigned_devices/', views.AssignedDeviceList.as_view(), name='assigned_devices')
 ]
