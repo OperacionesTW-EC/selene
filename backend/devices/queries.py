@@ -2,7 +2,7 @@ from django.db import connection
 from devices.models import DeviceStatus
 
 
-class Queries():
+class Queries:
 
     def assigned_devices(self):
         sql = """

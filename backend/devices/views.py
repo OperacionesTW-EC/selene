@@ -4,6 +4,7 @@ from rest_framework.response import Response
 from rest_framework import status
 from devices import models
 from devices.queries import Queries
+from devices import services
 
 
 class DeviceTypeViewSet(viewsets.ModelViewSet):
@@ -14,6 +15,19 @@ class DeviceTypeViewSet(viewsets.ModelViewSet):
 class DeviceBrandViewSet(viewsets.ModelViewSet):
     queryset = models.DeviceBrand.objects.all()
     serializer_class = serializers.DeviceBrandSerializer
+
+
+class DeviceStatusViewSet(generics.ListCreateAPIView):
+    serializer_class = serializers.DeviceStatusSerializer
+
+    def list(self, request):
+        query_set = self.get_queryset()
+        serializer = serializers.DeviceStatusSerializer(query_set, many=True)
+        page = self.paginate_queryset(query_set)  # page is necessary for the method bellow
+        return self.get_paginated_response(serializer.data)
+
+    def get_queryset(self):
+        return services.DeviceStatusService.get_filtered_device_statuses()
 
 
 class DeviceViewSet(viewsets.ModelViewSet):

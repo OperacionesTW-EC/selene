@@ -14,6 +14,12 @@ class DeviceBrandSerializer(serializers.HyperlinkedModelSerializer):
         fields = ('id', 'name')
 
 
+class DeviceStatusSerializer(serializers.HyperlinkedModelSerializer):
+    class Meta:
+        model = models.DeviceStatus
+        fields = ('id', 'name')
+
+
 class ProjectSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = models.Project
