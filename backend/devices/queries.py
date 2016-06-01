@@ -1,10 +1,16 @@
 from django.db import connection
 from devices.models import DeviceStatus
+from devices import models
 
 
 class Queries():
 
     def assigned_devices(self):
+        query_set = models.DeviceAssignment.objects.filter(device__device_status__name=models.DeviceStatus.ASIGNADO)
+        query_set = query_set.order_by('-assignment__assignment_datetime')
+        return query_set
+
+    def assigned_devices_old(self):
         sql = """
         select
           device.id,

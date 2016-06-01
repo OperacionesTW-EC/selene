@@ -160,6 +160,37 @@ class DeviceAssignment(models.Model):
     device = models.ForeignKey('Device')
     assignment = models.ForeignKey('Assignment')
 
+    def id(self):
+        return self.device.id
+
+    def full_code(self):
+        return self.device.code
+
+    def device_type_name(self):
+        return self.device.device_type.name
+
+    def device_brand_name(self):
+        return self.device.device_brand.name
+
+    def return_date(self):
+        return self.assignment.expected_return_date
+
+    def end_date(self):
+        return self.assignment_date()
+
+    def assignee_name(self):
+        return self.assignment.assignee_name
+
+    def project(self):
+        if self.assignment.project:
+            return self.assignment.project.name
+        return ''
+
+    def assignment_date(self):
+        if self.device.device_type_id == 1:
+            return DeviceAssignment.objects.filter(device=self.device).earliest('assignment__assignment_datetime').assignment.assignment_datetime
+        return self.assignment.assignment_datetime
+
     class Meta:
         verbose_name = _(u'Asignación de Dispositivos')
         verbose_name_plural = _(u'Asignaciones de Dispositivos')
