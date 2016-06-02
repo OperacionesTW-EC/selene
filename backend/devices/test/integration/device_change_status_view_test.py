@@ -29,6 +29,11 @@ class TestChangeDeviceStatusView(APITestCase):
         response = self.client.patch('/devices/change_status', self.data, format='json')
         self.assertEqual(response.status_code, status.HTTP_202_ACCEPTED)
 
+    def test_should_return_the_success_message(self):
+        response = self.client.patch('/devices/change_status', self.data, format='json')
+        expected_message = 'El dispositivo: '+self.device.full_code()+' tiene el estado '+models.DeviceStatus.MANTENIMIENTO
+        self.assertEqual(response.data['message'], expected_message)
+
     def test_should_create_a_device_status_log_representing_the_change(self):
         fmt = "%d-%m-%Y"
         change_date = datetime.date.today().strftime(fmt)

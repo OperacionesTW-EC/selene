@@ -39,7 +39,9 @@ class ChangeDeviceStatus(generics.UpdateAPIView):
     def patch(self, request):
         device = models.Device.objects.get(pk=request.data['id'])
         if services.DeviceService.change_device_status(device, request.data['new_device_status']):
-            return Response(status=status.HTTP_202_ACCEPTED)
+            message = 'El dispositivo: '+device.full_code()+' tiene el estado '+device.device_status.name
+            return Response(status=status.HTTP_202_ACCEPTED, data={'message': message})
+
         return Response(status=status.HTTP_400_BAD_REQUEST, data={'message': services.DeviceService.CHANGE_STATUS_ERROR_MESSAGE})
 
 
