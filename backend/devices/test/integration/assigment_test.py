@@ -62,7 +62,7 @@ class TestAssignmet:
     def test_should_set_the_assignment_date(self):
         expected_time = timezone.now()
         timezone.now = MagicMock(return_value=expected_time)
-        fmt = "%d-%m-%Y %H:%M"
+        fmt = "%d-%m-%Y"
         self.get_response(self.build_request(assignee_name='Name'))
         assignment_datetime = models.Assignment.objects.get(assignee_name='Name').assignment_datetime
         assert_equal(assignment_datetime.strftime(fmt), expected_time.strftime(fmt))

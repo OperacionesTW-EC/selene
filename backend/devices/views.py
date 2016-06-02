@@ -35,6 +35,14 @@ class DeviceViewSet(viewsets.ModelViewSet):
     serializer_class = serializers.DeviceSerializer
 
 
+class ChangeDeviceStatus(generics.UpdateAPIView):
+    def patch(self, request):
+        device = models.Device.objects.get(pk=request.data['id'])
+        if services.DeviceService.change_device_status(device, request.data['new_device_status']) :
+            return Response(status=status.HTTP_202_ACCEPTED)
+        return Response(status=status.HTTP_400_BAD_REQUEST, data={'message': services.DeviceService.CHANGE_STATUS_ERROR_MESSAGE})
+
+
 class ProjectViewSet(viewsets.ModelViewSet):
     queryset = models.Project.objects.all()
     serializer_class = serializers.ProjectSerializer

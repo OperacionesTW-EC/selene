@@ -38,6 +38,8 @@ class DeviceStatus(models.Model):
     name = models.CharField(max_length=50, unique=True)
     DISPONIBLE = 'Disponible'
     ASIGNADO = 'Asignado'
+    MANTENIMIENTO = 'Mantenimiento'
+    DADO_DE_BAJA = 'Dado de baja'
 
     def __str__(self):
         return self.name
@@ -163,3 +165,9 @@ class DeviceAssignment(models.Model):
     class Meta:
         verbose_name = _(u'Asignación de Dispositivos')
         verbose_name_plural = _(u'Asignaciones de Dispositivos')
+
+
+class DeviceStatusLog(models.Model):
+    device = models.ForeignKey('Device')
+    device_status = models.ForeignKey('DeviceStatus')
+    status_change_datetime = models.DateTimeField(blank=False, null=False, default=timezone.now())
