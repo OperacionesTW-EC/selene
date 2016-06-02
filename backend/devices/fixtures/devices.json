@@ -56,7 +56,6 @@
     "pk": 1,
     "fields": {
         "assignee_name": "Jose",
-        "assignment_datetime": "2016-05-24T16:41:17.679Z",
         "project": 1
     }
 },
@@ -65,7 +64,8 @@
     "pk": 1,
     "fields": {
         "device": 1,
-        "assignment": 1
+        "assignment": 1,
+        "assignment_date": "2016-05-24T16:41:17.679Z"
     }
 },
 {

@@ -1,7 +1,6 @@
-# coding=utf8
 from django.core.exceptions import ValidationError
 from model_mommy import mommy
-from nose.tools import *
+from nose.tools import assert_raises, assert_equal, assert_is_none
 from devices.models import Assignment
 from devices.serializers import AssignmentSerializer
 
@@ -16,10 +15,6 @@ class TestAssignment:
 
     def test_should_be_invalid_without_name(self):
         self.assignment.assignee_name = None
-        assert_raises(ValidationError, self.assignment.full_clean)
-
-    def test_should_be_invalid_without_assignment_date(self):
-        self.assignment.assignment_datetime = None
         assert_raises(ValidationError, self.assignment.full_clean)
 
     def test_should_be_valid_without_expected_return_date(self):

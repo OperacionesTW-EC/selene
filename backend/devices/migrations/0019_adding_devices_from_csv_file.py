@@ -1,9 +1,7 @@
 from __future__ import unicode_literals
 from django.db import migrations
 from devices.models import *
-from datetime import datetime
-from django.utils import timezone
-from dateutil import parser
+from datetime import date, datetime
 import os
 
 
@@ -47,20 +45,25 @@ def insert_from_csv(apps, schema_editor):
         purchase_date = parts[FILE_COLUMNS['purchase_date']].strip()
         if purchase_date not in (None, ''):
             device_data['purchase_date'] = datetime.strptime(purchase_date, '%m/%d/%Y')
-        device = Device.objects.get_or_create(**device_data)[0]
+        device = Device(**device_data)
         return device
 
     def create_assignment(parts, device):
         project = Project.objects.get_or_create(name=parts[FILE_COLUMNS['project_name']].strip().capitalize())[0]
         assignment_date = parts[FILE_COLUMNS['assignment_date']].strip()
         if assignment_date not in (None, ''):
-            assignment_date = parser.parse(assignment_date + ' 10:00:00 -0500')
+            assignment_date = datetime.strptime(assignment_date, "%m/%d/%Y").date()  
         else:
-            assignment_date = timezone.now()
+            assignment_date = date.today()
         assignee_name = parts[FILE_COLUMNS['assignee']].strip()
-        assignment = Assignment(assignee_name=assignee_name, assignment_datetime=assignment_date, project=project)
+        assignment = Assignment(assignee_name=assignee_name, project=project)
         assignment.save()
-        device_assignment = DeviceAssignment(device=device, assignment=assignment)
+        if device.is_laptop():
+            device.first_assignment_date = assignment_date
+            device.calculate_end_date()
+            device.mark_assigned()
+        device.save()
+        device_assignment = DeviceAssignment(device=device, assignment=assignment, assignment_date=assignment_date)
         device_assignment.save()
 
     def parse_line(line):
@@ -70,6 +73,8 @@ def insert_from_csv(apps, schema_editor):
         device = create_device(parts)
         if device.device_status.name == DeviceStatus.ASIGNADO:
             create_assignment(parts, device)
+        else:
+            device.save()
 
     file = open(FILE_PATH, 'r')
     file.readline()
@@ -81,7 +86,7 @@ def insert_from_csv(apps, schema_editor):
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('devices', '0016_merge'),
+        ('devices', '0018_auto_20160602_1928'),
     ]
     operations = [
         migrations.RunPython(insert_from_csv),

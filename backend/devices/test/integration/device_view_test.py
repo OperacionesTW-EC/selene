@@ -1,8 +1,7 @@
-from django.core.urlresolvers import reverse
 from rest_framework import status
 from rest_framework.test import APITestCase
-from mock import patch
 from model_mommy import mommy
+
 
 class TestDeviceView(APITestCase):
 
@@ -20,7 +19,3 @@ class TestDeviceView(APITestCase):
         response = self.client.get('/devices/', {}, format='json')
         self.assertEqual(response.status_code, status.HTTP_200_OK)
 
-    @patch('devices.models.Device.calculate_dates')
-    def test_should_invoke_device_calculate_dates(self, mock):
-        response = self.client.get('/devices/', {}, format='json')
-        self.assertEqual(mock.called, True)
