@@ -1,11 +1,12 @@
 from django.core.exceptions import ValidationError
 from model_mommy import mommy
-from nose.tools import *
+from nose.tools import assert_is_none, assert_raises, assert_equal, assert_true, assert_false
+from nose.tools import raises
 from devices.models import DeviceType
 from devices.models import Device
-from django.utils import timezone
+from devices.models import DeviceStatus
 import datetime
-from mock import patch
+
 
 class TestDevice:
 
@@ -36,9 +37,68 @@ class TestDevice:
         self.device.model = None
         assert_is_none(self.device.full_clean())
 
-    def test_should_be_valid_if_date_is_null(self):
+    def test_should_be_valid_if_purchase_date_is_null(self):
         self.device.asset = 0
         self.device.purchase_date = None
+        assert_is_none(self.device.full_clean())
+
+    def test_should_be_valid_if_first_assignment_date_is_null(self):
+        self.device.asset = 0
+        self.device.first_assignment_date = None
+        assert_is_none(self.device.full_clean())
+
+    def test_mark_assigned_should_set_device_status_to_assigned(self):
+        assert_equal(self.device.device_status_name(), DeviceStatus.DISPONIBLE)
+        self.device.mark_assigned()
+        assert_equal(self.device.device_status_name(), DeviceStatus.ASIGNADO)
+
+    def test_should_identify_as_laptop(self):
+        assert_true(self.device.is_laptop())
+
+    def test_should_not_identify_as_laptop(self):
+        self.device.device_type = DeviceType.objects.get_or_create(code='Z', name='ZZZZZZZZZZZZZZZ')[0]
+        assert_false(self.device.is_laptop())
+
+    def test_should_identify_as_new_laptop(self):
+        assert_true(self.device.is_new_laptop())
+
+    def test_should_not_identify_as_new_laptop(self):
+        self.device.mark_assigned()
+        assert_false(self.device.is_new_laptop())
+
+    def test_should_not_identify_as_new_laptop_if_assigned(self):
+        self.device.mark_assigned()
+        self.device.first_assignment_date = datetime.date.today()
+        self.device.end_date = datetime.date.today()
+        assert_false(self.device.is_new_laptop())
+
+    def test_should_not_identify_as_new_laptop_with_first_assignment_date(self):
+        self.device.first_assignment_date = datetime.date.today()
+        assert_false(self.device.is_new_laptop())
+
+    def test_should_not_identify_as_new_laptop_with_end_date(self):
+        self.device.end_date = datetime.date.today()
+        assert_false(self.device.is_new_laptop())
+
+    def test_first_assignment_date_should_be_required_if_assigned_laptop(self):
+        self.device.mark_assigned()
+        self.device.end_date = datetime.date.today()
+        assert_raises(ValidationError, self.device.full_clean)
+
+    def test_end_date_should_be_required_if_assigned_laptop(self):
+        self.device.mark_assigned()
+        self.device.first_assignment_date = datetime.date.today()
+        assert_raises(ValidationError, self.device.full_clean)
+
+    def test_should_be_valid_if_assigned_laptop_with_both_dates(self):
+        self.device.mark_assigned()
+        self.device.first_assignment_date = datetime.date.today()
+        self.device.end_date = datetime.date.today()
+        assert_is_none(self.device.full_clean())
+
+    def test_should_be_valid_if_end_date_is_null(self):
+        self.device.asset = 0
+        self.device.end_date = None
         assert_is_none(self.device.full_clean())
 
     def test_serial_number_should_be_required_if_device_is_an_asset(self):
@@ -76,19 +136,19 @@ class TestDevice:
     def test_should_set_device_code_to_twla(self):
         self.device.ownership = 'TW'
         self.device.save()
-        assert_equals(self.device.code, 'TWAL')
+        assert_equal(self.device.code, 'TWAL')
 
     def test_should_set_device_code_to_clme(self):
         self.device.device_type = DeviceType.objects.get_or_create(code='M', name='Mouse')[0]
         self.device.asset = 0
         self.device.ownership = 'CL'
         self.device.save()
-        assert_equals(self.device.code, 'CLEM')
+        assert_equal(self.device.code, 'CLEM')
 
     def test_should_set_sequence_to_1(self):
         self.device.ownership = 'TW'
         self.device.save()
-        assert_equals(self.device.sequence, 1)
+        assert_equal(self.device.sequence, 1)
 
     def test_should_set_sequence_to_2(self):
         self.device.ownership = 'TW'
@@ -97,12 +157,12 @@ class TestDevice:
         first_device.model = 'model'
         first_device.ownership = 'TW'
         first_device.save()
-        assert_equals(first_device.sequence, 2)
+        assert_equal(first_device.sequence, 2)
 
     def test_full_code_should_return_twla0001(self):
         self.device.ownership = 'TW'
         self.device.save()
-        assert_equals(self.device.full_code(), 'TWAL0001')
+        assert_equal(self.device.full_code(), 'TWAL0001')
 
     @raises(ValueError)
     def test_should_be_invalid_without_device_status(self):
@@ -119,42 +179,23 @@ class TestDevice:
     def test_device_status_name_should_return_the_name_of_the_device_status(self):
         assert_equal(self.device.device_status_name(), self.device.device_status.name)
 
-    def test_calculate_dates_should_set_the_date_of_its_first_assignment(self):
-        self.device.save()
-        assigment = mommy.prepare_recipe('devices.assignment_recipe')
-        assigment.save()
-        device_assigment = mommy.prepare_recipe('devices.device_assignment_recipe', device=self.device, assignment=assigment)
-        device_assigment.save()
-        later_assigment = mommy.prepare_recipe('devices.assignment_recipe')
-        later_assigment.assignment_datetime = timezone.now() + datetime.timedelta(0,3)
-        later_assigment.save()
-        later_device_assigment = mommy.prepare_recipe('devices.device_assignment_recipe', device=self.device, assignment=later_assigment)
-        later_device_assigment.save()
-        self.device.calculate_dates()
-        assert_equal(assigment.assignment_datetime, self.device.first_assignment_date)
-
-    def test_calculate_dates_should_set_none_if_it_is_not_assigned(self):
-        self.device.save()
-        self.device.calculate_dates()
-        assert_equal(self.device.first_assignment_date, None)
-
-    def test_calculate_dates_should_set_the_date_of_its_life_time(self):
+    def test_calculate_end_date_should_set_the_date_of_its_life_time(self):
         self.device.save()
         self.device.device_type.life_time = 3
-        self.device.device_type.save()
-        assigment = mommy.prepare_recipe('devices.assignment_recipe')
-        assigment.save()
-        device_assigment = mommy.prepare_recipe('devices.device_assignment_recipe', device=self.device, assignment=assigment)
-        device_assigment.save()
-        self.device.calculate_dates()
+        self.device.first_assignment_date = datetime.date.today()
+        self.device.calculate_end_date()
         date_diff = self.device.end_date - self.device.first_assignment_date
         assert_equal(date_diff.days, 3*365)
 
-    def test_calculate_dates_should_set_none_if_device_type_life_time_its_none(self):
-        self.device.save()
-        self.device.calculate_dates()
-        assert_equal(self.device.end_date, None)
+    @raises(AssertionError)
+    def test_calculate_end_dates_should_raise_if_device_type_life_time_is_none(self):
+        self.device.first_assignment_date = datetime.date.today()
+        self.device.device_type.life_time = None
+        self.device.calculate_end_date()
 
-    @patch('devices.models.Device.calculate_dates')
-    def test_device_should_invoke_calculate_dates_on_init(self, mock):
-        assert_true(mock.called_once)
+    @raises(AssertionError)
+    def test_calculate_end_dates_should_raise_if_device_type_first_assignment_date_is_none(self):
+        self.device.first_assignment_date = None
+        self.device.device_type.life_time = 3
+        self.device.calculate_end_date()
+

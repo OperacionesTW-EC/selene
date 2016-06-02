@@ -51,21 +51,39 @@ class DeviceStatus(models.Model):
 
 class Device(models.Model):
 
-    def __init__(self, *args, **kwargs):
-        super(Device, self).__init__(*args, **kwargs)
-        self.calculate_dates()
-
-    def __check_required_fields(self):
+    def __check_required_asset_fields(self):
         return self.serial_number in (None, '') or self.model in (None, '') or self.purchase_date in (None, '')
 
+    def __check_required_assigned_laptop_fields(self):
+        return self.first_assignment_date in (None, '') or self.end_date in (None, '')
+
     def validate_required_fields(self):
-        if self.asset == 1 and self.__check_required_fields():
+        if self.asset == 1 and self.__check_required_asset_fields():
             raise ValidationError(
                 _('El número de serie, modelo y fecha de compra son obligatorios si selecciona el campo activo'),
+                code='invalid')
+        if self.is_assigned_laptop() and self.__check_required_assigned_laptop_fields():
+            raise ValidationError(
+                _('first_assignment_date and/or end_date unset on an assigned laptop'),
                 code='invalid')
 
     def clean(self):
         self.validate_required_fields()
+
+    def mark_assigned(self):
+        self.device_status = DeviceStatus.objects.get(name=DeviceStatus.ASIGNADO)
+
+    def is_assigned_laptop(self):
+        return self.is_laptop() and self.device_status_name() == DeviceStatus.ASIGNADO
+
+    def is_laptop(self):
+        return hasattr(self, 'device_type') and self.device_type.name == DeviceType.LAPTOP_NAME and self.device_type.code == DeviceType.LAPTOP_CODE
+
+    def is_new_laptop(self):
+        return (self.is_laptop() and
+                self.first_assignment_date in (None, '') and
+                self.end_date in (None, '') and
+                self.device_status_name() != DeviceStatus.ASIGNADO)
 
     def device_type_name(self):
         return self.device_type.name
@@ -79,26 +97,14 @@ class Device(models.Model):
     def full_code(self):
         return self.generate_code() + '{0:04d}'.format(self.sequence)
 
-    def calculate_dates(self):
-        self.calculate_first_assignment_date()
-        self.calculate_end_date()
-
-    def calculate_first_assignment_date(self):
-        query = DeviceAssignment.objects.filter(device=self)
-        assignments = [device_assignment.assignment for device_assignment in query]
-        if len(assignments) is 0: return
-        assignments.sort(key=lambda date: date.assignment_datetime, reverse=False)
-        self.first_assignment_date = assignments[0].assignment_datetime
-
-    def should_calculate_end_date(self):
-        if not hasattr(self, 'device_type') or self.device_type.life_time is None or self.first_assignment_date is None:
-            return False
+    def can_calculate_end_date(self):
+        assert hasattr(self, 'device_type') and self.device_type.life_time
+        assert self.first_assignment_date
         return True
 
     def calculate_end_date(self):
-        if self.should_calculate_end_date():
+        if self.can_calculate_end_date():
             self.end_date = self.first_assignment_date + datetime.timedelta(days=self.device_type.life_time * 365)
-        return None
 
     def generate_code(self):
         return self.ownership.upper() + ("A" if self.asset else "E") + self.device_type.code.upper()
@@ -127,8 +133,8 @@ class Device(models.Model):
     sequence = models.IntegerField()
     code = models.CharField(max_length=10)
     device_status = models.ForeignKey('DeviceStatus')
-    first_assignment_date = None
-    end_date = None
+    first_assignment_date = models.DateField(blank=True, null=True)
+    end_date = models.DateField(blank=True, null=True)
 
 
 class Project(models.Model):
@@ -144,7 +150,6 @@ class Project(models.Model):
 
 class Assignment(models.Model):
     assignee_name = models.CharField(max_length=50)
-    assignment_datetime = models.DateTimeField(blank=False, null=False, default=timezone.now())
     expected_return_date = models.DateField(blank=True, null=True)
     project = models.ForeignKey('Project', null=True)
     devices = models.ManyToManyField(Device, through='DeviceAssignment')
@@ -161,10 +166,38 @@ class Assignment(models.Model):
 class DeviceAssignment(models.Model):
     device = models.ForeignKey('Device')
     assignment = models.ForeignKey('Assignment')
+    assignment_date = models.DateField(blank=True, null=True)
+
+    def id(self):
+        return self.device.id
+
+    def full_code(self):
+        return self.device.full_code()
+
+    def device_type_name(self):
+        return self.device.device_type.name
+
+    def device_brand_name(self):
+        return self.device.device_brand.name
+
+    def return_date(self):
+        return self.assignment.expected_return_date
+
+    def end_date(self):
+        return self.device.end_date
+
+    def assignee_name(self):
+        return self.assignment.assignee_name
+
+    def project(self):
+        if self.assignment.project:
+            return self.assignment.project.name
+        return ''
 
     class Meta:
         verbose_name = _(u'Asignación de Dispositivos')
         verbose_name_plural = _(u'Asignaciones de Dispositivos')
+        ordering = ['-assignment_date']
 
 
 class DeviceStatusLog(models.Model):

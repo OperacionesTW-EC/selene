@@ -13,7 +13,7 @@ def create_device_status(apps, schema_editor):
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('devices', '0018_update_laptop_devices_life_time'),
+        ('devices', '0018_auto_20160602_1928'),
     ]
     operations = [
         migrations.RunPython(create_device_status),

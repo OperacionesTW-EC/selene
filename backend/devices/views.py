@@ -3,8 +3,8 @@ from devices import serializers
 from rest_framework.response import Response
 from rest_framework import status
 from devices import models
-from devices.queries import Queries
 from devices import services
+from datetime import date
 
 
 class DeviceTypeViewSet(viewsets.ModelViewSet):
@@ -23,7 +23,7 @@ class DeviceStatusViewSet(generics.ListCreateAPIView):
     def list(self, request):
         query_set = self.get_queryset()
         serializer = serializers.DeviceStatusSerializer(query_set, many=True)
-        page = self.paginate_queryset(query_set)  # page is necessary for the method bellow
+        page = self.paginate_queryset(query_set)  # page is necessary for the method below
         return self.get_paginated_response(serializer.data)
 
     def get_queryset(self):
@@ -38,7 +38,7 @@ class DeviceViewSet(viewsets.ModelViewSet):
 class ChangeDeviceStatus(generics.UpdateAPIView):
     def patch(self, request):
         device = models.Device.objects.get(pk=request.data['id'])
-        if services.DeviceService.change_device_status(device, request.data['new_device_status']) :
+        if services.DeviceService.change_device_status(device, request.data['new_device_status']):
             return Response(status=status.HTTP_202_ACCEPTED)
         return Response(status=status.HTTP_400_BAD_REQUEST, data={'message': services.DeviceService.CHANGE_STATUS_ERROR_MESSAGE})
 
@@ -59,9 +59,8 @@ class AssignmentViewSet(viewsets.ModelViewSet):
         if serializer.is_valid():
             assignment.save()
             for device_id in devices_ids:
-                device = self.update_device_status(device_id)
-                device_assignment = models.DeviceAssignment(device=device, assignment=assignment)
-                device_assignment.save()
+                device = self.update_device(device_id)
+                self.create_device_assignment(device, assignment)
             return Response({'status': 'asignacion creada', 'id': assignment.id})
         else:
             return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
@@ -75,20 +74,32 @@ class AssignmentViewSet(viewsets.ModelViewSet):
             assignment.expected_return_date = data['expected_return_date']
         return assignment
 
-    def update_device_status(self, device_id):
+    def update_device(self, device_id):
         device = models.Device.objects.get(pk=device_id)
-        device.device_status = models.DeviceStatus.objects.get(name=models.DeviceStatus.ASIGNADO)
+        if device.is_new_laptop():
+            device.first_assignment_date = date.today()
+            device.calculate_end_date()
+        device.mark_assigned()
         device.save()
         return device
+
+    def create_device_assignment(self, device, assignment):
+        device_assignment = models.DeviceAssignment(device=device, assignment=assignment)
+        if device.is_laptop():
+            assert device.first_assignment_date and device.end_date
+            device_assignment.assignment_date = device.first_assignment_date
+        else:
+            device_assignment.assignment_date = date.today()
+        device_assignment.save()
 
 
 class AssignedDeviceList(generics.ListCreateAPIView):
 
-    serializer_class = serializers.AssignedDeviceSerializer
+    serializer_class = serializers.DeviceAssignmentSerializer
 
     def list(self, request):
-        serializer = serializers.AssignedDeviceSerializer(self.get_queryset(), many=True)
+        serializer = serializers.DeviceAssignmentSerializer(self.get_queryset(), many=True)
         return Response(serializer.data)
 
     def get_queryset(self):
-        return Queries().assigned_devices()
+        return models.DeviceAssignment.objects.filter(device__device_status__name=models.DeviceStatus.ASIGNADO)

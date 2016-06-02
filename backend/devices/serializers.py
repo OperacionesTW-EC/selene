@@ -30,7 +30,9 @@ class DeviceAssignmentSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = models.DeviceAssignment
-        fields = ('id', 'assignment', 'device')
+        fields = ('id', 'full_code', 'device_type_name', 'device_brand_name',
+                  'return_date', 'end_date', 'assignee_name',
+                  'project', 'assignment_date')
 
 
 class DeviceSerializer(serializers.ModelSerializer):
@@ -63,7 +65,7 @@ class AssignmentSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = models.Assignment
-        fields = ('id', 'assignee_name', 'project_name', 'project', 'devices', 'assignment_datetime', 'expected_return_date')
+        fields = ('id', 'assignee_name', 'project_name', 'project', 'devices', 'expected_return_date')
 
 
 class AssignedDeviceSerializer(serializers.ModelSerializer):

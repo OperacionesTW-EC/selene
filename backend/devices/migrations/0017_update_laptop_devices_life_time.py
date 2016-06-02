@@ -14,7 +14,7 @@ def update_laptop_device_type(apps, schema_editor):
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('devices', '0017_adding_devices_from_csv_file'),
+        ('devices', '0016_merge'),
     ]
     operations = [
         migrations.RunPython(update_laptop_device_type),
