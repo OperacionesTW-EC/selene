@@ -151,7 +151,7 @@ class Project(models.Model):
 class Assignment(models.Model):
     assignee_name = models.CharField(max_length=50)
     expected_return_date = models.DateField(blank=True, null=True)
-    project = models.ForeignKey('Project', null=True)
+    project = models.ForeignKey('Project', null=True, blank=True)
     devices = models.ManyToManyField(Device, through='DeviceAssignment')
 
     def project_name(self):

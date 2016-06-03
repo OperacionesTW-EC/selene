@@ -1,5 +1,7 @@
-from devices import models
+from django.core.exceptions import ValidationError
 
+from devices import models
+from datetime import date
 
 class DeviceStatusService:
 
@@ -26,3 +28,53 @@ class DeviceService:
             DeviceStatusService.create_status_change_log(device)
             return True
         return False
+
+
+class AssignmentService:
+
+    def __init__(self, assignment, devices_ids):
+        self.assignment = assignment
+        self.devices = []
+        self.errors = []
+        self.load_devices(devices_ids)
+
+    def load_devices(self, devices_ids):
+        for device_id in devices_ids:
+            try:
+                self.devices.append(models.Device.objects.get(pk=device_id))
+            except models.Device.DoesNotExist:
+                self.errors.append({'error': 'No se encontró el dispositivo: %s' % device_id})
+
+    def create_assignment(self):
+        if self.save_assignment() and not self.errors:
+            self.update_devices()
+            self.create_device_assignment()
+            return True
+        return False
+
+    def save_assignment(self):
+        try:
+            self.assignment.full_clean()
+            self.assignment.save()
+            return True
+        except ValidationError as errors:
+            self.errors = errors.message_dict
+            return False
+
+    def update_devices(self):
+        for device in self.devices:
+            if device.is_new_laptop():
+                device.first_assignment_date = date.today()
+                device.calculate_end_date()
+            device.mark_assigned()
+            device.save()
+
+    def create_device_assignment(self):
+        for device in self.devices:
+            device_assignment = models.DeviceAssignment(device=device, assignment=self.assignment)
+            if device.is_laptop():
+                assert device.first_assignment_date and device.end_date
+                device_assignment.assignment_date = device.first_assignment_date
+            else:
+                device_assignment.assignment_date = date.today()
+            device_assignment.save()
