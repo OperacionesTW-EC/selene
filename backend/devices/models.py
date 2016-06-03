@@ -55,7 +55,7 @@ class Device(models.Model):
         return self.serial_number in (None, '') or self.model in (None, '') or self.purchase_date in (None, '')
 
     def __check_required_assigned_laptop_fields(self):
-        return self.first_assignment_date in (None, '') or self.end_date in (None, '')
+        return self.laptop_begin_life in (None, '') or self.laptop_end_life in (None, '')
 
     def validate_required_fields(self):
         if self.asset == 1 and self.__check_required_asset_fields():
@@ -64,7 +64,7 @@ class Device(models.Model):
                 code='invalid')
         if self.is_assigned_laptop() and self.__check_required_assigned_laptop_fields():
             raise ValidationError(
-                _('first_assignment_date and/or end_date unset on an assigned laptop'),
+                _('laptop_begin_life and/or laptop_end_life unset on an assigned laptop'),
                 code='invalid')
 
     def clean(self):
@@ -81,8 +81,8 @@ class Device(models.Model):
 
     def is_new_laptop(self):
         return (self.is_laptop() and
-                self.first_assignment_date in (None, '') and
-                self.end_date in (None, '') and
+                self.laptop_begin_life in (None, '') and
+                self.laptop_end_life in (None, '') and
                 self.device_status_name() != DeviceStatus.ASIGNADO)
 
     def device_type_name(self):
@@ -97,14 +97,14 @@ class Device(models.Model):
     def full_code(self):
         return self.generate_code() + '{0:04d}'.format(self.sequence)
 
-    def can_calculate_end_date(self):
+    def can_calculate_laptop_end_life(self):
         assert hasattr(self, 'device_type') and self.device_type.life_time
-        assert self.first_assignment_date
+        assert self.laptop_begin_life
         return True
 
-    def calculate_end_date(self):
-        if self.can_calculate_end_date():
-            self.end_date = self.first_assignment_date + datetime.timedelta(days=self.device_type.life_time * 365)
+    def calculate_laptop_end_life(self):
+        if self.can_calculate_laptop_end_life():
+            self.laptop_end_life = self.laptop_begin_life + datetime.timedelta(days=self.device_type.life_time * 365)
 
     def generate_code(self):
         return self.ownership.upper() + ("A" if self.asset else "E") + self.device_type.code.upper()
@@ -133,8 +133,8 @@ class Device(models.Model):
     sequence = models.IntegerField()
     code = models.CharField(max_length=10)
     device_status = models.ForeignKey('DeviceStatus')
-    first_assignment_date = models.DateField(blank=True, null=True)
-    end_date = models.DateField(blank=True, null=True)
+    laptop_begin_life = models.DateField(blank=True, null=True)
+    laptop_end_life = models.DateField(blank=True, null=True)
 
 
 class Project(models.Model):
@@ -150,6 +150,7 @@ class Project(models.Model):
 
 class Assignment(models.Model):
     assignee_name = models.CharField(max_length=50)
+    assignment_date = models.DateField(blank=True, null=True)
     expected_return_date = models.DateField(blank=True, null=True)
     project = models.ForeignKey('Project', null=True, blank=True)
     devices = models.ManyToManyField(Device, through='DeviceAssignment')
@@ -166,7 +167,6 @@ class Assignment(models.Model):
 class DeviceAssignment(models.Model):
     device = models.ForeignKey('Device')
     assignment = models.ForeignKey('Assignment')
-    assignment_date = models.DateField(blank=True, null=True)
 
     def id(self):
         return self.device.id
@@ -183,8 +183,8 @@ class DeviceAssignment(models.Model):
     def return_date(self):
         return self.assignment.expected_return_date
 
-    def end_date(self):
-        return self.device.end_date
+    def laptop_end_life(self):
+        return self.device.laptop_end_life
 
     def assignee_name(self):
         return self.assignment.assignee_name
@@ -194,10 +194,16 @@ class DeviceAssignment(models.Model):
             return self.assignment.project.name
         return ''
 
+    def assignment_date_display(self):
+        if self.device.is_laptop:
+            return self.device.laptop_begin_life
+        else:
+            return self.assignment.assignment_date
+
     class Meta:
         verbose_name = _(u'Asignación de Dispositivos')
         verbose_name_plural = _(u'Asignaciones de Dispositivos')
-        ordering = ['-assignment_date']
+        ordering = ['-assignment__assignment_date']
 
 
 class DeviceStatusLog(models.Model):

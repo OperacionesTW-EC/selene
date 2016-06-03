@@ -11,7 +11,7 @@ class TestDeviceSerializer():
     def test_should_include_fields_definition(self):
         assert_equal(DeviceSerializer.Meta.fields, ('id', 'device_type_name', 'full_code', 'device_brand_name', 'device_type', 'device_brand', 'asset',
                                                     'ownership', 'serial_number', 'model', 'purchase_date', 'device_status', 'device_status_name',
-                                                    'first_assignment_date', 'end_date'))
+                                                    'laptop_begin_life', 'laptop_end_life'))
 
     def test_should_set_avaliable_device_status_as_default(self):
         assert_is_instance(DeviceSerializer().get_fields()['device_status'].default, models.DeviceStatus)

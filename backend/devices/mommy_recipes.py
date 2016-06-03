@@ -6,7 +6,8 @@ from devices import models
 
 assignment_recipe = Recipe(models.Assignment,
                            project=models.Project.objects.get_or_create(name='Some project')[0],
-                           assignee_name='Nombre Apellido'
+                           assignee_name='Nombre Apellido',
+                           assignment_date=date.today()
                            )
 
 device_recipe = Recipe(models.Device,
@@ -32,6 +33,5 @@ non_asset_device_recipe = Recipe(models.Device,
 
 device_assignment_recipe = Recipe(models.DeviceAssignment,
                                   device=mommy.prepare_recipe('devices.non_asset_device_recipe'),
-                                  assignment=mommy.prepare_recipe('devices.assignment_recipe'),
-                                  assignment_date=date.today()
+                                  assignment=mommy.prepare_recipe('devices.assignment_recipe')
                                   )

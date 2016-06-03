@@ -3,6 +3,7 @@ from django.core.exceptions import ValidationError
 from devices import models
 from datetime import date
 
+
 class DeviceStatusService:
 
     @staticmethod
@@ -46,6 +47,7 @@ class AssignmentService:
                 self.errors.append({'error': 'No se encontró el dispositivo: %s' % device_id})
 
     def create_assignment(self):
+        self.assignment.assignment_date = date.today()
         if self.save_assignment() and not self.errors:
             self.update_devices()
             self.create_device_assignment()
@@ -64,17 +66,12 @@ class AssignmentService:
     def update_devices(self):
         for device in self.devices:
             if device.is_new_laptop():
-                device.first_assignment_date = date.today()
-                device.calculate_end_date()
+                device.laptop_begin_life = date.today()
+                device.calculate_laptop_end_life()
             device.mark_assigned()
             device.save()
 
     def create_device_assignment(self):
         for device in self.devices:
             device_assignment = models.DeviceAssignment(device=device, assignment=self.assignment)
-            if device.is_laptop():
-                assert device.first_assignment_date and device.end_date
-                device_assignment.assignment_date = device.first_assignment_date
-            else:
-                device_assignment.assignment_date = date.today()
             device_assignment.save()

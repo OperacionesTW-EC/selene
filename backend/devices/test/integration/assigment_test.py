@@ -6,7 +6,6 @@ from devices import models
 from devices import views
 from django.test import RequestFactory
 from datetime import date
-import datetime
 
 
 class TestAssignmet:
@@ -50,8 +49,8 @@ class TestAssignmet:
         assert_true(self.device.is_new_laptop())
         self.get_response(self.build_request())
         device = models.DeviceAssignment.objects.filter(device__device_type__name='Laptop')[0].device
-        assert_is_not_none(device.first_assignment_date)
-        assert_is_not_none(device.end_date)
+        assert_is_not_none(device.laptop_begin_life)
+        assert_is_not_none(device.laptop_end_life)
 
     def test_should_not_set_dates_on_device_for_non_laptop(self):
         device_type = models.DeviceType.objects.get_or_create(code='M', name='Mouse')[0]
@@ -61,30 +60,8 @@ class TestAssignmet:
         device.save()
         self.get_response(self.build_request(devices=[device.id]))
         device = models.DeviceAssignment.objects.filter(device__device_type__name='Mouse')[0].device
-        assert_is_none(device.first_assignment_date)
-        assert_is_none(device.end_date)
-
-    def test_should_retain_assignment_date_when_reassigning_laptop(self):
-        expected_date = date.today() - datetime.timedelta(days=15)
-        self.get_response(self.build_request(assignee_name='Original Assignee'))
-        original_assignment = models.DeviceAssignment.objects.get(assignment__assignee_name='Original Assignee')
-        original_assignment = self.manipulate_device_dates_to_simulate_old_assignment(original_assignment, expected_date)
-        original_first_assignment_date = original_assignment.device.first_assignment_date
-        original_end_date = original_assignment.device.end_date
-
-        self.get_response(self.build_request(assignee_name='Reassignee', devices=[original_assignment.device.id]))
-        re_assignment = models.DeviceAssignment.objects.get(assignment__assignee_name='Reassignee')
-        assert_equal(re_assignment.assignment_date, expected_date)
-        assert_equal(re_assignment.device.first_assignment_date, original_first_assignment_date)
-        assert_equal(re_assignment.device.end_date, original_end_date)
-
-    def manipulate_device_dates_to_simulate_old_assignment(self, device_assingment, older_date):
-        device_assingment.assignment_date = older_date
-        device_assingment.device.first_assignment_date = older_date
-        device_assingment.device.calculate_end_date()
-        device_assingment.device.save()
-        device_assingment.save()
-        return device_assingment
+        assert_is_none(device.laptop_begin_life)
+        assert_is_none(device.laptop_end_life)
 
     def test_should_set_device_status_to_unavailable(self):
         device = mommy.prepare_recipe('devices.non_asset_device_recipe')
@@ -104,7 +81,7 @@ class TestAssignmet:
     def test_should_set_the_assignment_date(self):
         expected_date = date.today()
         self.get_response(self.build_request(assignee_name='Name'))
-        assignment_date = models.DeviceAssignment.objects.get(assignment__assignee_name='Name').assignment_date
+        assignment_date = models.Assignment.objects.get(assignee_name='Name').assignment_date
         assert_equal(assignment_date, expected_date)
 
     def test_should_include_the_expected_return_date_if_any(self):

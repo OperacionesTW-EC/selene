@@ -10,7 +10,7 @@ class TestDeviceSerializer():
 
     def test_should_include_fields_definition(self):
         assert_equal(AssignedDeviceSerializer.Meta.fields, ('id', 'full_code', 'device_type_name', 'device_brand_name',
-                                                            'return_date', 'end_date', 'assignee_name',
-                                                            'project', 'assignment_date'))
+                                                            'return_date', 'laptop_end_life', 'assignee_name',
+                                                            'project'))
 
 
