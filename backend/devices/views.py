@@ -22,7 +22,7 @@ class DeviceStatusViewSet(generics.ListCreateAPIView):
     def list(self, request):
         query_set = self.get_queryset()
         serializer = serializers.DeviceStatusSerializer(query_set, many=True)
-        page = self.paginate_queryset(query_set)  # page is necessary for the method below
+        page = self.paginate_queryset(query_set)  # NOQA : page is necessary for the method below
         return self.get_paginated_response(serializer.data)
 
     def get_queryset(self):
