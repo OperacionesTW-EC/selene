@@ -42,9 +42,9 @@ class TestDevice:
         self.device.purchase_date = None
         assert_is_none(self.device.full_clean())
 
-    def test_should_be_valid_if_first_assignment_date_is_null(self):
+    def test_should_be_valid_if_laptop_begin_life_is_null(self):
         self.device.asset = 0
-        self.device.first_assignment_date = None
+        self.device.laptop_begin_life = None
         assert_is_none(self.device.full_clean())
 
     def test_mark_assigned_should_set_device_status_to_assigned(self):
@@ -68,37 +68,37 @@ class TestDevice:
 
     def test_should_not_identify_as_new_laptop_if_assigned(self):
         self.device.mark_assigned()
-        self.device.first_assignment_date = datetime.date.today()
-        self.device.end_date = datetime.date.today()
+        self.device.laptop_begin_life = datetime.date.today()
+        self.device.laptop_end_life = datetime.date.today()
         assert_false(self.device.is_new_laptop())
 
-    def test_should_not_identify_as_new_laptop_with_first_assignment_date(self):
-        self.device.first_assignment_date = datetime.date.today()
+    def test_should_not_identify_as_new_laptop_with_laptop_begin_life(self):
+        self.device.laptop_begin_life = datetime.date.today()
         assert_false(self.device.is_new_laptop())
 
-    def test_should_not_identify_as_new_laptop_with_end_date(self):
-        self.device.end_date = datetime.date.today()
+    def test_should_not_identify_as_new_laptop_with_laptop_end_life(self):
+        self.device.laptop_end_life = datetime.date.today()
         assert_false(self.device.is_new_laptop())
 
-    def test_first_assignment_date_should_be_required_if_assigned_laptop(self):
+    def test_laptop_begin_life_should_be_required_if_assigned_laptop(self):
         self.device.mark_assigned()
-        self.device.end_date = datetime.date.today()
+        self.device.laptop_end_life = datetime.date.today()
         assert_raises(ValidationError, self.device.full_clean)
 
-    def test_end_date_should_be_required_if_assigned_laptop(self):
+    def test_laptop_end_life_should_be_required_if_assigned_laptop(self):
         self.device.mark_assigned()
-        self.device.first_assignment_date = datetime.date.today()
+        self.device.laptop_begin_life = datetime.date.today()
         assert_raises(ValidationError, self.device.full_clean)
 
     def test_should_be_valid_if_assigned_laptop_with_both_dates(self):
         self.device.mark_assigned()
-        self.device.first_assignment_date = datetime.date.today()
-        self.device.end_date = datetime.date.today()
+        self.device.laptop_begin_life = datetime.date.today()
+        self.device.laptop_end_life = datetime.date.today()
         assert_is_none(self.device.full_clean())
 
-    def test_should_be_valid_if_end_date_is_null(self):
+    def test_should_be_valid_if_laptop_end_life_is_null(self):
         self.device.asset = 0
-        self.device.end_date = None
+        self.device.laptop_end_life = None
         assert_is_none(self.device.full_clean())
 
     def test_serial_number_should_be_required_if_device_is_an_asset(self):
@@ -179,23 +179,23 @@ class TestDevice:
     def test_device_status_name_should_return_the_name_of_the_device_status(self):
         assert_equal(self.device.device_status_name(), self.device.device_status.name)
 
-    def test_calculate_end_date_should_set_the_date_of_its_life_time(self):
+    def test_calculate_laptop_end_life_should_set_the_date_of_its_life_time(self):
         self.device.save()
         self.device.device_type.life_time = 3
-        self.device.first_assignment_date = datetime.date.today()
-        self.device.calculate_end_date()
-        date_diff = self.device.end_date - self.device.first_assignment_date
+        self.device.laptop_begin_life = datetime.date.today()
+        self.device.calculate_laptop_end_life()
+        date_diff = self.device.laptop_end_life - self.device.laptop_begin_life
         assert_equal(date_diff.days, 3*365)
 
     @raises(AssertionError)
-    def test_calculate_end_dates_should_raise_if_device_type_life_time_is_none(self):
-        self.device.first_assignment_date = datetime.date.today()
+    def test_calculate_laptop_end_lifes_should_raise_if_device_type_life_time_is_none(self):
+        self.device.laptop_begin_life = datetime.date.today()
         self.device.device_type.life_time = None
-        self.device.calculate_end_date()
+        self.device.calculate_laptop_end_life()
 
     @raises(AssertionError)
-    def test_calculate_end_dates_should_raise_if_device_type_first_assignment_date_is_none(self):
-        self.device.first_assignment_date = None
+    def test_calculate_laptop_end_lifes_should_raise_if_device_type_laptop_begin_life_is_none(self):
+        self.device.laptop_begin_life = None
         self.device.device_type.life_time = 3
-        self.device.calculate_end_date()
+        self.device.calculate_laptop_end_life()
 

@@ -31,8 +31,8 @@ class DeviceAssignmentSerializer(serializers.ModelSerializer):
     class Meta:
         model = models.DeviceAssignment
         fields = ('id', 'full_code', 'device_type_name', 'device_brand_name',
-                  'return_date', 'end_date', 'assignee_name',
-                  'project', 'assignment_date')
+                  'return_date', 'laptop_begin_life', 'laptop_end_life', 'assignee_name',
+                  'project')
 
 
 class DeviceSerializer(serializers.ModelSerializer):
@@ -41,8 +41,8 @@ class DeviceSerializer(serializers.ModelSerializer):
     device_status_name = serializers.CharField(read_only=True)
     full_code = serializers.CharField(read_only=True)
     purchase_date = serializers.DateField(required=False)
-    first_assignment_date = serializers.DateTimeField(required=False)
-    end_date = serializers.DateTimeField(required=False)
+    laptop_begin_life = serializers.DateTimeField(required=False)
+    laptop_end_life = serializers.DateTimeField(required=False)
 
     try:
         default_device_status = models.DeviceStatus.objects.get_or_create(name=models.DeviceStatus.DISPONIBLE)[0]
@@ -56,7 +56,7 @@ class DeviceSerializer(serializers.ModelSerializer):
                   'device_type', 'device_brand', 'asset',
                   'ownership', 'serial_number', 'model', 'purchase_date',
                   'device_status', 'device_status_name',
-                  'first_assignment_date', 'end_date'
+                  'laptop_begin_life', 'laptop_end_life'
                   )
 
 
@@ -65,21 +65,4 @@ class AssignmentSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = models.Assignment
-        fields = ('id', 'assignee_name', 'project_name', 'project', 'devices', 'expected_return_date')
-
-
-class AssignedDeviceSerializer(serializers.ModelSerializer):
-    full_code = serializers.CharField(read_only=True)
-    device_type_name = serializers.CharField(read_only=True)
-    device_brand_name = serializers.CharField(read_only=True)
-    return_date = serializers.DateField(required=False)
-    end_date = serializers.DateField(required=False)
-    assignee_name = serializers.CharField(read_only=True)
-    project = serializers.CharField(read_only=True)
-    assignment_date = serializers.DateField(required=False)
-
-    class Meta:
-        model = models.Device
-        fields = ('id', 'full_code', 'device_type_name', 'device_brand_name',
-                  'return_date', 'end_date', 'assignee_name',
-                  'project', 'assignment_date')
+        fields = ('id', 'assignee_name', 'assignment_date', 'project_name', 'project', 'devices', 'expected_return_date')

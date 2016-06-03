@@ -56,14 +56,14 @@ def insert_from_csv(apps, schema_editor):
         else:
             assignment_date = date.today()
         assignee_name = parts[FILE_COLUMNS['assignee']].strip()
-        assignment = Assignment(assignee_name=assignee_name, project=project)
+        assignment = Assignment(assignee_name=assignee_name, project=project, assignment_date=assignment_date)
         assignment.save()
         if device.is_laptop():
-            device.first_assignment_date = assignment_date
-            device.calculate_end_date()
+            device.laptop_begin_life = assignment_date
+            device.calculate_laptop_end_life()
             device.mark_assigned()
         device.save()
-        device_assignment = DeviceAssignment(device=device, assignment=assignment, assignment_date=assignment_date)
+        device_assignment = DeviceAssignment(device=device, assignment=assignment)
         device_assignment.save()
 
     def parse_line(line):
@@ -87,7 +87,7 @@ def insert_from_csv(apps, schema_editor):
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('devices', '0020_auto_20160602_1607'),
+        ('devices', '0022_auto_20160603_1657'),
     ]
     operations = [
         migrations.RunPython(insert_from_csv),
