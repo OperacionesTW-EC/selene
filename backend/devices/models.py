@@ -183,6 +183,9 @@ class DeviceAssignment(models.Model):
     def return_date(self):
         return self.assignment.expected_return_date
 
+    def laptop_begin_life(self):
+        return self.assignment_date_display()
+
     def laptop_end_life(self):
         return self.device.laptop_end_life
 
@@ -195,7 +198,7 @@ class DeviceAssignment(models.Model):
         return ''
 
     def assignment_date_display(self):
-        if self.device.is_laptop:
+        if self.device.is_laptop():
             return self.device.laptop_begin_life
         else:
             return self.assignment.assignment_date

@@ -31,7 +31,7 @@ class DeviceAssignmentSerializer(serializers.ModelSerializer):
     class Meta:
         model = models.DeviceAssignment
         fields = ('id', 'full_code', 'device_type_name', 'device_brand_name',
-                  'return_date', 'laptop_end_life', 'assignee_name',
+                  'return_date', 'laptop_begin_life', 'laptop_end_life', 'assignee_name',
                   'project')
 
 
@@ -66,19 +66,3 @@ class AssignmentSerializer(serializers.ModelSerializer):
     class Meta:
         model = models.Assignment
         fields = ('id', 'assignee_name', 'assignment_date', 'project_name', 'project', 'devices', 'expected_return_date')
-
-
-class AssignedDeviceSerializer(serializers.ModelSerializer):
-    full_code = serializers.CharField(read_only=True)
-    device_type_name = serializers.CharField(read_only=True)
-    device_brand_name = serializers.CharField(read_only=True)
-    return_date = serializers.DateField(required=False)
-    laptop_end_life = serializers.DateField(required=False)
-    assignee_name = serializers.CharField(read_only=True)
-    project = serializers.CharField(read_only=True)
-
-    class Meta:
-        model = models.Device
-        fields = ('id', 'full_code', 'device_type_name', 'device_brand_name',
-                  'return_date', 'laptop_end_life', 'assignee_name',
-                  'project')
