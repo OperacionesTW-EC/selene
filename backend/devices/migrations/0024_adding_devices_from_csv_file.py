@@ -1,6 +1,6 @@
 from __future__ import unicode_literals
 from django.db import migrations
-from devices.models import *
+from devices.models import *  # NOQA
 from datetime import date, datetime
 import os
 
@@ -30,7 +30,8 @@ def insert_from_csv(apps, schema_editor):
     def create_device(parts):
         device_data = {}
         full_code = parts[FILE_COLUMNS['full_code']].strip()
-        device_data['device_type'] = DeviceType.objects.get_or_create(name=parts[FILE_COLUMNS['device_type_name']].strip().capitalize(), code=parts[FILE_COLUMNS['device_type_code']].strip().upper())[0]
+        device_data['device_type'] = DeviceType.objects.get_or_create(name=parts[FILE_COLUMNS['device_type_name']].strip().capitalize(),
+                                                                      code=parts[FILE_COLUMNS['device_type_code']].strip().upper())[0]
         device_data['device_brand'] = DeviceBrand.objects.get_or_create(name=parts[FILE_COLUMNS['device_brand_name']].strip().capitalize())[0]
         device_data['device_status'] = DeviceStatus.objects.get_or_create(name=parts[FILE_COLUMNS['device_status_name']].strip().capitalize())[0]
         device_data['code'] = full_code[0:4]
@@ -58,10 +59,7 @@ def insert_from_csv(apps, schema_editor):
         assignee_name = parts[FILE_COLUMNS['assignee']].strip()
         assignment = Assignment(assignee_name=assignee_name, project=project, assignment_date=assignment_date)
         assignment.save()
-        if device.is_laptop():
-            device.laptop_begin_life = assignment_date
-            device.calculate_laptop_end_life()
-            device.mark_assigned()
+        device.assign(assignment_date)
         device.save()
         device_assignment = DeviceAssignment(device=device, assignment=assignment)
         device_assignment.save()
@@ -87,7 +85,7 @@ def insert_from_csv(apps, schema_editor):
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('devices', '0022_auto_20160603_1657'),
+        ('devices', '0023_auto_20160606_1949'),
     ]
     operations = [
         migrations.RunPython(insert_from_csv),

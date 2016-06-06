@@ -45,14 +45,13 @@ class TestAssignmet:
         assignment = models.Assignment.objects.get(assignee_name='Test')
         assert_is_not_none(assignment)
 
-    def test_should_set_dates_on_device_for_new_laptop(self):
-        assert_true(self.device.is_new_laptop())
+    def test_should_set_life_start_date_on_device_for_new_laptop(self):
+        assert_true(self.device.life_has_not_begun())
         self.get_response(self.build_request())
         device = models.DeviceAssignment.objects.filter(device__device_type__name='Laptop')[0].device
-        assert_is_not_none(device.laptop_begin_life)
-        assert_is_not_none(device.laptop_end_life)
+        assert_is_not_none(device.life_start_date)
 
-    def test_should_not_set_dates_on_device_for_non_laptop(self):
+    def test_should_not_set_life_start_date_on_device_for_non_laptop(self):
         device_type = models.DeviceType.objects.get_or_create(code='M', name='Mouse')[0]
         device_type.save()
         device = mommy.prepare_recipe('devices.non_asset_device_recipe')
@@ -60,8 +59,7 @@ class TestAssignmet:
         device.save()
         self.get_response(self.build_request(devices=[device.id]))
         device = models.DeviceAssignment.objects.filter(device__device_type__name='Mouse')[0].device
-        assert_is_none(device.laptop_begin_life)
-        assert_is_none(device.laptop_end_life)
+        assert_is_none(device.life_start_date)
 
     def test_should_set_device_status_to_unavailable(self):
         device = mommy.prepare_recipe('devices.non_asset_device_recipe')

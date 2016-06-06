@@ -18,6 +18,7 @@ class TestDevice:
     def setup(self):
         Device.objects.all().delete()
         self.device = mommy.prepare_recipe('devices.device_recipe')
+        self.device.device_type = DeviceType.objects.get_or_create(code='L', name='Laptop')[0]
         self.device.model = 'model'
 
     def test_should_be_valid_with_valid_field_values(self):
@@ -42,63 +43,34 @@ class TestDevice:
         self.device.purchase_date = None
         assert_is_none(self.device.full_clean())
 
-    def test_should_be_valid_if_laptop_begin_life_is_null(self):
+    def test_should_be_valid_if_life_start_date_is_none(self):
         self.device.asset = 0
-        self.device.laptop_begin_life = None
+        self.device.life_start_date = None
         assert_is_none(self.device.full_clean())
 
-    def test_mark_assigned_should_set_device_status_to_assigned(self):
-        assert_equal(self.device.device_status_name(), DeviceStatus.DISPONIBLE)
-        self.device.mark_assigned()
-        assert_equal(self.device.device_status_name(), DeviceStatus.ASIGNADO)
+    def test_should_say_if_has_lifetime(self):
+        assert_true(self.device.has_lifetime())
 
-    def test_should_identify_as_laptop(self):
-        assert_true(self.device.is_laptop())
-
-    def test_should_not_identify_as_laptop(self):
+    def test_should_not_say_that_has_lifetime(self):
         self.device.device_type = DeviceType.objects.get_or_create(code='Z', name='ZZZZZZZZZZZZZZZ')[0]
-        assert_false(self.device.is_laptop())
+        assert_false(self.device.has_lifetime())
 
-    def test_should_identify_as_new_laptop(self):
-        assert_true(self.device.is_new_laptop())
+    def test_should_say_if_life_has_not_begun_for_device_with_lifetime(self):
+        assert_true(self.device.life_has_not_begun())
+        assert_false(self.device.life_has_begun())
 
-    def test_should_not_identify_as_new_laptop(self):
+    def test_should_say_if_life_has_begun_for_device_with_lifetime_and_start_date(self):
+        self.device.life_start_date = datetime.date.today()
+        assert_true(self.device.life_has_begun())
+        assert_false(self.device.life_has_not_begun())
+
+    def test_life_start_date_should_be_required_for_device_with_lifetime(self):
         self.device.mark_assigned()
-        assert_false(self.device.is_new_laptop())
-
-    def test_should_not_identify_as_new_laptop_if_assigned(self):
-        self.device.mark_assigned()
-        self.device.laptop_begin_life = datetime.date.today()
-        self.device.laptop_end_life = datetime.date.today()
-        assert_false(self.device.is_new_laptop())
-
-    def test_should_not_identify_as_new_laptop_with_laptop_begin_life(self):
-        self.device.laptop_begin_life = datetime.date.today()
-        assert_false(self.device.is_new_laptop())
-
-    def test_should_not_identify_as_new_laptop_with_laptop_end_life(self):
-        self.device.laptop_end_life = datetime.date.today()
-        assert_false(self.device.is_new_laptop())
-
-    def test_laptop_begin_life_should_be_required_if_assigned_laptop(self):
-        self.device.mark_assigned()
-        self.device.laptop_end_life = datetime.date.today()
         assert_raises(ValidationError, self.device.full_clean)
 
-    def test_laptop_end_life_should_be_required_if_assigned_laptop(self):
+    def test_should_be_valid_if_has_lifetime_has_start_date_and_is_assigned(self):
         self.device.mark_assigned()
-        self.device.laptop_begin_life = datetime.date.today()
-        assert_raises(ValidationError, self.device.full_clean)
-
-    def test_should_be_valid_if_assigned_laptop_with_both_dates(self):
-        self.device.mark_assigned()
-        self.device.laptop_begin_life = datetime.date.today()
-        self.device.laptop_end_life = datetime.date.today()
-        assert_is_none(self.device.full_clean())
-
-    def test_should_be_valid_if_laptop_end_life_is_null(self):
-        self.device.asset = 0
-        self.device.laptop_end_life = None
+        self.device.life_start_date = datetime.date.today()
         assert_is_none(self.device.full_clean())
 
     def test_serial_number_should_be_required_if_device_is_an_asset(self):
@@ -179,23 +151,50 @@ class TestDevice:
     def test_device_status_name_should_return_the_name_of_the_device_status(self):
         assert_equal(self.device.device_status_name(), self.device.device_status.name)
 
-    def test_calculate_laptop_end_life_should_set_the_date_of_its_life_time(self):
+    def test_calculate_life_end_date_should_set_the_date_of_its_life_time(self):
         self.device.save()
         self.device.device_type.life_time = 3
-        self.device.laptop_begin_life = datetime.date.today()
-        self.device.calculate_laptop_end_life()
-        date_diff = self.device.laptop_end_life - self.device.laptop_begin_life
+        self.device.life_start_date = datetime.date.today()
+        actual_life_end_date = self.device.calculate_life_end_date()
+        date_diff = actual_life_end_date - self.device.life_start_date
         assert_equal(date_diff.days, 3*365)
 
-    @raises(AssertionError)
-    def test_calculate_laptop_end_lifes_should_raise_if_device_type_life_time_is_none(self):
-        self.device.laptop_begin_life = datetime.date.today()
+    def test_calculate_life_end_date_should_return_none_for_device_without_lifetime(self):
+        self.device.life_start_date = datetime.date.today()
         self.device.device_type.life_time = None
-        self.device.calculate_laptop_end_life()
+        result = self.device.calculate_life_end_date()
+        assert_is_none(result)
 
-    @raises(AssertionError)
-    def test_calculate_laptop_end_lifes_should_raise_if_device_type_laptop_begin_life_is_none(self):
-        self.device.laptop_begin_life = None
+    def test_calculate_life_end_date_should_return_none_if_life_has_not_begun(self):
+        self.device.life_start_date = None
         self.device.device_type.life_time = 3
-        self.device.calculate_laptop_end_life()
+        result = self.device.calculate_life_end_date()
+        assert_is_none(result)
+
+    def test_assign_should_set_life_start_date_for_device_with_lifetime_without_start_date(self):
+        self.device.life_start_date = None
+        self.device.device_type.life_time = 3
+        self.device.assign()
+        assert_equal(self.device.life_start_date, datetime.date.today())
+        assert_equal(self.device.device_status_name(), DeviceStatus.ASIGNADO)
+
+    def test_assign_should_not_set_life_start_date_for_device_with_start_date(self):
+        yesterday = datetime.date.today() - datetime.timedelta(days=1)
+        self.device.life_start_date = yesterday
+        self.device.device_type.life_time = 3
+        self.device.assign()
+        assert_equal(self.device.life_start_date, yesterday)
+        assert_equal(self.device.device_status_name(), DeviceStatus.ASIGNADO)
+
+    def test_assign_should_not_set_life_start_date_for_device_without_lifetime(self):
+        self.device.life_start_date = None
+        self.device.device_type.life_time = None
+        self.device.assign()
+        assert_is_none(self.device.life_start_date)
+        assert_equal(self.device.device_status_name(), DeviceStatus.ASIGNADO)
+
+    def test_mark_assigned_should_set_device_status_to_assigned(self):
+        assert_equal(self.device.device_status_name(), DeviceStatus.DISPONIBLE)
+        self.device.mark_assigned()
+        assert_equal(self.device.device_status_name(), DeviceStatus.ASIGNADO)
 

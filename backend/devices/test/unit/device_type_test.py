@@ -1,5 +1,5 @@
 from django.core.exceptions import ValidationError
-from nose.tools import *
+from nose.tools import *  # NOQA
 from devices.models import DeviceType
 from model_mommy import mommy
 
@@ -54,3 +54,12 @@ class TestDeviceType:
     def test_should_be_valid_without_life_time(self):
         self.device_type.life_time = None
         assert_is_none(self.device_type.full_clean())
+
+    def test_should_say_if_has_lifetime(self):
+        assert_true(self.device_type.has_lifetime())
+
+    def test_should_say_if_has_no_lifetime(self):
+        self.device_type.life_time = None
+        assert_false(self.device_type.has_lifetime())
+
+

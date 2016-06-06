@@ -65,10 +65,7 @@ class AssignmentService:
 
     def update_devices(self):
         for device in self.devices:
-            if device.is_new_laptop():
-                device.laptop_begin_life = date.today()
-                device.calculate_laptop_end_life()
-            device.mark_assigned()
+            device.assign()
             device.save()
 
     def create_device_assignment(self):
