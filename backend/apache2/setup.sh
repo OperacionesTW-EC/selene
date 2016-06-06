@@ -8,4 +8,4 @@ export DEVICE_FILE_PATH=/home/$USER/migrationFiles/devices.csv
 pip3 install -r requirements.txt
 yes | ./manage.py migrate
 chown -R $USER:$USER /home/$USER/backend
-systemctl restart httpd
+sudo systemctl restart $SERVICE_NAME
