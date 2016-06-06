@@ -108,6 +108,9 @@ class Device(models.Model):
         if self.has_lifetime() and self.life_has_begun():
             return self.life_start_date + datetime.timedelta(days=self.device_type.life_time * 365)
 
+    def life_end_date(self):
+        return self.calculate_life_end_date()
+
     def generate_code(self):
         return self.ownership.upper() + ("A" if self.asset else "E") + self.device_type.code.upper()
 

@@ -55,7 +55,7 @@ class DeviceSerializer(serializers.ModelSerializer):
                   'device_type', 'device_brand', 'asset',
                   'ownership', 'serial_number', 'model', 'purchase_date',
                   'device_status', 'device_status_name',
-                  'life_start_date'
+                  'life_start_date', 'life_end_date'
                   )
 
 
