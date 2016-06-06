@@ -1,11 +1,11 @@
 export PATH=/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/bin
-source /home/selene/.bash_profile
-rm -rf /home/selene/backend
-tar -xvf /home/selene/selene_backend.tar -C /home/selene
-rm -rf /home/selene/selene_backend.tar
-cd /home/selene/backend
-export DEVICE_FILE_PATH=/home/selene/migrationFiles/devices.csv
+source /home/$USER/.bash_profile
+rm -rf /home/$USER/backend
+tar -xvf /home/$USER/selene_backend.tar -C /home/$USER
+rm -rf /home/$USER/selene_backend.tar
+cd /home/$USER/backend
+export DEVICE_FILE_PATH=/home/$USER/migrationFiles/devices.csv
 pip3 install -r requirements.txt
 yes | ./manage.py migrate
-chown -R selene:selene /home/selene/backend
+chown -R $USER:$USER /home/$USER/backend
 systemctl restart httpd

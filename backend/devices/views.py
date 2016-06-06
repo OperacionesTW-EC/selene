@@ -57,7 +57,7 @@ class AssignmentViewSet(viewsets.ModelViewSet):
         assignment = self.get_assignment_by_request_data(request.data)
         assignment_service = services.AssignmentService(assignment, request.data['devices'])
         if assignment_service.create_assignment():
-            return Response({'status': 'asignacion creada', 'id': assignment_service.assignment.id})
+            return Response({'status': 'asignación creada', 'id': assignment_service.assignment.id})
         else:
             return Response(assignment_service.errors, status=status.HTTP_400_BAD_REQUEST)
 
