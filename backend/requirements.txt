@@ -18,7 +18,6 @@ fixtures==2.0.0
 funcsigs==1.0.2
 fuzzywuzzy==0.10.0
 ipaddress==1.0.16
-lettuce==0.2.21
 linecache2==1.0.0
 mock==2.0.0
 model-mommy==1.2.6
@@ -35,3 +34,6 @@ traceback2==1.4.0
 unittest2==1.1.0
 virtualenv==13.1.0
 waitress==0.9.0
+lettuce_webdriver==0.3.5
+lettuce==0.2.21
+selenium==2.53.2
