@@ -127,6 +127,7 @@ class Device(models.Model):
 
     class Meta:
         ordering = ['device_type']
+        unique_together = (('code', 'sequence'),)
 
     device_type = models.ForeignKey('DeviceType')
     device_brand = models.ForeignKey('DeviceBrand')
@@ -139,6 +140,7 @@ class Device(models.Model):
     code = models.CharField(max_length=10)
     device_status = models.ForeignKey('DeviceStatus')
     life_start_date = models.DateField(blank=True, null=True)
+    description = models.CharField(max_length=250, null=True, blank=True)
 
 
 class Project(models.Model):

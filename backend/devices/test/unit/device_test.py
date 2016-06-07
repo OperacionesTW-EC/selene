@@ -43,6 +43,21 @@ class TestDevice:
         self.device.purchase_date = None
         assert_is_none(self.device.full_clean())
 
+    def test_should_be_valid_if_description_is_null(self):
+        self.device.description = None
+        assert_is_none(self.device.full_clean())
+
+    def test_should_be_valid_if_description_is_blank(self):
+        self.device.description = ''
+        assert_is_none(self.device.full_clean())
+
+    @raises(ValidationError)
+    def test_should_be_invalid_if_description_is_longer_than_250_characters(self):
+        self.device.description = ''
+        for _ in range(251):
+            self.device.description += 'A'
+        self.device.full_clean()
+
     def test_should_be_valid_if_life_start_date_is_none(self):
         self.device.asset = 0
         self.device.life_start_date = None
