@@ -48,7 +48,8 @@ def wait_for_content(step, browser, content, timeout=15):
 @step('I am in homepage SELENE$')
 def homepage_selene(step):
     with AssertContextManager(step):
-        world.browser.get('http://localhost:8080/#/?_k=ujlsa1')
+        #world.browser.get('http://localhost:8080/#/?_k=ujlsa1')
+        world.browser.get('http://10.71.23.244/selene/#/?_k=63ld6h')
         world.browser.find_element_by_css_selector('.login-card.paper.white')
 
 @step('I press "(.*?)"$')
@@ -90,13 +91,13 @@ def dashboar_selene(step):
 @step('I press Registrar Dispositivo$')
 def press_Registrar_dispositivo(step):
 	with AssertContextManager(step):
-		button = world.browser.find_element_by_css_selector('.fa.fa-plus-square-o.icon')
+		button = world.browser.find_element_by_css_selector('section.sidenav i.fa.fa-plus-square.icon')
 		button.click()
 		
 @step('I am in "(.*?)" page$')
 def registrar_dispositivo_page(step, page):
 	with AssertContextManager(step):
-		page in world.browser.find_element_by_css_selector('.container>h1').text
+		page in world.browser.find_element_by_css_selector('.container-fluid>h1').text
         time.sleep(2)
 
 @step('I select Tipo like "(.*?)"$')

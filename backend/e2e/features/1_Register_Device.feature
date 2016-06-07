@@ -3,17 +3,17 @@ Feature: Register devices
   I want to register a device
   So Thougthworks have an inventory of devices
 
-
+  @play
   Scenario: Enter the Dashboard
     Given I am in homepage SELENE
     And I press Ingresar
     Then I should see "Dashboard"
-
+  @play
   Scenario: Enter the Device Registration
-    Given I am in Dashboar SELENE
+    Given I am in "Dashboard" page
     And I press Registrar Dispositivo
     Then I should see "Registrar Dispositivo"
-
+  @play
   Scenario: Register a device
     Given I am in "Registrar Dispositivo" page
     And I select Tipo like "Laptop"
@@ -25,8 +25,3 @@ Feature: Register devices
     And I select Propiedad like "TW"
     And I press Guardar
     Then I should see "ha sido registrado satisfactoriamente"
-
-  Scenario: Return to Dashboard
-    Given I am in "Listados de Dispositivos Asignados" page
-    And I press Dashboard
-    Then I should see "Dashboard"

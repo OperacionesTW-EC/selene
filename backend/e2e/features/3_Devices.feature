@@ -1,37 +1,29 @@
 Feature: Devices
   As Tech Opss user
   I want to see a device list
-  So 
-
+  So
+  @play
   Scenario: Enter the Dashboard
     Given I am in homepage SELENE
     And I press Ingresar
     Then I should see "Dashboard"
-    
+  @play
   Scenario: Device detail
-    Given I am in Dashboar SELENE
+    Given I am in "Dashboard" page
     And I press Dispositivos
     And I select first device detail
     Then I should see "Dispositivo"
 
-  Scenario: Return to Dashboard
-    Given I am in "Dispositivo" page
-    And I press Dashboard
-    Then I should see "Dashboard"
-
+  @play
   Scenario: Button Asignar Dispositivo
-    Given I am in Dashboar SELENE
+    Given I am in "Dashboard" page
     And I press Dispositivos
-    And I press button "Asignar Dispositivo"
+    And I press button "Asignar"
     Then I should see "Asignar dispositivos"
 
-  Scenario: Return to Dashboard
-    Given I am in "Dispositivo" page
-    And I press Dashboard
-    Then I should see "Dashboard"
-
+  @play
   Scenario: Button Registrar Dispositivos
-    Given I am in Dashboar SELENE
+    Given I am in "Dashboard" page
     And I press Dispositivos
-    And I press button "Registrar Dispositivo"
+    And I press button "Registrar"
     Then I should see "Registrar Dispositivo"
