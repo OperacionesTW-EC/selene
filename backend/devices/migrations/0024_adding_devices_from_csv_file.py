@@ -64,22 +64,37 @@ def insert_from_csv(apps, schema_editor):
         device_assignment = DeviceAssignment(device=device, assignment=assignment)
         device_assignment.save()
 
+    def exists(full_code, serial):
+        c, s = full_code[0:4], int(full_code[4:])
+        if Device.objects.filter(code=c, sequence=s):
+            return True
+        if serial not in (None, '') and Device.objects.filter(serial_number=serial):
+            return True
+
+    def should_skip(full_code, serial):
+        if full_code in (None, ''):
+            return True
+        if exists(full_code, serial):
+            return True
+
     def parse_line(line):
         parts = line.split(",")
         full_code = parts[FILE_COLUMNS['full_code']].strip()
-        if full_code in (None, ''):
+        serial = parts[FILE_COLUMNS['serial_number']].strip()
+        if should_skip(full_code, serial):
             return
+        print('Loading: %s %s' % (full_code, serial))
+
         device = create_device(parts)
         if device.device_status.name == DeviceStatus.ASIGNADO:
             create_assignment(parts, device)
         else:
             device.save()
 
-    file = open(FILE_PATH, 'r')
-    file.readline()
-    for line in file:
-        parse_line(line)
-    file.close()
+    with open(FILE_PATH, 'r') as f:
+        f.readline()
+        for line in f:
+            parse_line(line.rstrip())
 
 
 class Migration(migrations.Migration):
@@ -90,3 +105,4 @@ class Migration(migrations.Migration):
     operations = [
         migrations.RunPython(insert_from_csv),
     ]
+
