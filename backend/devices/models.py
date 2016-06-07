@@ -127,6 +127,7 @@ class Device(models.Model):
 
     class Meta:
         ordering = ['device_type']
+        unique_together = (('code', 'sequence'),)
 
     device_type = models.ForeignKey('DeviceType')
     device_brand = models.ForeignKey('DeviceBrand')

@@ -58,15 +58,28 @@ def insert_from_csv(apps, schema_editor):
             assignment_date = date.today()
         assignee_name = parts[FILE_COLUMNS['assignee']].strip()
         assignment = Assignment(assignee_name=assignee_name, project=project, assignment_date=assignment_date)
+        validate(assignment)
         assignment.save()
         device.assign(assignment_date)
+        validate(device)
         device.save()
         device_assignment = DeviceAssignment(device=device, assignment=assignment)
+        validate(device_assignment)
         device_assignment.save()
 
-    def exists(full_code, serial):
+    def validate(model):
+        try:
+            getattr(model, 'full_clean')()
+        except ValidationError as e:
+            print(model.__dict__)
+            raise e
+
+    def composite_key_parts(full_code):
         c, s = full_code[0:4], int(full_code[4:])
-        if Device.objects.filter(code=c, sequence=s):
+        return c, s
+
+    def exists(code, sequence, serial):
+        if Device.objects.filter(code=code, sequence=sequence):
             return True
         if serial not in (None, '') and Device.objects.filter(serial_number=serial):
             return True
@@ -74,23 +87,28 @@ def insert_from_csv(apps, schema_editor):
     def should_skip(full_code, serial):
         if full_code in (None, ''):
             return True
-        if exists(full_code, serial):
-            return True
+        #  if exists(full_code, serial):
+            #  return True
 
     def parse_line(line):
         parts = line.split(",")
         full_code = parts[FILE_COLUMNS['full_code']].strip()
+        code, seq = composite_key_parts(full_code)
         serial = parts[FILE_COLUMNS['serial_number']].strip()
-        if should_skip(full_code, serial):
+        if full_code in (None, ''):
             return
-        print('Loading: %s %s' % (full_code, serial))
+        #  if exists(code, seq):
+            #  return
+        print('Loading: %s %s %s, %s' % (full_code, code, seq, serial))
 
         device = create_device(parts)
         if device.device_status.name == DeviceStatus.ASIGNADO:
             create_assignment(parts, device)
         else:
+            validate(device)
             device.save()
 
+    print('\n_______ BEGIN _______')
     with open(FILE_PATH, 'r') as f:
         f.readline()
         for line in f:
@@ -100,7 +118,7 @@ def insert_from_csv(apps, schema_editor):
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('devices', '0023_auto_20160606_1949'),
+        ('devices', '0024_auto_20160607_1326'),
     ]
     operations = [
         migrations.RunPython(insert_from_csv),
