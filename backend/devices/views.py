@@ -84,6 +84,8 @@ class AssignedDeviceList(generics.ListCreateAPIView):
 
         project = self.request.query_params.get('project', None)
         if project:
+            if project == '0':
+                project = None
             queryset = queryset.filter(assignment__project=project)
 
         assignee = str(self.request.query_params.get('assignee', '')).strip()

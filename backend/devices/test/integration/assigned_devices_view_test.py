@@ -7,6 +7,10 @@ from devices import services
 from datetime import date
 import random
 
+NO_PROJECT = False
+HAS_PROJECT = True
+
+
 class TestAssignedDevicesView(APITestCase):
 
     def test_should_respond_with_200(self):
@@ -37,6 +41,15 @@ class TestAssignedDevicesView(APITestCase):
         self.assertEqual(len(response.data), 1)
         self.assertEqual(response.data[0]['project'], assignment.project_name())
 
+    def test_should_filter_on_none_project_parameter(self):
+        assignment = self.create_assignment(NO_PROJECT)
+
+        url = reverse('assigned_devices')
+        response = self.client.get(url, {'project': '0'}, format='json')
+
+        self.assertEqual(len(response.data), 1)
+        self.assertEqual(response.data[0]['project'], '')
+
     def test_should_filter_on_assignee_parameter(self):
         assignment = self.create_assignment()
 
@@ -46,10 +59,12 @@ class TestAssignedDevicesView(APITestCase):
         self.assertEqual(len(response.data), 1)
         self.assertEqual(response.data[0]['assignee_name'], assignment.assignee_name)
 
-    def create_assignment(self):
+    def create_assignment(self, has_project = True):
         project_name = 'UNIQUE PROJECT NAME FOR TEST 123456789'
         assignee_name = 'UNIQUE ASSIGNEE NAME FOR TEST 123456789'
-        expected_project = models.Project.objects.get_or_create(name=project_name)[0]
+        expected_project = None
+        if has_project:
+            expected_project = models.Project.objects.get_or_create(name=project_name)[0]
         assignment=models.Assignment(project=expected_project, assignee_name=assignee_name, assignment_date=date.today())
         device = self.create_device()
         assignment_service = services.AssignmentService(assignment, [str(device.id)])
