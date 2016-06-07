@@ -61,7 +61,7 @@ class TestAssignmet:
         device = models.DeviceAssignment.objects.filter(device__device_type__name='Mouse')[0].device
         assert_is_none(device.life_start_date)
 
-    def test_should_set_device_status_to_unavailable(self):
+    def test_should_set_device_status_to_assigned(self):
         device = mommy.prepare_recipe('devices.non_asset_device_recipe')
         uid = 'Hack to id the record: we should tear down!'
         device.model = uid

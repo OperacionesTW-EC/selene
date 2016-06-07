@@ -83,11 +83,11 @@ class AssignedDeviceList(generics.ListCreateAPIView):
         queryset = models.DeviceAssignment.objects.filter(device__device_status__name=models.DeviceStatus.ASIGNADO)
 
         project = self.request.query_params.get('project', None)
-        if project not in (None, ''):
+        if project:
             queryset = queryset.filter(assignment__project=project)
 
-        assignee = self.request.query_params.get('assignee', None)
-        if assignee not in (None, ''):
+        assignee = str(self.request.query_params.get('assignee', '')).strip()
+        if assignee:
             queryset = queryset.filter(assignment__assignee_name__icontains=assignee)
 
         return queryset

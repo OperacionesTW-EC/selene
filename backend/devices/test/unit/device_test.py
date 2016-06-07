@@ -166,7 +166,7 @@ class TestDevice:
     def test_device_status_name_should_return_the_name_of_the_device_status(self):
         assert_equal(self.device.device_status_name(), self.device.device_status.name)
 
-    def test_calculate_life_end_date_should_set_the_date_of_its_life_time(self):
+    def test_calculate_life_end_date_should_return_date_for_device_with_lifetime(self):
         self.device.save()
         self.device.device_type.life_time = 3
         self.device.life_start_date = datetime.date.today()
@@ -212,4 +212,3 @@ class TestDevice:
         assert_equal(self.device.device_status_name(), DeviceStatus.DISPONIBLE)
         self.device.mark_assigned()
         assert_equal(self.device.device_status_name(), DeviceStatus.ASIGNADO)
-

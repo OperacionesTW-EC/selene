@@ -28,7 +28,7 @@ class TestAssignedDevicesView(APITestCase):
         self.assertEqual(response.data[0]['device_type_name'], 'Laptop')
         self.assertEqual(response.data[0]['device_brand_name'], 'Apple')
 
-    def test_should_return_filtered_assignments_when_get_project_parameter(self):
+    def test_should_filter_on_project_parameter(self):
         assignment = self.create_assignment()
 
         url = reverse('assigned_devices')
@@ -37,7 +37,7 @@ class TestAssignedDevicesView(APITestCase):
         self.assertEqual(len(response.data), 1)
         self.assertEqual(response.data[0]['project'], assignment.project_name())
 
-    def test_should_return_filtered_assingnments_when_get_assignee_parameter(self):
+    def test_should_filter_on_assignee_parameter(self):
         assignment = self.create_assignment()
 
         url = reverse('assigned_devices')
@@ -47,15 +47,11 @@ class TestAssignedDevicesView(APITestCase):
         self.assertEqual(response.data[0]['assignee_name'], assignment.assignee_name)
 
     def create_assignment(self):
-        project_name = self.random_text()
-        assignee_name = self.random_text()
+        project_name = 'UNIQUE PROJECT NAME FOR TEST 123456789'
+        assignee_name = 'UNIQUE ASSIGNEE NAME FOR TEST 123456789'
         expected_project = models.Project.objects.get_or_create(name=project_name)[0]
         assignment=models.Assignment(project=expected_project, assignee_name=assignee_name, assignment_date=date.today())
-        device = models.Device.objects.order_by('?').first()
+        device = models.Device.objects.first()
         assignment_service = services.AssignmentService(assignment, [str(device.id)])
         self.assertTrue(assignment_service.create_assignment())
         return assignment
-
-    def random_text(self):
-        chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789'
-        return ''.join(random.choice(chars) for _ in range(20))
