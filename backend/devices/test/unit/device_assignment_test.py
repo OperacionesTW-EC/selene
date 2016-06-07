@@ -17,6 +17,9 @@ class TestDeviceAssignment:
     def test_verbose_name_plural(self):
         assert_equal(str(DeviceAssignment._meta.verbose_name_plural), "Asignaciones de Dispositivos")
 
+    def test_should_be_ordered_by_assignment_date(self):
+        assert_equal(DeviceAssignment._meta.ordering, ['-assignment__assignment_date'])
+
     @raises(ValueError)
     def test_should_be_invalid_without_device(self):
         self.device_assignment.device = None
