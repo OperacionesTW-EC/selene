@@ -5,7 +5,7 @@ tar -xvf /home/$USER/selene_backend.tar -C /home/$USER
 rm -rf /home/$USER/selene_backend.tar
 cd /home/$USER/backend
 export DEVICE_FILE_PATH=/home/$USER/migrationFiles/devices.csv
-pip3 install -r requirements.txt
+sudo pip3 install -r requirements.txt
 yes | ./manage.py migrate
 chown -R $USER:$USER /home/$USER/backend
 sudo systemctl restart $SERVICE_NAME
