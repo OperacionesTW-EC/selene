@@ -46,7 +46,7 @@ class TestAssignmet:
         assert_is_not_none(assignment)
 
     def test_should_set_life_start_date_on_device_for_new_laptop(self):
-        assert_true(self.device.life_has_not_begun())
+        assert_true(self.device.has_lifetime_and_life_has_not_begun())
         self.get_response(self.build_request())
         device = models.DeviceAssignment.objects.filter(device__device_type__name='Laptop')[0].device
         assert_is_not_none(device.life_start_date)

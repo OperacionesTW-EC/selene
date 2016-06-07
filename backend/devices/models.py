@@ -68,12 +68,16 @@ class Device(models.Model):
             raise ValidationError(
                 _('life_start_date required on an assigned device with a lifetime'),
                 code='invalid')
+        if not self.has_lifetime() and self.life_start_date not in (None, ''):
+            raise ValidationError(
+                _('life_start_date present on a device with no lifetime'),
+                code='invalid')
 
     def clean(self):
         self.validate_required_fields()
 
     def assign(self, date=None):
-        if self.life_has_not_begun():
+        if self.has_lifetime_and_life_has_not_begun():
             self.life_start_date = date or datetime.date.today()
         self.mark_assigned()
 
@@ -86,10 +90,10 @@ class Device(models.Model):
     def has_lifetime(self):
         return self.device_type.has_lifetime()
 
-    def life_has_begun(self):
+    def has_lifetime_and_life_has_begun(self):
         return self.has_lifetime() and self.life_start_date not in (None, '')
 
-    def life_has_not_begun(self):
+    def has_lifetime_and_life_has_not_begun(self):
         return self.has_lifetime() and self.life_start_date in (None, '')
 
     def device_type_name(self):
@@ -105,7 +109,7 @@ class Device(models.Model):
         return self.generate_code() + '{0:04d}'.format(self.sequence)
 
     def calculate_life_end_date(self):
-        if self.has_lifetime() and self.life_has_begun():
+        if self.has_lifetime_and_life_has_begun():
             return self.life_start_date + datetime.timedelta(days=self.device_type.life_time * 365)
 
     def life_end_date(self):

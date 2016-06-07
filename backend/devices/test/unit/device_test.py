@@ -71,16 +71,21 @@ class TestDevice:
         assert_false(self.device.has_lifetime())
 
     def test_should_say_if_life_has_not_begun_for_device_with_lifetime(self):
-        assert_true(self.device.life_has_not_begun())
-        assert_false(self.device.life_has_begun())
+        assert_true(self.device.has_lifetime_and_life_has_not_begun())
+        assert_false(self.device.has_lifetime_and_life_has_begun())
 
     def test_should_say_if_life_has_begun_for_device_with_lifetime_and_start_date(self):
         self.device.life_start_date = datetime.date.today()
-        assert_true(self.device.life_has_begun())
-        assert_false(self.device.life_has_not_begun())
+        assert_true(self.device.has_lifetime_and_life_has_begun())
+        assert_false(self.device.has_lifetime_and_life_has_not_begun())
 
     def test_life_start_date_should_be_required_for_device_with_lifetime(self):
         self.device.mark_assigned()
+        assert_raises(ValidationError, self.device.full_clean)
+
+    def test_life_start_date_should_not_be_present_on_device_with_no_lifetime(self):
+        self.device.life_start_date = datetime.date.today()
+        self.device.device_type.life_time = None
         assert_raises(ValidationError, self.device.full_clean)
 
     def test_should_be_valid_if_has_lifetime_has_start_date_and_is_assigned(self):

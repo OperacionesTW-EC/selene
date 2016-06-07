@@ -2,10 +2,11 @@ from __future__ import unicode_literals
 
 from django.db import migrations
 from django.db import transaction
-from devices.models import *
+from devices.models import *  # NOQA
 from datetime import date, datetime
 import os
 import sys
+
 
 @transaction.atomic
 def insert_from_csv(apps, schema_editor):
@@ -31,10 +32,6 @@ def insert_from_csv(apps, schema_editor):
                     'description': 16
                     }
 
-    def set_device_as_assigned(device, assignment_date):
-        device.life_start_date = assignment_date
-        device.mark_assigned()
-
     def create_assignment(parts, device):
         project = Project.objects.get_or_create(name=parts[FILE_COLUMNS['project_name']].strip().capitalize())[0]
         assignment_date = parts[FILE_COLUMNS['assignment_date']].strip()
@@ -45,7 +42,7 @@ def insert_from_csv(apps, schema_editor):
         assignee_name = parts[FILE_COLUMNS['assignee']].strip()
         assignment = Assignment(assignee_name=assignee_name, project=project, assignment_date=assignment_date)
         assignment.save()
-        set_device_as_assigned(device, assignment.assignment_date)
+        device.assign(assignment.assignment_date)
         device.save()
         device_assignment = DeviceAssignment(device=device, assignment=assignment)
         device_assignment.save()
@@ -53,12 +50,14 @@ def insert_from_csv(apps, schema_editor):
     def print_device_errors(device):
         expected_code = device.generate_code()
         if expected_code != device.code:
-            print('El dispositivo %s tiene inconsistencia en los datos, el código recibido fue: %s el generado es: %s' % (device.full_code(), device.code,  expected_code))
+            print('El dispositivo %s tiene inconsistencia en los datos, el código recibido fue: %s el generado es: %s' %
+                  (device.full_code(), device.code,  expected_code))
 
     def create_device(parts):
         device_data = {}
         full_code = parts[FILE_COLUMNS['full_code']].strip()
-        device_data['device_type'] = DeviceType.objects.get_or_create(name=parts[FILE_COLUMNS['device_type_name']].strip().capitalize(), code=parts[FILE_COLUMNS['device_type_code']].strip().upper())[0]
+        device_data['device_type'] = DeviceType.objects.get_or_create(name=parts[FILE_COLUMNS['device_type_name']].strip().capitalize(),
+                                                                      code=parts[FILE_COLUMNS['device_type_code']].strip().upper())[0]
         device_data['device_brand'] = DeviceBrand.objects.get_or_create(name=parts[FILE_COLUMNS['device_brand_name']].strip().capitalize())[0]
         device_data['device_status'] = DeviceStatus.objects.get_or_create(name=parts[FILE_COLUMNS['device_status_name']].strip().capitalize())[0]
         device_data['code'] = full_code[0:4]
