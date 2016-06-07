@@ -51,7 +51,25 @@ class TestAssignedDevicesView(APITestCase):
         assignee_name = 'UNIQUE ASSIGNEE NAME FOR TEST 123456789'
         expected_project = models.Project.objects.get_or_create(name=project_name)[0]
         assignment=models.Assignment(project=expected_project, assignee_name=assignee_name, assignment_date=date.today())
-        device = models.Device.objects.first()
+        device = self.create_device()
         assignment_service = services.AssignmentService(assignment, [str(device.id)])
         self.assertTrue(assignment_service.create_assignment())
         return assignment
+
+    def create_device(self):
+        device_brand = models.DeviceBrand.objects.get_or_create(name='Some brand')[0]
+        device_type = models.DeviceType.objects.get_or_create(code='L', name='Laptop')[0]
+        device_status = models.DeviceStatus.objects.get_or_create(name=models.DeviceStatus.DISPONIBLE)[0]
+
+        device = models.Device.objects.get_or_create(
+            device_type=device_type,
+            device_brand=device_brand,
+            device_status=device_status,
+            asset=1,
+            ownership=random.choice(['CL', 'TW']),
+            serial_number='123123',
+            purchase_date=date.today(),
+            sequence=random.randint(0, 100),
+            code='code', model="xyz")[0]
+
+        return device
