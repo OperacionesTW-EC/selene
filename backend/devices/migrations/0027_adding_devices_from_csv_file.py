@@ -96,7 +96,6 @@ def insert_from_csv(apps, schema_editor):
             create_assignment(parts, device)
         else:
             device.save()
-
     if 'test' in sys.argv:  # prevents running the migration when executing manage.py test
         return
     file = open(FILE_PATH, 'r')
@@ -109,7 +108,7 @@ def insert_from_csv(apps, schema_editor):
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('devices', '0025_auto_20160607_1437'),
+        ('devices', '0026_auto_20160608_1543'),
     ]
     operations = [
         migrations.RunPython(insert_from_csv),
