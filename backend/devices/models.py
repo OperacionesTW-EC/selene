@@ -177,6 +177,7 @@ class Assignment(models.Model):
 class DeviceAssignment(models.Model):
     device = models.ForeignKey('Device')
     assignment = models.ForeignKey('Assignment')
+    actual_return_date = models.DateField(null=True)
 
     def id(self):
         return self.device.id

@@ -1,11 +1,9 @@
 from django.core.exceptions import ValidationError
-
 from devices import models
 from datetime import date
 
 
 class DeviceStatusService:
-
     @staticmethod
     def get_filtered_device_statuses():
         return models.DeviceStatus.objects.exclude(name=models.DeviceStatus.ASIGNADO)
@@ -21,8 +19,18 @@ class DeviceService:
     CHANGE_STATUS_ERROR_MESSAGE = 'No se puede cambiar el estado de un dispositivo que está dado de baja'
 
     @staticmethod
+    def set_actual_return_date_of_device_assignment(device):
+        device_assignments = models.DeviceAssignment.objects.filter(device=device).order_by('id')
+        if device_assignments:
+            device_assignment = device_assignments.last()
+            device_assignment.actual_return_date = date.today()
+            device_assignment.save()
+
+    @staticmethod
     def change_device_status(device, new_status_id):
         if device.device_status.name != models.DeviceStatus.DADO_DE_BAJA:
+            if device.device_status.name == models.DeviceStatus.ASIGNADO:
+                DeviceService.set_actual_return_date_of_device_assignment(device)
             new_status = models.DeviceStatus.objects.get(pk=new_status_id)
             device.device_status = new_status
             device.save()
@@ -32,7 +40,6 @@ class DeviceService:
 
 
 class AssignmentService:
-
     def __init__(self, assignment, devices_ids):
         self.assignment = assignment
         self.devices = []

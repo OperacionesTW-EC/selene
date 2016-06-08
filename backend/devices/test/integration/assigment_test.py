@@ -14,6 +14,7 @@ class TestAssignmet:
         self.device = None
         self.device_brand = None
         self.device_type = None
+        self.project = None
 
     def setup(self):
         self.project = models.Project(name='Selene')
