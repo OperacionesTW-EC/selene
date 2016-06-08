@@ -123,9 +123,15 @@ class Device(models.Model):
         return 1 if len(last_device_with_same_code) == 0 else last_device_with_same_code[0].sequence + 1
 
     def life_start_date_or_assignment_date(self):
-        return self.life_start_date or self.get_assignment_date()
+        """
+        Para dispositivos con la vida limitada (DeviceType.life_time is not None, e.g. Laptop),
+        se devuelve 'life_start_date' si hay.
 
-    def get_assignment_date(self):
+        Para otros se devuelve la fecha de asignación más reciente, si hay
+        """
+        return self.life_start_date or self.get_last_assignment_date()
+
+    def get_last_assignment_date(self):
         query_set = DeviceAssignment.objects.filter(device=self)
         if query_set:
             return query_set.first().assignment.assignment_date
@@ -214,6 +220,12 @@ class DeviceAssignment(models.Model):
         return ''
 
     def life_start_date_or_assignment_date(self):
+        """
+        Para dispositivos con la vida limitada (DeviceType.life_time is not None, e.g. Laptop),
+        se devuelve 'life_start_date' si hay.
+
+        Para otros se devuelve la fecha de asignación
+        """
         return self.device.life_start_date or self.assignment.assignment_date
 
     class Meta:
@@ -225,4 +237,4 @@ class DeviceAssignment(models.Model):
 class DeviceStatusLog(models.Model):
     device = models.ForeignKey('Device')
     device_status = models.ForeignKey('DeviceStatus')
-    status_change_datetime = models.DateTimeField(blank=False, null=False, default=timezone.now())
+    status_change_datetime = models.DateTimeField(blank=False, null=False, default=timezone.now)
