@@ -217,3 +217,29 @@ class TestDevice:
         assert_equal(self.device.device_status_name(), DeviceStatus.DISPONIBLE)
         self.device.mark_assigned()
         assert_equal(self.device.device_status_name(), DeviceStatus.ASIGNADO)
+
+    def test_get_assignment_date_returns_none_when_not_assigned(self):
+        assert_is_none(self.device.get_assignment_date())
+
+    def test_can_get_assignment_date(self):
+        assignment = mommy.prepare_recipe('devices.assignment_recipe')
+        assignment.save()
+        self.device.save()
+        mommy.make('DeviceAssignment', device=self.device, assignment=assignment)
+        result = self.device.get_assignment_date()
+        assert_equal(result, assignment.assignment_date)
+
+    def test_gets_most_recent_assignment_date(self):
+        assignment1 = mommy.prepare_recipe('devices.assignment_recipe')
+        assignment2 = mommy.prepare_recipe('devices.assignment_recipe')
+
+        old_date = datetime.date.today() - datetime.timedelta(days=14)
+        assignment1.assignment_date = old_date
+        assignment1.save()
+        assignment2.save()
+        self.device.save()
+        mommy.make('DeviceAssignment', device=self.device, assignment=assignment1)
+        mommy.make('DeviceAssignment', device=self.device, assignment=assignment2)
+        result = self.device.get_assignment_date()
+        assert_equal(result, assignment2.assignment_date)
+

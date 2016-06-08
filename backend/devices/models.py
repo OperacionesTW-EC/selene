@@ -122,6 +122,14 @@ class Device(models.Model):
         last_device_with_same_code = Device.objects.filter(code=self.code).order_by('-sequence')
         return 1 if len(last_device_with_same_code) == 0 else last_device_with_same_code[0].sequence + 1
 
+    def life_start_date_or_assignment_date(self):
+        return self.life_start_date or self.get_assignment_date()
+
+    def get_assignment_date(self):
+        query_set = DeviceAssignment.objects.filter(device=self)
+        if query_set:
+            return query_set.first().assignment.assignment_date
+
     def save(self, *args, **kwargs):
         self.clean()
         if not self.pk:
@@ -211,7 +219,7 @@ class DeviceAssignment(models.Model):
     class Meta:
         verbose_name = _(u'Asignación de Dispositivos')
         verbose_name_plural = _(u'Asignaciones de Dispositivos')
-        ordering = ['-assignment__assignment_date']
+        ordering = ['-assignment__assignment_date', '-id']
 
 
 class DeviceStatusLog(models.Model):
