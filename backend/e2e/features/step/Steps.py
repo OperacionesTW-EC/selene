@@ -1,21 +1,8 @@
 import time
-from selenium import webdriver
-from selenium.webdriver.common.keys import Keys
-from lettuce import step
-from lettuce import world
-from datetime import datetime
+from lettuce import world, step
 from lettuce_webdriver.util import assert_true
-from selenium.webdriver.support.color import Color
 from selenium.webdriver.support.ui import Select
-from lettuce_webdriver.util import assert_false
 from lettuce_webdriver.util import AssertContextManager
-from lettuce_webdriver.util import find_button
-from lettuce_webdriver.util import find_field
-from lettuce_webdriver.util import find_option
-from selenium.webdriver.remote.command import Command
-from selenium.webdriver.support.ui import Select
-from selenium.webdriver.common.desired_capabilities import DesiredCapabilities
-from selenium.common.exceptions import NoSuchElementException
 
 
 def contains_content(browser, content):
@@ -84,7 +71,7 @@ def should_see(step, text, timeout=15):
 
 
 @step('I press Ingresar$')
-def should_see(step):
+def enter(step):
     with AssertContextManager(step):
         button = world.browser.find_element_by_css_selector(".btn.btn-secondary.btn-block")
         button.click()
@@ -227,7 +214,7 @@ def press_dashboard(step):
 
 
 @step('I press Asignar$')
-def asing_device_page(step):
+def assign_device_page(step):
     with AssertContextManager(step):
         button = world.browser.find_element_by_css_selector('i.fa.fa-user-plus.icon')
         button.click()
