@@ -134,7 +134,7 @@ class Device(models.Model):
     def get_last_assignment_date(self):
         query_set = DeviceAssignment.objects.filter(device=self)
         if query_set:
-            return query_set.first().assignment.assignment_date
+            return query_set.first().assignment_date
 
     def save(self, *args, **kwargs):
         self.clean()
@@ -174,10 +174,14 @@ class Project(models.Model):
 
 class Assignment(models.Model):
     assignee_name = models.CharField(max_length=50)
-    assignment_date = models.DateField(blank=True, null=True)
     expected_return_date = models.DateField(blank=True, null=True)
     project = models.ForeignKey('Project', null=True, blank=True)
     devices = models.ManyToManyField(Device, through='DeviceAssignment')
+
+    def assignment_date(self):
+        query_set = DeviceAssignment.objects.filter(assignment=self)
+        if query_set:
+            return query_set.first().assignment_date
 
     def project_name(self):
         if self.project:
@@ -191,6 +195,7 @@ class Assignment(models.Model):
 class DeviceAssignment(models.Model):
     device = models.ForeignKey('Device')
     assignment = models.ForeignKey('Assignment')
+    assignment_date = models.DateField(blank=True, null=True)
     actual_return_date = models.DateField(null=True)
 
     def id(self):
@@ -226,12 +231,12 @@ class DeviceAssignment(models.Model):
 
         Para otros se devuelve la fecha de asignación
         """
-        return self.device.life_start_date or self.assignment.assignment_date
+        return self.device.life_start_date or self.assignment_date
 
     class Meta:
         verbose_name = _(u'Asignación de Dispositivos')
         verbose_name_plural = _(u'Asignaciones de Dispositivos')
-        ordering = ['-assignment__assignment_date', '-id']
+        ordering = ['-assignment_date', '-id']
 
 
 class DeviceStatusLog(models.Model):

@@ -54,7 +54,6 @@ class AssignmentService:
                 self.errors.append({'error': 'No se encontró el dispositivo: %s' % device_id})
 
     def create_assignment(self):
-        self.assignment.assignment_date = date.today()
         if self.save_assignment() and not self.errors:
             self.update_devices()
             self.create_device_assignment()
@@ -77,5 +76,5 @@ class AssignmentService:
 
     def create_device_assignment(self):
         for device in self.devices:
-            device_assignment = models.DeviceAssignment(device=device, assignment=self.assignment)
+            device_assignment = models.DeviceAssignment(device=device, assignment=self.assignment, assignment_date=date.today())
             device_assignment.save()

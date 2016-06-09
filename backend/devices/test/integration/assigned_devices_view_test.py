@@ -67,7 +67,7 @@ class TestAssignedDevicesView(APITestCase):
         expected_project = None
         if has_project:
             expected_project = models.Project.objects.get_or_create(name=project_name)[0]
-        assignment = models.Assignment(project=expected_project, assignee_name=assignee_name, assignment_date=date.today())
+        assignment = models.Assignment(project=expected_project, assignee_name=assignee_name)
         device = self.create_device()
         assignment_service = services.AssignmentService(assignment, [str(device.id)])
         assignment_service.create_assignment()
@@ -95,10 +95,9 @@ class TestAssignedDevicesView(APITestCase):
     def create_device_assignment(self):
         device = self.create_device(models.DeviceStatus.ASIGNADO)
         assignment = models.Assignment.objects.get_or_create(
-            assignee_name='Nombre Apellido',
-            assignment_date=date.today()
+            assignee_name='Nombre Apellido'
         )[0]
-        device_assignment = models.DeviceAssignment(assignment=assignment, device=device)
+        device_assignment = models.DeviceAssignment(assignment=assignment, device=device, assignment_date=date.today())
         device_assignment.save()
         return device_assignment
 

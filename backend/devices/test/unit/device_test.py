@@ -5,6 +5,7 @@ from nose.tools import raises
 from devices.models import DeviceType
 from devices.models import Device
 from devices.models import DeviceStatus
+from devices.models import DeviceAssignment
 import datetime
 
 
@@ -227,21 +228,20 @@ class TestDevice:
         self.device.save()
         mommy.make('DeviceAssignment', device=self.device, assignment=assignment)
         result = self.device.get_last_assignment_date()
-        assert_equal(result, assignment.assignment_date)
+        assert_equal(result, assignment.assignment_date())
 
     def test_gets_most_recent_assignment_date(self):
         assignment1 = mommy.prepare_recipe('devices.assignment_recipe')
         assignment2 = mommy.prepare_recipe('devices.assignment_recipe')
 
         old_date = datetime.date.today() - datetime.timedelta(days=14)
-        assignment1.assignment_date = old_date
         assignment1.save()
         assignment2.save()
         self.device.save()
-        mommy.make('DeviceAssignment', device=self.device, assignment=assignment1)
+        mommy.make('DeviceAssignment', device=self.device, assignment=assignment1, assignment_date=old_date)
         mommy.make('DeviceAssignment', device=self.device, assignment=assignment2)
         result = self.device.get_last_assignment_date()
-        assert_equal(result, assignment2.assignment_date)
+        assert_equal(result, assignment2.assignment_date())
 
     def test_should_return_none_for_device_without_life_start_or_assignment_dates(self):
         assert_is_none(self.device.life_start_date_or_assignment_date())
@@ -254,9 +254,9 @@ class TestDevice:
         self.device.device_type.life_time = 3
         self.device.assign()
         self.device.save()
-        mommy.make('DeviceAssignment', device=self.device, assignment=assignment)
+        mommy.make('DeviceAssignment', device=self.device, assignment=assignment, assignment_date = datetime.date.today())
         result = self.device.life_start_date_or_assignment_date()
-        assert_equal(assignment.assignment_date, datetime.date.today())
+        assert_equal(assignment.assignment_date(), datetime.date.today())
         assert_equal(result, self.device.life_start_date)
 
     def test_should_return_assignment_date_for_device_without_lifetime(self):
@@ -267,5 +267,5 @@ class TestDevice:
         self.device.save()
         mommy.make('DeviceAssignment', device=self.device, assignment=assignment)
         result = self.device.life_start_date_or_assignment_date()
-        assert_equal(result, assignment.assignment_date)
+        assert_equal(result, assignment.assignment_date())
 

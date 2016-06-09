@@ -61,6 +61,7 @@ class DeviceSerializer(serializers.ModelSerializer):
 
 class AssignmentSerializer(serializers.ModelSerializer):
     devices = DeviceSerializer(many=True, read_only=True)
+    assignment_date = serializers.DateTimeField(required=False)
 
     class Meta:
         model = models.Assignment

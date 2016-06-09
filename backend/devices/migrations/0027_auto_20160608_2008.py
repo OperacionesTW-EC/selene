@@ -9,7 +9,7 @@ import django.utils.timezone
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('devices', '0027_adding_devices_from_csv_file'),
+        ('devices', '0026_auto_20160608_1543'),
     ]
 
     operations = [

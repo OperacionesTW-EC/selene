@@ -40,12 +40,14 @@ def insert_from_csv(apps, schema_editor):
         else:
             assignment_date = date.today()
         assignee_name = parts[FILE_COLUMNS['assignee']].strip()
-        assignment = Assignment(assignee_name=assignee_name, project=project, assignment_date=assignment_date)
+        assignment = Assignment(assignee_name=assignee_name, project=project)
         assignment.save()
-        device.assign(assignment.assignment_date)
+        device.assign(assignment_date)
         device.save()
-        device_assignment = DeviceAssignment(device=device, assignment=assignment)
+        device_assignment = DeviceAssignment(device=device, assignment=assignment, assignment_date=assignment_date)
         device_assignment.save()
+
+
 
     def print_device_errors(device):
         expected_code = device.generate_code()
@@ -108,7 +110,7 @@ def insert_from_csv(apps, schema_editor):
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('devices', '0026_auto_20160608_1543'),
+        ('devices', '0028_auto_20160608_2208'),
     ]
     operations = [
         migrations.RunPython(insert_from_csv),
