@@ -1,12 +1,16 @@
-# Selene
-## Version
-0.1
+# selene
+TW Selene Fixed Asset Backend
 
-## Antecedente
-El presente documento te ayudará a levantar los ambientes de GO CD, QA y Producción, además, de dar una introducción de los comandos más usados para la arquitectura seleccionada.
+## Tech Stack
 
+- PostgreSQL (https://www.postgresql.org)
+- Django (https://www.djangoproject.com)
+- Django REST Framework (http://www.django-rest-framework.org)
+- Python 3
+- Test: nose (http://nose.readthedocs.io), Django REST Framework Test (http://www.django-rest-framework.org/api-guide/testing/)
 
-## PostgreSQL en mac
+## PostgreSQL en Mac
+
 - Instalación:
 
   ```sh
@@ -25,45 +29,82 @@ El presente documento te ayudará a levantar los ambientes de GO CD, QA y Produc
   postgres=#\q
   ```
 
-- Cambiar de método de autenticación a md5 en archivo `/usr/local/var/postgres/pg_hba.conf`
+- Cambiar método de autenticación a md5 en archivo `/usr/local/var/postgres/pg_hba.conf`.
 
-## Python en mac
+## Python en Mac
 
 - Instalación:
+
   ```sh
-  $ brew install python
-  $ pip install --upgrade setuptools
-  $ pip install --upgrade pip
+  $ brew install python python3
   $ pip install virtualenv
   ```
 
 - Crear venv:
+
   ```sh
-  $ virtualenv seleneenv
+  $ virtualenv -p python3 seleneenv
   $ source seleneenv/bin/activate
-  $ pip install -r requirements.txt
   ```
 
 - Salir del venv:
+
   ```sh
   $ deactivate
   ```
 
-- Iniciar aplicación:
+- Instalar dependencias (en la carpeta ```backend```, activar venv):
+
   ```sh
-  #!/bin/bash
-  export DB_1_ENV_POSTGRES_DB=selene
-  export DB_1_ENV_POSTGRES_USER=postgres
-  export DB_1_ENV_POSTGRES_PASSWORD=postgres
-  export DB_PORT_5432_TCP_ADDR=127.0.0.1
-  export DB_PORT_5432_TCP_PORT=5432
-  python manage.py runserver 0.0.0.0:8000
+  $ pip install -r requirements.txt
   ```
 
-## TODO
-- [ ] Ilustración de última arquitectura
-- [ ] Diagrama de componentes
-- [ ] Comandos intalación de python en mac
-- [ ] Usar local-docker.sh
+## Iniciar aplicación:
 
-[docker-toolbox]: (https://www.docker.com/products/docker-toolbox/)
+- Variables de entorno:
+
+  ```sh
+  $ export DB_1_ENV_POSTGRES_DB=selene
+  $ export DB_1_ENV_POSTGRES_USER=postgres
+  $ export DB_1_ENV_POSTGRES_PASSWORD=postgres
+  $ export DB_PORT_5432_TCP_ADDR=127.0.0.1
+  $ export DB_PORT_5432_TCP_PORT=5432
+  ```
+
+- Ejecutar aplicación en desarrollo (en la carpeta ```backend```, activar venv):
+
+  ```sh
+  $ ./manage.py runserver
+  ```
+
+## Ejecución de pruebas
+
+  ```sh
+  $ ./manage.py test
+  ```
+
+## Estructura de carpetas
+
+- **Archivos para producción**:
+
+  Directorio ```backend/apache2```.
+
+- **Pruebas E2E**:
+
+  Directorio ```backend/e2e```.
+
+- **Elementos Estáticos**:
+
+  Directorio ```backend/static```.
+
+- **Pruebas unitarias**:
+
+  Usar la carpeta ```backend/devices/test``` para escribir las pruebas unitarias.
+
+- **Rutas**:
+
+  Usar el archivo ```backend/selene/urls.py```.
+
+- **Configuraciones**:
+
+  Usar el archivo ```backend/selene/settings.py```.

@@ -122,6 +122,20 @@ class Device(models.Model):
         last_device_with_same_code = Device.objects.filter(code=self.code).order_by('-sequence')
         return 1 if len(last_device_with_same_code) == 0 else last_device_with_same_code[0].sequence + 1
 
+    def life_start_date_or_assignment_date(self):
+        """
+        Para dispositivos con la vida limitada (DeviceType.life_time is not None, e.g. Laptop),
+        se devuelve 'life_start_date' si hay.
+
+        Para otros se devuelve la fecha de asignación más reciente, si hay
+        """
+        return self.life_start_date or self.get_last_assignment_date()
+
+    def get_last_assignment_date(self):
+        query_set = DeviceAssignment.objects.filter(device=self)
+        if query_set:
+            return query_set.first().assignment_date
+
     def save(self, *args, **kwargs):
         self.clean()
         if not self.pk:
@@ -160,10 +174,14 @@ class Project(models.Model):
 
 class Assignment(models.Model):
     assignee_name = models.CharField(max_length=50)
-    assignment_date = models.DateField(blank=True, null=True)
     expected_return_date = models.DateField(blank=True, null=True)
     project = models.ForeignKey('Project', null=True, blank=True)
     devices = models.ManyToManyField(Device, through='DeviceAssignment')
+
+    def assignment_date(self):
+        query_set = DeviceAssignment.objects.filter(assignment=self)
+        if query_set:
+            return query_set.first().assignment_date
 
     def project_name(self):
         if self.project:
@@ -177,6 +195,8 @@ class Assignment(models.Model):
 class DeviceAssignment(models.Model):
     device = models.ForeignKey('Device')
     assignment = models.ForeignKey('Assignment')
+    assignment_date = models.DateField(blank=True, null=True)
+    actual_return_date = models.DateField(null=True)
 
     def id(self):
         return self.device.id
@@ -205,15 +225,21 @@ class DeviceAssignment(models.Model):
         return ''
 
     def life_start_date_or_assignment_date(self):
-        return self.device.life_start_date or self.assignment.assignment_date
+        """
+        Para dispositivos con la vida limitada (DeviceType.life_time is not None, e.g. Laptop),
+        se devuelve 'life_start_date' si hay.
+
+        Para otros se devuelve la fecha de asignación
+        """
+        return self.device.life_start_date or self.assignment_date
 
     class Meta:
         verbose_name = _(u'Asignación de Dispositivos')
         verbose_name_plural = _(u'Asignaciones de Dispositivos')
-        ordering = ['-assignment__assignment_date']
+        ordering = ['-assignment_date', '-id']
 
 
 class DeviceStatusLog(models.Model):
     device = models.ForeignKey('Device')
     device_status = models.ForeignKey('DeviceStatus')
-    status_change_datetime = models.DateTimeField(blank=False, null=False, default=timezone.now())
+    status_change_datetime = models.DateTimeField(blank=False, null=False, default=timezone.now)

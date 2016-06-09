@@ -80,7 +80,8 @@ class AssignedDeviceList(generics.ListCreateAPIView):
         return Response(serializer.data)
 
     def get_queryset(self):
-        queryset = models.DeviceAssignment.objects.filter(device__device_status__name=models.DeviceStatus.ASIGNADO)
+        queryset = models.DeviceAssignment.objects.filter(device__device_status__name=models.DeviceStatus.ASIGNADO,
+                                                          actual_return_date=None)
 
         project = self.request.query_params.get('project', None)
         if project:

@@ -14,6 +14,7 @@ class TestAssignmet:
         self.device = None
         self.device_brand = None
         self.device_type = None
+        self.project = None
 
     def setup(self):
         self.project = models.Project(name='Selene')
@@ -79,7 +80,7 @@ class TestAssignmet:
     def test_should_set_the_assignment_date(self):
         expected_date = date.today()
         self.get_response(self.build_request(assignee_name='Name'))
-        assignment_date = models.Assignment.objects.get(assignee_name='Name').assignment_date
+        assignment_date = models.Assignment.objects.get(assignee_name='Name').assignment_date()
         assert_equal(assignment_date, expected_date)
 
     def test_should_include_the_expected_return_date_if_any(self):
