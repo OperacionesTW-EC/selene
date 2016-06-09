@@ -1,6 +1,11 @@
 # selene
 TW Selene Fixed Asset Backend
 
+## Información
+
+- Documentación y credenciales en Google Drive
+- Trello: https://trello.com/b/UtxPAoUK/selene
+
 ## Tech Stack
 
 - PostgreSQL (https://www.postgresql.org)
