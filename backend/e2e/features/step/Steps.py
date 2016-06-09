@@ -59,6 +59,18 @@ def press(step, input_button_text):
 		button.click()
         time.sleep(2)
 
+@step('I should see "(.*?)"$')
+def should_see(step, text, timeout=15):
+    with AssertContextManager(step):
+        start = time.time()
+        while time.time() - start < timeout:
+            if contains_content(world.browser, text):
+                return
+            time.sleep(2)
+        assert_true(step, contains_content(world.browser, text))
+    time.sleep(10)
+
+
 @step('I fill in the textfield with "(.*?)"$')
 def fill_in_textfield(step, entry):
 	with AssertContextManager(step):
@@ -66,16 +78,7 @@ def fill_in_textfield(step, entry):
 		textfield.clear()
 		textfield.send_keys(entry)
 
-@step('I should see "(.*?)"$')
-def should_see(step, text, timeout=15):
-	with AssertContextManager(step):
-		start = time.time()
-		while time.time() - start < timeout:
-			if contains_content(world.browser, text):
-				return
-			time.sleep(2)
-		assert_true(step, contains_content(world.browser, text))
-        time.sleep(10)
+
 		
 @step('I press Ingresar$')
 def should_see(step):
