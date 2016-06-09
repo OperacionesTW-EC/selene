@@ -25,6 +25,7 @@ nose==1.3.7
 pbr==1.9.1
 psycopg2==2.6
 python-dateutil==2.5.3
+python-Levenshtein==0.12.0
 python-mimeparse==1.5.2
 python-subunit==1.2.0
 six==1.10.0
@@ -34,3 +35,6 @@ traceback2==1.4.0
 unittest2==1.1.0
 virtualenv==13.1.0
 waitress==0.9.0
+lettuce_webdriver==0.3.5
+lettuce==0.2.21
+selenium==2.53.2
