@@ -1,27 +1,23 @@
 Feature: Register devices
-  As Tech Opss user
+  As Tech Ops user
   I want to register a device
-  So Thougthworks have an inventory of devices
+  So Thougthworks has an inventory of devices
 
   @play
-  Scenario: Enter the Dashboard
-    Given I am in homepage SELENE
-    And I press Ingresar
-    Then I should see "Dashboard"
-  @play
-  Scenario: Enter the Device Registration
-    Given I am in "Dashboard" page
-    And I press Registrar Dispositivo
-    Then I should see "Registrar Dispositivo"
-  @play
   Scenario: Register a device
-    Given I am in "Registrar Dispositivo" page
-    And I select Tipo like "Laptop"
-    And I select Marca like "Apple"
-    And I select Activo like "Si"
-    And I register Serial like "1234-456-WS-33"
-    And I register Modelo like "MAC Book-Pro"
-    And I select Fecha de Compra like "05-13-2016"
-    And I select Propiedad like "TW"
-    And I press Guardar
+    Given I am on the Selene homepage
+    When I press Ingresar
+    Then I should be on the "Dashboard" page
+
+    When I choose "Registrar" on the side nav
+    Then I should be on the "Registrar Dispositivo" page
+
+    When I select Tipo "Laptop"
+    And I select Marca "Apple"
+    And I select Activo "Si"
+    And I enter Serial "1234-456-WS-33"
+    And I enter Modelo "MAC Book-Pro"
+    And I select Fecha de Compra "05-13-2016"
+    And I select Propiedad "TW"
+    And I save
     Then I should see "ha sido registrado satisfactoriamente"

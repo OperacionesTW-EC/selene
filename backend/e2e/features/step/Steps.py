@@ -3,6 +3,8 @@ from lettuce import world, step
 from lettuce_webdriver.util import assert_true
 from selenium.webdriver.support.ui import Select
 from lettuce_webdriver.util import AssertContextManager
+import config
+from pages import main_page, side_nav
 
 
 def contains_content(browser, content):
@@ -34,28 +36,29 @@ def wait_for_content(step, browser, content, timeout=15):
     assert_true(step, contains_content(world.browser, content))
 
 
-@step('I am in homepage SELENE$')
+@step('I am on the Selene homepage$')
 def homepage_selene(step):
     with AssertContextManager(step):
-        # world.browser.get('http://localhost:8080/#/?_k=ujlsa1')
-        world.browser.get('http://10.71.23.244/selene/#/?_k=63ld6h')
-        world.browser.find_element_by_css_selector('.login-card.paper.white')
+        world.browser.get(config.home_url())
 
 
 @step('I press "(.*?)"$')
-def press(step, input_button_text):
+def press(step, button_text):
     with AssertContextManager(step):
-        button = world.browser.find_elelement_by_partial_link_text(input_button_text)
-        button.click()
+        main_page.button(button_text).click()
+
+
+@step('I save$')
+def save(step):
+    with AssertContextManager(step):
+        main_page.Guardar().click()
         time.sleep(2)
 
 
-@step('I fill in the textfield with "(.*?)"$')
-def fill_in_textfield(step, entry):
+@step('I choose "(.*?)" on the side nav$')
+def side_nave(step, button_text):
     with AssertContextManager(step):
-        textfield = world.browser.find_element_by_xpath("//input[@id='gs_htif0']")
-        textfield.clear()
-        textfield.send_keys(entry)
+        side_nav.button(button_text).click()
 
 
 @step('I should see "(.*?)"$')
@@ -65,7 +68,6 @@ def should_see(step, text, timeout=15):
         while time.time() - start < timeout:
             if contains_content(world.browser, text):
                 return
-            time.sleep(2)
         assert_true(step, contains_content(world.browser, text))
         time.sleep(10)
 
@@ -73,85 +75,72 @@ def should_see(step, text, timeout=15):
 @step('I press Ingresar$')
 def enter(step):
     with AssertContextManager(step):
-        button = world.browser.find_element_by_css_selector(".btn.btn-secondary.btn-block")
-        button.click()
+        main_page.ingresar_button().click()
 
 
-@step('I am in Dashboar SELENE$')
-def dashboar_selene(step):
+@step('I should be on the "(.*?)" page$')
+@step('I am on the "(.*?)" page$')
+def verify_header(step, page_name):
+    """
+    'Given' has responsibility for establishing conditions, not just verifying them.
+    For example:
+        "Given I am on the 'Fulano' page"
+              should navigate us to the page, not just assert that we are there
+    """
     with AssertContextManager(step):
-        world.browser.find_element_by_css_selector('.fa.fa-plus-square-o.icon')
+        page_name in main_page.page_header().text
 
 
-@step('I press Registrar Dispositivo$')
-def press_Registrar_dispositivo(step):
-    with AssertContextManager(step):
-        button = world.browser.find_element_by_css_selector('section.sidenav i.fa.fa-plus-square.icon')
-        button.click()
-
-
-@step('I am in "(.*?)" page$')
-def registrar_dispositivo_page(step, page):
-    with AssertContextManager(step):
-        page in world.browser.find_element_by_css_selector('.container-fluid>h1').text
-        time.sleep(2)
-
-
-@step('I select Tipo like "(.*?)"$')
+@step('I select Tipo "(.*?)"$')
 def select_device_type(step, content):
     with AssertContextManager(step):
-        options = Select(world.browser.find_element_by_css_selector('select[name="device_type"]'))
+        options = Select(main_page.device_types())
         options.select_by_visible_text(content)
 
 
-@step('I select Marca like "(.*?)"$')
+@step('I select Marca "(.*?)"$')
 def select_device_brand(step, content):
     with AssertContextManager(step):
-        options = Select(world.browser.find_element_by_css_selector('select[name="device_brand"]'))
+        options = Select(main_page.device_brands())
         options.select_by_visible_text(content)
 
 
-@step('I select Activo like "(.*?)"$')
+@step('I select Activo "(.*?)"$')
 def select_device_activo(step, content):
     with AssertContextManager(step):
-        options = world.browser.find_elements_by_css_selector('.btn-group a')
-        for a in options:
+        for a in main_page.active_status_buttons():
             if a.is_displayed() and content in a.text:
                 a.click()
 
 
-@step('I register Serial like "(.*?)"$')
-def register_device_serial(step, content):
+@step('I enter Serial "(.*?)"$')
+def enter_device_serial(step, content):
     with AssertContextManager(step):
-        world.browser.find_element_by_css_selector('input[name="serial_number"]').click()
-        world.browser.find_element_by_css_selector('input[name="serial_number"]').clear()
-        world.browser.find_element_by_css_selector('input[name="serial_number"]').send_keys(content)
+        main_page.enter_text('serial_number', content)
 
 
-@step('I register Modelo like "(.*?)"$')
-def register_device_model(step, content):
+@step('I enter Modelo "(.*?)"$')
+def enter_device_model(step, content):
     with AssertContextManager(step):
         world.browser.find_element_by_css_selector('input[name="model"]').click()
         world.browser.find_element_by_css_selector('input[name="model"]').clear()
         world.browser.find_element_by_css_selector('input[name="model"]').send_keys(content)
 
 
-@step('I select Fecha de Compra like "(.*?)"$')
-def register_device_purchase_date(step, content):
+@step('I select Fecha de Compra "(.*?)"$')
+def enter_device_purchase_date(step, content):
     with AssertContextManager(step):
-        world.browser.find_element_by_css_selector('input[name="purchase_date"]').click()
-        world.browser.find_element_by_css_selector('input[name="purchase_date"]').clear()
-        world.browser.find_element_by_css_selector('input[name="purchase_date"]').send_keys(content)
+        main_page.enter_text('purchase_date', content)
 
 
-@step('I select Propiedad like "(.*?)"$')
+@step('I select Propiedad "(.*?)"$')
 def select_device_ownership(step, content):
     with AssertContextManager(step):
-        options = Select(world.browser.find_element_by_css_selector('select[name="ownership"]'))
+        options = Select(main_page.ownership())
         options.select_by_visible_text(content)
 
 
-@step('I register Responsable like "(.*?)"$')
+@step('I enter Responsable "(.*?)"$')
 def assignee_name(step, content):
     with AssertContextManager(step):
         world.browser.find_element_by_css_selector('input[name="assignee_name"]').click()
@@ -159,31 +148,29 @@ def assignee_name(step, content):
         world.browser.find_element_by_css_selector('input[name="assignee_name"]').send_keys(content)
 
 
-@step('I select Proyecto like "(.*?)"$')
-def assignee_project(step, content):
+@step('I select Proyecto "(.*?)"$')
+def assignment_project(step, content):
     with AssertContextManager(step):
-        options = Select(world.browser.find_element_by_css_selector('select[name="project"]'))
+        options = Select(main_page.project())
         options.select_by_visible_text(content)
 
 
-@step('I register Fecha de Entrega')
-def assingee_expected_return_date(step):
+@step('I enter Fecha de Entrega')
+def assingment_expected_return_date(step):
     with AssertContextManager(step):
-        world.browser.find_element_by_css_selector('input[name="expected_return_date"]').click()
-        day = world.browser.find_element_by_css_selector('div.datepicker-days tr:nth-child(3) td[class="day"]:nth-child(6)')
+        main_page.expected_return_date().click()
+        day = main_page.datepicker_day(3, 6)
         day.click()
-        time.sleep(2)
 
 
 @step('I select first device$')
-def assignee_first_device(step):
+def assignment_first_device(step):
     with AssertContextManager(step):
-        check = world.browser.find_element_by_css_selector('input[type="checkbox"]:first-child')
-        check.click()
+        main_page.device_check_boxes()[0].click()
 
 
 @step('I select first device detail$')
-def assignee_first_device_detail(step):
+def assignment_first_device_detail(step):
     with AssertContextManager(step):
         check = world.browser.find_element_by_css_selector('tr.data-row i.fa.fa-search:first-child')
         check.click()
@@ -238,3 +225,4 @@ def press_button(step, content):
                 a.click()
                 break
         time.sleep(2)
+        main_page.device_detail_buttons()[0].click()
