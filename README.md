@@ -76,6 +76,12 @@ TW Selene Fixed Asset Backend
   $ export DB_PORT_5432_TCP_PORT=5432
   ```
 
+- Ejecución de migraciones:
+
+  ```sh
+  $ ./manage.py migrate
+  ```
+
 - Ejecutar aplicación en desarrollo (en la carpeta ```backend```, activar venv):
 
   ```sh
@@ -86,6 +92,12 @@ TW Selene Fixed Asset Backend
 
   ```sh
   $ ./manage.py test
+  ```
+
+## Creación de superuser para backoffice
+
+  ```sh
+  $ ./manage.py createsuperuser
   ```
 
 ## Estructura de carpetas
