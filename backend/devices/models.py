@@ -158,7 +158,7 @@ class Device(models.Model):
     code = models.CharField(max_length=10)
     device_status = models.ForeignKey('DeviceStatus')
     life_start_date = models.DateField(blank=True, null=True)
-    description = models.CharField(max_length=250, null=True, blank=True)
+    description = models.CharField(max_length=200, null=True, blank=True)
 
 
 class Project(models.Model):
@@ -209,6 +209,9 @@ class DeviceAssignment(models.Model):
 
     def device_brand_name(self):
         return self.device.device_brand.name
+
+    def device_brand_name(self):
+        return self.device.description
 
     def return_date(self):
         return self.assignment.expected_return_date
