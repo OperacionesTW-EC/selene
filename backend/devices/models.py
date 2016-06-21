@@ -210,7 +210,7 @@ class DeviceAssignment(models.Model):
     def device_brand_name(self):
         return self.device.device_brand.name
 
-    def device_brand_name(self):
+    def device_description(self):
         return self.device.description
 
     def return_date(self):

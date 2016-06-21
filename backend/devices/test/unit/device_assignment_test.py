@@ -37,6 +37,9 @@ class TestDeviceAssignment:
     def test_should_return_device_brand_name(self):
         assert_is_not_none(self.device_assignment.device_brand_name())
 
+    def test_should_return_device_description(self):
+        assert_is_not_none(self.device_assignment.device.description())
+
     def test_should_return_assignee_name(self):
         assert_is_not_none(self.device_assignment.assignee_name())
 
