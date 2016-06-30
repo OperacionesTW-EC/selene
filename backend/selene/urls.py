@@ -33,5 +33,6 @@ urlpatterns = [
     url(r'^api-auth/', include('rest_framework.urls', namespace='rest_framework')),
     url(r'^assigned_devices/', views.AssignedDeviceList.as_view(), name='assigned_devices'),
     url(r'^device_status/', views.DeviceStatusViewSet.as_view(), name='device_status'),
+    url(r'^device_end_status_type/', views.DeviceEndStatusTypeViewSet.as_view(), name='device_end_status_type'),
     url(r'^devices/change_status', views.ChangeDeviceStatus.as_view(), name='change_status')
 ]

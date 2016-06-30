@@ -15,6 +15,12 @@ class DeviceStatusService:
         return device_status_log
 
 
+class DeviceEndStatusTypeService:
+    @staticmethod
+    def get_filtered_device_end_status_types():
+        return models.DeviceEndStatusType.objects.order_by('id')
+
+
 class DeviceService:
     CHANGE_STATUS_ERROR_MESSAGE = 'No se puede cambiar el estado de un dispositivo que está dado de baja'
 

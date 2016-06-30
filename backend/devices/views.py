@@ -29,6 +29,19 @@ class DeviceStatusViewSet(generics.ListCreateAPIView):
         return services.DeviceStatusService.get_filtered_device_statuses()
 
 
+class DeviceEndStatusTypeViewSet(generics.ListCreateAPIView):
+    serializer_class = serializers.DeviceEndStatusTypeSerializer
+
+    def list(self, request):
+        query_set = self.get_queryset()
+        serializer = serializers.DeviceStatusSerializer(query_set, many=True)
+        page = self.paginate_queryset(query_set)  # NOQA : page is necessary for the method below
+        return self.get_paginated_response(serializer.data)
+
+    def get_queryset(self):
+        return services.DeviceEndStatusTypeService.get_filtered_device_end_status_types()
+
+
 class DeviceViewSet(viewsets.ModelViewSet):
     queryset = models.Device.objects.all()
     serializer_class = serializers.DeviceSerializer

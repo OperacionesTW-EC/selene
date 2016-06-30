@@ -20,6 +20,12 @@ class DeviceStatusSerializer(serializers.HyperlinkedModelSerializer):
         fields = ('id', 'name')
 
 
+class DeviceEndStatusTypeSerializer(serializers.HyperlinkedModelSerializer):
+    class Meta:
+        model = models.DeviceEndStatusType
+        fields = ('id', 'name')
+
+
 class ProjectSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = models.Project

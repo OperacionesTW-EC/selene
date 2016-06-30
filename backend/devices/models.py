@@ -246,3 +246,20 @@ class DeviceStatusLog(models.Model):
     device = models.ForeignKey('Device')
     device_status = models.ForeignKey('DeviceStatus')
     status_change_datetime = models.DateTimeField(blank=False, null=False, default=timezone.now)
+
+
+class DeviceEndStatusType(models.Model):
+    name = models.CharField(max_length=50, unique=True)
+    DAÑADO = 'Dañado'
+    VENDIDO = 'Vendido'
+    ROBADO = 'Robado'
+    DONADO = 'Donado'
+    PERDIDO = 'Perdido'
+
+    def __str__(self):
+        return self.name
+
+    class Meta:
+        verbose_name = _(u'Tipo de Baja')
+        verbose_name_plural = _(u'Tipos de Baja')
+
