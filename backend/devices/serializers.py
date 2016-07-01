@@ -33,7 +33,6 @@ class ProjectSerializer(serializers.HyperlinkedModelSerializer):
 
 
 class DeviceAssignmentSerializer(serializers.ModelSerializer):
-
     class Meta:
         model = models.DeviceAssignment
         fields = ('id', 'full_code', 'device_type_name', 'device_brand_name',
@@ -51,7 +50,8 @@ class DeviceSerializer(serializers.ModelSerializer):
 
     try:
         default_device_status = models.DeviceStatus.objects.get_or_create(name=models.DeviceStatus.DISPONIBLE)[0]
-        device_status = serializers.ModelField(model_field=models.Device()._meta.get_field('device_status'), default=default_device_status)
+        device_status = serializers.ModelField(model_field=models.Device()._meta.get_field('device_status'),
+                                               default=default_device_status)
     except Exception:
         print('devicestatus Table does not exist')
 
@@ -71,4 +71,5 @@ class AssignmentSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = models.Assignment
-        fields = ('id', 'assignee_name', 'assignment_date', 'project_name', 'project', 'devices', 'expected_return_date')
+        fields = (
+        'id', 'assignee_name', 'assignment_date', 'project_name', 'project', 'devices', 'expected_return_date')

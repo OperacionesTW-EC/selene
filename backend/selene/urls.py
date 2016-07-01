@@ -20,11 +20,11 @@ from rest_framework import routers
 
 router = routers.DefaultRouter()
 router.register(r'device_types', views.DeviceTypeViewSet)
+router.register(r'device_end_status_type', views.DeviceEndStatusTypeViewSet)
 router.register(r'device_brands', views.DeviceBrandViewSet)
 router.register(r'devices', views.DeviceViewSet)
 router.register(r'projects', views.ProjectViewSet)
 router.register(r'assignments', views.AssignmentViewSet)
-
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
@@ -33,6 +33,5 @@ urlpatterns = [
     url(r'^api-auth/', include('rest_framework.urls', namespace='rest_framework')),
     url(r'^assigned_devices/', views.AssignedDeviceList.as_view(), name='assigned_devices'),
     url(r'^device_status/', views.DeviceStatusViewSet.as_view(), name='device_status'),
-    url(r'^device_end_status_type/', views.DeviceEndStatusTypeViewSet.as_view(), name='device_end_status_type'),
     url(r'^devices/change_status', views.ChangeDeviceStatus.as_view(), name='change_status')
 ]

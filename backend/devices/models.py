@@ -262,4 +262,5 @@ class DeviceEndStatusType(models.Model):
     class Meta:
         verbose_name = _(u'Tipo de Baja')
         verbose_name_plural = _(u'Tipos de Baja')
+        ordering = ['name']
 

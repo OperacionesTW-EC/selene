@@ -82,5 +82,6 @@ class AssignmentService:
 
     def create_device_assignment(self):
         for device in self.devices:
-            device_assignment = models.DeviceAssignment(device=device, assignment=self.assignment, assignment_date=date.today())
+            device_assignment = models.DeviceAssignment(device=device, assignment=self.assignment,
+                                                        assignment_date=date.today())
             device_assignment.save()
