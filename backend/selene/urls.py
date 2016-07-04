@@ -25,6 +25,7 @@ router.register(r'device_brands', views.DeviceBrandViewSet)
 router.register(r'devices', views.DeviceViewSet)
 router.register(r'projects', views.ProjectViewSet)
 router.register(r'assignments', views.AssignmentViewSet)
+router.register(r'device_status_all', views.DeviceStatusAllViewSet)
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),

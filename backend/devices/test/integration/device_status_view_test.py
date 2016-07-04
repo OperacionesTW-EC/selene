@@ -10,7 +10,7 @@ class TestDeviceStatusView(APITestCase):
         response = self.client.get('/device_status/', {}, format='json')
         self.assertEqual(response.status_code, status.HTTP_200_OK)
 
-    @patch('devices.services.DeviceStatusService.get_filtered_device_statuses')
+    @patch('devices.services.DeviceStatusService.get_filtered_device_statuses_without_assigned')
     def test_should_invoke_queries_filter_status(self, mock):
         mock.return_value = []
         self.client.get('/device_status/', {}, format='json')

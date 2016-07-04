@@ -26,7 +26,12 @@ class DeviceStatusViewSet(generics.ListCreateAPIView):
         return self.get_paginated_response(serializer.data)
 
     def get_queryset(self):
-        return services.DeviceStatusService.get_filtered_device_statuses()
+        return services.DeviceStatusService.get_filtered_device_statuses_without_assigned()
+
+class DeviceStatusAllViewSet(viewsets.ModelViewSet):
+    queryset = models.DeviceStatus.objects.all()
+    serializer_class = serializers.DeviceStatusSerializer
+
 
 
 class DeviceEndStatusTypeViewSet(viewsets.ModelViewSet):

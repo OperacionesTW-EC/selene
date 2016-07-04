@@ -5,7 +5,7 @@ from datetime import date
 
 class DeviceStatusService:
     @staticmethod
-    def get_filtered_device_statuses():
+    def get_filtered_device_statuses_without_assigned   ():
         return models.DeviceStatus.objects.exclude(name=models.DeviceStatus.ASIGNADO)
 
     @staticmethod
