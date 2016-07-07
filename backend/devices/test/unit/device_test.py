@@ -1,26 +1,38 @@
 from django.core.exceptions import ValidationError
 from model_mommy import mommy
-from nose.tools import assert_is_none, assert_raises, assert_equal, assert_true, assert_false
+from nose.tools import assert_is_none, assert_raises, assert_equal, assert_true, assert_false, assert_is_not_none
 from nose.tools import raises
 from devices.models import DeviceType
 from devices.models import Device
 from devices.models import DeviceStatus
-from devices.models import DeviceAssignment
+import random
 import datetime
 
 
 class TestDevice:
-
     def __init__(self):
-        self.device = None
         self.device_brand = None
         self.device_type = None
+        self.device = None
+        self.device_new = None
 
     def setup(self):
         Device.objects.all().delete()
-        self.device = mommy.prepare_recipe('devices.device_recipe')
-        self.device.device_type = DeviceType.objects.get_or_create(code='L', name='Laptop')[0]
-        self.device.model = 'model'
+        self.device = self.create_device()
+        self.device_new = self.create_device_new()
+
+    def create_device_new(self):
+        device = mommy.prepare_recipe('devices.device_recipe')
+        device.device_type = DeviceType.objects.get_or_create(code='L', name='Laptop')[0]
+        device.model = 'model'
+        device.ownership = 'TW'
+        return device
+
+    def create_device(self):
+        device = self.create_device_new()
+        device.sequence = random.randint(0, 100)
+        device.code = 'code'
+        return device
 
     def test_should_be_valid_with_valid_field_values(self):
         assert_is_none(self.device.full_clean())
@@ -127,35 +139,48 @@ class TestDevice:
         assert_raises(ValidationError, self.device.full_clean)
 
     def test_should_set_device_code_to_twla(self):
-        self.device.ownership = 'TW'
-        self.device.save()
-        assert_equal(self.device.code, 'TWAL')
+        self.device_new.save()
+        assert_equal(self.device_new.code, 'TWAL')
 
     def test_should_set_device_code_to_clme(self):
-        self.device.device_type = DeviceType.objects.get_or_create(code='M', name='Mouse')[0]
-        self.device.asset = 0
-        self.device.ownership = 'CL'
-        self.device.save()
-        assert_equal(self.device.code, 'CLEM')
+        self.device_new.device_type = DeviceType.objects.get_or_create(code='M', name='Mouse')[0]
+        self.device_new.asset = 0
+        self.device_new.ownership = 'CL'
+        self.device_new.save()
+        assert_equal(self.device_new.code, 'CLEM')
 
     def test_should_set_sequence_to_1(self):
-        self.device.ownership = 'TW'
-        self.device.save()
-        assert_equal(self.device.sequence, 1)
+        self.device_new.save()
+        assert_equal(self.device_new.sequence, 1)
 
     def test_should_set_sequence_to_2(self):
-        self.device.ownership = 'TW'
-        self.device.save()
-        first_device = mommy.prepare_recipe('devices.device_recipe')
-        first_device.model = 'model'
-        first_device.ownership = 'TW'
+        self.device_new.save()
+        first_device = self.create_device_new()
         first_device.save()
         assert_equal(first_device.sequence, 2)
 
-    def test_full_code_should_return_twla0001(self):
-        self.device.ownership = 'TW'
+    def test_should_not_set_pk_when_device_has_sequence(self):
+        new_sequence = random.randint(0, 100);
+        self.device.sequence = new_sequence
         self.device.save()
-        assert_equal(self.device.full_code(), 'TWAL0001')
+        assert_equal(self.device.sequence, new_sequence)
+
+    def test_should_not_set_pk_when_device_has_code_and_sequence(self):
+        new_sequence = random.randint(0, 100);
+        self.device_new.sequence = new_sequence
+        self.device_new.code = 'TW_code'
+        self.device_new.save()
+        assert_equal(self.device_new.sequence, new_sequence)
+        assert_equal(self.device_new.code, 'TW_code')
+
+    def test_should_set_pk_when_does_not_have_sequence(self):
+        self.device_new.save()
+        assert_is_not_none(self.device_new.sequence)
+        assert_is_not_none(self.device_new.code)
+
+    def test_full_code_should_return_twla0001(self):
+        self.device_new.save()
+        assert_equal(self.device_new.full_code(), 'TWAL0001')
 
     @raises(ValueError)
     def test_should_be_invalid_without_device_status(self):
@@ -268,4 +293,3 @@ class TestDevice:
         mommy.make('DeviceAssignment', device=self.device, assignment=assignment)
         result = self.device.life_start_date_or_assignment_date()
         assert_equal(result, assignment.assignment_date())
-

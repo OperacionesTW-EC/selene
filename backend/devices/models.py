@@ -138,7 +138,7 @@ class Device(models.Model):
 
     def save(self, *args, **kwargs):
         self.clean()
-        if not self.pk:
+        if not self.pk and self.sequence is None:
             self.code = self.generate_code()
             self.sequence = self.calculate_next_sequence_value()
         super(Device, self).save(*args, **kwargs)

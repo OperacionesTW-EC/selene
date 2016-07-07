@@ -19,6 +19,8 @@ class TestAssignmet:
     def setup(self):
         self.project = models.Project(name='Selene')
         self.device = mommy.prepare_recipe('devices.non_asset_device_recipe')
+        self.device.sequence = None
+        self.device.code = None
         self.device.save()
         self.project.save()
 
@@ -66,6 +68,8 @@ class TestAssignmet:
         device = mommy.prepare_recipe('devices.non_asset_device_recipe')
         uid = 'Hack to id the record: we should tear down!'
         device.model = uid
+        device.sequence = None
+        device.code = None
         device.save()
         self.get_response(self.build_request(devices=[device.id]))
         assert_equal((models.Device.objects.get(model=uid)).device_status.name,

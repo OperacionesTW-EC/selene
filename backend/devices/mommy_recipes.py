@@ -17,9 +17,10 @@ device_recipe = Recipe(models.Device,
                        ownership=random.choice(['CL', 'TW']),
                        serial_number='123123',
                        purchase_date=date.today(),
-                       sequence=random.randint(0, 100),
-                       code='code'
+                       sequence=None,
+                       code=None
                        )
+
 
 non_asset_device_recipe = Recipe(models.Device,
                                  device_type=models.DeviceType.objects.get_or_create(code='L', name='Laptop')[0],
