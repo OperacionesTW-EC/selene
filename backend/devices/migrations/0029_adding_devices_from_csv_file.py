@@ -49,11 +49,13 @@ def insert_from_csv(apps, schema_editor):
 
 
 
-    def print_device_errors(device):
+    def is_code_device_valid(device):
         expected_code = device.generate_code()
-        if expected_code != device.code:
-            print('El dispositivo %s tiene inconsistencia en los datos, el código recibido fue: %s el generado es: %s' %
-                  (device.full_code(), device.code,  expected_code))
+        is_valid = expected_code == device.code
+        sequence_with_format = '{0:04d}'.format(device.sequence)
+        if not is_valid:
+            print('El dispositivo con código %s%s no se insertó, ya que su código %s debe ser %s'%(device.code,sequence_with_format,device.code, expected_code  ))
+        return is_valid
 
     def create_device(parts):
         device_data = {}
@@ -76,7 +78,6 @@ def insert_from_csv(apps, schema_editor):
         if purchase_date not in (None, ''):
             device_data['purchase_date'] = datetime.strptime(purchase_date, '%m/%d/%Y')
         device = Device(**device_data)
-        print_device_errors(device)
         return device
 
     def device_is_present(full_code):
@@ -88,12 +89,16 @@ def insert_from_csv(apps, schema_editor):
             return True
         return False
 
+
+
     def parse_line(line):
         parts = line.split(",")
         full_code = parts[FILE_COLUMNS['full_code']].strip()
         if full_code in (None, '') or device_is_present(full_code):
             return
         device = create_device(parts)
+        if not is_code_device_valid(device):
+            return
         if device.device_status.name == DeviceStatus.ASIGNADO:
             create_assignment(parts, device)
         else:
