@@ -33,13 +33,13 @@ def insert_from_csv(apps, schema_editor):
                     }
 
     def create_assignment(parts, device):
-        project = Project.objects.get_or_create(name=parts[FILE_COLUMNS['project_name']].strip().capitalize())[0]
-        assignment_date = parts[FILE_COLUMNS['assignment_date']].strip()
+        project = Project.objects.get_or_create(name=get_column_value(parts, 'project_name').capitalize())[0]
+        assignment_date = get_column_value(parts, 'assignment_date')
         if assignment_date not in (None, ''):
             assignment_date = datetime.strptime(assignment_date, "%m/%d/%Y").date()
         else:
             assignment_date = date.today()
-        assignee_name = parts[FILE_COLUMNS['assignee']].strip()
+        assignee_name = get_column_value(parts, 'assignee')
         assignment = Assignment(assignee_name=assignee_name, project=project)
         assignment.save()
         device.assign(assignment_date)
@@ -47,38 +47,52 @@ def insert_from_csv(apps, schema_editor):
         device_assignment = DeviceAssignment(device=device, assignment=assignment, assignment_date=assignment_date)
         device_assignment.save()
 
-
-
     def is_code_device_valid(device):
         expected_code = device.generate_code()
         is_valid = expected_code == device.code
-        sequence_with_format = '{0:04d}'.format(device.sequence)
-        if not is_valid:
-            print('El dispositivo con código %s%s no se insertó, ya que su código %s debe ser %s'%(device.code,sequence_with_format,device.code, expected_code  ))
         return is_valid
+
+    def print_log_device_does_not_migrate(device):
+        sequence_with_format = '{0:04d}'.format(device.sequence)
+        print('El dispositivo con código %s%s no se insertó, ya que su código %s debe ser %s' % (device.code, sequence_with_format, device.code, device.full_code()))
 
     def create_device(parts):
         device_data = {}
-        full_code = parts[FILE_COLUMNS['full_code']].strip()
-        device_data['device_type'] = DeviceType.objects.get_or_create(name=parts[FILE_COLUMNS['device_type_name']].strip().capitalize(),
-                                                                      code=parts[FILE_COLUMNS['device_type_code']].strip().upper())[0]
-        device_data['device_brand'] = DeviceBrand.objects.get_or_create(name=parts[FILE_COLUMNS['device_brand_name']].strip().capitalize())[0]
-        device_data['device_status'] = DeviceStatus.objects.get_or_create(name=parts[FILE_COLUMNS['device_status_name']].strip().capitalize())[0]
+        full_code = get_column_value(parts, 'full_code')
+        device_data['device_type'] = create_device_type(parts)
+        device_data['device_brand'] = create_device_brand(parts)
+        device_data['device_status'] = create_devices_status(parts)
         device_data['code'] = full_code[0:4]
         device_data['sequence'] = int(full_code[4:])
-        device_data['asset'] = 1 if parts[FILE_COLUMNS['asset']].strip().lower() == 'si' else 0
-        device_data['ownership'] = parts[FILE_COLUMNS['ownership']].strip().upper()
-        device_data['serial_number'] = parts[FILE_COLUMNS['serial_number']].strip()
-        device_data['description'] = parts[FILE_COLUMNS['description']].strip()
-        if parts[FILE_COLUMNS['model']].strip() in (None, ''):
+        device_data['asset'] = 1 if get_column_value(parts,'asset').lower() == 'si' else 0
+        device_data['ownership'] = get_column_value(parts,'ownership').upper()
+        device_data['serial_number'] = get_column_value(parts,'serial_number')
+        device_data['description'] = get_column_value(parts,'description')
+
+        if get_column_value(parts,'model') in (None, ''):
             device_data['model'] = device_data['serial_number']
         else:
-            device_data['model'] = parts[FILE_COLUMNS['model']].strip()
-        purchase_date = parts[FILE_COLUMNS['purchase_date']].strip()
+            device_data['model'] = get_column_value(parts,'model')
+        purchase_date = get_column_value(parts,'purchase_date')
+
         if purchase_date not in (None, ''):
             device_data['purchase_date'] = datetime.strptime(purchase_date, '%m/%d/%Y')
         device = Device(**device_data)
+
         return device
+
+    def get_column_value(parts, name_column):
+        return parts[FILE_COLUMNS[name_column]].strip()
+
+    def create_device_type(parts):
+        return DeviceType.objects.get_or_create(name=get_column_value(parts, 'device_type_name').capitalize(),
+                                         code=get_column_value(parts, 'device_type_code').upper())[0]
+
+    def create_device_brand(parts):
+        return DeviceBrand.objects.get_or_create(name=get_column_value(parts, 'device_brand_name').capitalize())[0]
+
+    def create_devices_status(parts):
+        return DeviceStatus.objects.get_or_create(name=get_column_value(parts, 'device_status_name').capitalize())[0]
 
     def device_is_present(full_code):
         code = full_code[0:4]
@@ -89,20 +103,20 @@ def insert_from_csv(apps, schema_editor):
             return True
         return False
 
-
-
     def parse_line(line):
         parts = line.split(",")
-        full_code = parts[FILE_COLUMNS['full_code']].strip()
+        full_code = get_column_value(parts,'full_code')
         if full_code in (None, '') or device_is_present(full_code):
             return
         device = create_device(parts)
         if not is_code_device_valid(device):
+            print_log_device_does_not_migrate(device)
             return
         if device.device_status.name == DeviceStatus.ASIGNADO:
             create_assignment(parts, device)
         else:
             device.save()
+
     if 'test' in sys.argv:  # prevents running the migration when executing manage.py test
         return
     file = open(FILE_PATH, 'r')
