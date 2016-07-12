@@ -72,6 +72,10 @@ class Device(models.Model):
             raise ValidationError(
                 _('life_start_date present on a device with no lifetime'),
                 code='invalid')
+        if self.device_status_name() == DeviceStatus.DADO_DE_BAJA and self.device_end_status_type in (None, ''):
+            raise ValidationError(
+                _('El tipo de baja es un campo obligatorio si selecciona el estado Dado de Baja'),
+                code='invalid')
 
     def clean(self):
         self.validate_required_fields()
@@ -159,6 +163,8 @@ class Device(models.Model):
     device_status = models.ForeignKey('DeviceStatus')
     life_start_date = models.DateField(blank=True, null=True)
     description = models.CharField(max_length=250, null=True, blank=True)
+    device_end_status_type = models.IntegerField(null=True, blank=True)
+    device_end_status_comment = models.CharField(max_length=250, null=True, blank=True)
 
 
 class Project(models.Model):

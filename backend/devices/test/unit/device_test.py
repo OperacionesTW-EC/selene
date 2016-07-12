@@ -293,3 +293,16 @@ class TestDevice:
         mommy.make('DeviceAssignment', device=self.device, assignment=assignment)
         result = self.device.life_start_date_or_assignment_date()
         assert_equal(result, assignment.assignment_date())
+
+    @raises(ValidationError)
+    def test_should_be_invalid_when_device_status_is_Dado_de_Baja_without_end_device_status_type(self):
+        self.device.device_status = DeviceStatus.objects.get_or_create(name=DeviceStatus.DADO_DE_BAJA)[0]
+        self.device.device_end_status_type = None
+        self.device.full_clean()
+
+    @raises(ValidationError)
+    def test_should_be_invalid_if_device_end_status_comment_is_longer_than_250_characters(self):
+        self.device.device_end_status_comment = ''
+        for _ in range(251):
+            self.device.device_end_status_comment += 'A'
+        self.device.full_clean()
