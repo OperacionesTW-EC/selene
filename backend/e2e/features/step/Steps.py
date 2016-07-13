@@ -1,8 +1,8 @@
 import time
 from lettuce import world, step
+from lettuce_webdriver.util import AssertContextManager
 from lettuce_webdriver.util import assert_true
 from selenium.webdriver.support.ui import Select
-from lettuce_webdriver.util import AssertContextManager
 import config
 from pages import main_page, side_nav
 
@@ -88,7 +88,7 @@ def verify_header(step, page_name):
               should navigate us to the page, not just assert that we are there
     """
     with AssertContextManager(step):
-        page_name in main_page.page_header().text
+        assert page_name in main_page.page_header().text
 
 
 @step('I select Tipo "(.*?)"$')

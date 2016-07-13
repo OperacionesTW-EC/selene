@@ -1,101 +1,344 @@
-Código,Equipo,Activo (Sí o No),TEAM TW/CT,SERIAL,Tipo,Marca,Modelo,Fecha de Compra,Proyecto,Estado,Twer,Fecha Inicio,Fecha Fin,Proveedor,Observaciones
-TWEA0007,Adaptadores,No,TW,,A,Gigaware,VGA Thunderbolt,,Cables,Disponible,Pepe Fernandez,,,,,descripcion
-TWEA0002,Adaptadores,No,TW,,A,Apple,Adaptador Ethernet - Thunderbolt,,Proyecto1 ,Asignado,Ramon Valdez,,,,,descripcion
-TWEA0012,Adaptadores,No,TW,,A,Apple,Adaptador Ethernet Thunderbolt,,Operations,Asignado,Pepe Fernandez,,,,,descripcion
-TWEA0013,Adaptadores,No,TW,,A,Apple,Adaptador VDI,,Operations,Asignado,Juliana Pérez,,,,,descripcion
-TWEA0014,Adaptadores,No,TW,,A,Apple,Adaptador VDI - Thunderbolt,,Operations,Asignado,Pepe Fernandez,,,,,descripcion
-TWEA0015,Adaptadores,No,TW,,A,Apple,Adaptador VDI - Thunderbolt,,Operations,Asignado,Pepe Fernandez,,,,,descripcion
-TWEA0016,Adaptadores,No,TW,,A,Apple,Adaptador VDI HDMI,,Cables,Asignado,Pepe Fernandez,,,,,descripcion
-TWEA0003,Adaptadores,No,TW,,A,Apple,Adaptador VDI-HDMI,,Proyecto1 ,Asignado,Ramon Valdez,,,,,descripcion
-TWEA0001,Adaptadores,No,TW,,A,Apple,Adaptador VGA Thunderbolt,10/16/2013,Proyecto5,Asignado,Pepa Jimenez,,,,,descripcion
-TWEA0004,Adaptadores,No,TW,,A,Apple,Adaptador VGA Thunderbolt,10/16/2013,Operations,Asignado,Tatiana Escudero,,,,,descripcion
-TWEA0005,Adaptadores,No,TW,,A,Apple,Adaptador VGA Thunderbolt,10/16/2013,Cables,Disponible,Pepe Fernandez,,,,,descripcion
-TWEA0006,Adaptadores,No,TW,,A,Apple,Adaptador VGA Thunderbolt,10/16/2013,Cables,Disponible,Pepe Fernandez,,,,,descripcion
-TWEA0008,Adaptadores,No,TW,,A,Apple,Adaptador VGA Thunderbolt,,Proyecto1 ,Asignado,Ramon Valdez,,,,,descripcion
-TWEA0009,Adaptadores,No,TW,,A,Apple,Adaptador VGA Thunderbolt,,Proyecto1 ,Asignado,Ramon Valdez,,,,,descripcion
-TWEA0010,Adaptadores,No,TW,,A,Apple,Adaptador VGA Thunderbolt,,Proyecto1 ,Asignado,Ramon Valdez,,,,,descripcion
-TWEA0011,Adaptadores,No,TW,,A,Apple,Adaptador VGA Thunderbolt,,Proyecto1 ,Asignado,Ramon Valdez,,,,,descripcion
-TWEA0012,Adaptadores,No,TW,,A,Apple,Adaptador VGA Thunderbolt,,Proyecto2,Asignado,Juan sin Miedo,,,,,descripcion
-TWEA0013,Adaptadores,No,TW,,A,Apple,Adaptador VGA Thunderbolt,,Proyecto6,Asignado,Florinda Mesa,,,,,descripcion
-TWAL0001,Laptop,Si,TW,C07MN3KPDWYL,L,Apple,MacMini,10/12/2015,Cables,Disponible,Pepe Fernandez,01/01/2014,,,,descripcion
-TWAL0002,Laptop,Si,TW,C07NX9DZG1HW,L,Apple,MacMini,7/9/2015,Proyecto6,Asignado,Florinda Mesa,01/01/2015,,,,descripcion
-TWAL0003,Laptop,Si,TW,C07PK18EG1HV,L,Apple,MacMini,9/13/2014,Cables,Disponible,Pepe Fernandez,01/01/2016,,,server room. Nueva,descripcion
-TWAL0004,Laptop,Si,TW,C07M35PMDWYL,L,Apple,MacMini,6/10/2014,Proyecto2,Asignado,Juan sin Miedo,01/01/2013,,,server room,descripcion
-TWAL0005,Laptop,Si,TW,C07KX1R7DWYL,L,Apple,MacMini,8/22/2013,Cables,Asignado,Pepe Fernandez,01/01/2014,,,Deploy Studio,descripcion
-TWAL0010,Laptop,Si,TW,C07KW0XAVWYL,L,Apple,MacMini,8/21/2013,Office&Devices,Asignado,Pepe Fernandez,01/01/2015,,,,descripcion
-TWAL0007,Laptop,Si,TW,C07L80E9DWYL,L,Apple,MacMini,10/25/2013,Office&Devices,Asignado,Pepe Fernandez,01/01/2016,,,,descripcion
-TWAL0008,Laptop,Si,TW,C07NX03RG1HV,L,Apple,MacMini,11/20/2014,Office&Devices,Asignado,Pepe Fernandez,01/01/2013,,,,descripcion
-TWAL0009,Laptop,Si,TW,C07PK16VG1HV,L,Apple,MacMini,10/12/2015,Office&Devices,Asignado,Pepe Fernandez,01/01/2014,,,,descripcion
-TWAL0006,Laptop,Si,TW,C07N512NDWYL,L,Apple,MacMini,11/20/2014,Office&Devices,Asignado,Pepe Fernandez,01/01/2015,,,,descripcion
-CTAC0001,Computador,No,CT,7LVQBY1-D,C,Dell,,,Proyecto3,Asignado,Don Ramon,,,,,descripcion
-CTAC0002,Computador,No,CT,7LVPBY1,C,Dell,,,Proyecto3,Asignado,Don Ramon,,,,,descripcion
-CTAC0003,Computador,No,CT,7LTQBY1,C,Dell,,,Proyecto3,Asignado,Don Ramon,,,,,descripcion
-CTAC0004,Computador,No,CT,7LTRBY1,C,Dell,,,Proyecto3,Asignado,Don Ramon,,,,,descripcion
-CTAC0005,Computador,No,CT,7LWPBY1,C,Dell,,,Proyecto3,Asignado,Don Ramon,,,,,descripcion
-CTAC0006,Computador,No,CT,7LVRBY1,C,Dell,,,Proyecto3,Asignado,Don Ramon,,,,,descripcion
-CTAC0007,Computador,No,CT,7LTPBY1,C,Dell,,,Proyecto3,Asignado,Don Ramon,,,,,descripcion
-TWAF0001,Aire acondicionado,Si,TW,AS18TUBANXL,F,Samsung,AS18TUBAN,12/30/2013,Office&Devices,Asignado,Pepe Fernandez,,,,,descripcion
-TWEH0001,Headphone,No,TW,,H,Genius,G500V,,Proyecto4,Asignado,Samuel Jabon,,,,,descripcion
-TWEH0002,Headphone,No,TW,,H,Microsoft,LX-3000,,Proyecto4,Asignado,Samuel Jabon,,,,,descripcion
-TWEH0003,Headphone,No,TW,,H,Microsoft,LX-3000,,Proyecto4,Asignado,Samuel Jabon,,,,,descripcion
-TWEH0004,Headphone,No,TW,,H,Microsoft,LX-3000,,Proyecto4,Asignado,Samuel Jabon,,,,,descripcion
-TWEH0005,Headphone,No,TW,,H,Microsoft,LX-3000,,Proyecto4,Asignado,Samuel Jabon,,,,,descripcion
-CTEH0006,Headphone,No,CT,,H,Sennheiser,,,Proyecto3,Asignado,Don Ramon,,,,,descripcion
-CTEH0007,Headphone,No,CT,,H,Sennheiser,,,Proyecto3,Asignado,Don Ramon,,,,,descripcion
-CTEH0008,Headphone,No,CT,,H,Sennheiser,,,Proyecto3,Asignado,Don Ramon,,,,,descripcion
-CTEH0009,Headphone,No,CT,,H,Sennheiser,,,Proyecto3,Asignado,Don Ramon,,,,,descripcion
-CTEH0010,Headphone,No,CT,,H,Sennheiser,,,Proyecto3,Asignado,Don Ramon,,,,,descripcion
-CTEH0011,Headphone,No,CT,,H,Sennheiser,,,Proyecto3,Asignado,Don Ramon,,,,,descripcion
-CTEH0012,Headphone,No,CT,,H,Sennheiser,,,Proyecto3,Asignado,Don Ramon,,,,,descripcion
-CTEH0013,Headphone,No,CT,,H,Sennheiser,,,Proyecto3,Asignado,Don Ramon,,,,,descripcion
-CTEH0014,Headphone,No,CT,,H,Sennheiser,,,Proyecto3,Asignado,Don Ramon,,,,,descripcion
-CTEH0015,Headphone,No,CT,,H,Sennheiser,,,Proyecto3,Asignado,Don Ramon,,,,,descripcion
-CTEH0016,Headphone,No,CT,,H,Sennheiser,,,Proyecto3,Asignado,Don Ramon,,,,,descripcion
-CTEH0017,Headphone,No,CT,,H,Sennheiser,,,Proyecto3,Asignado,Don Ramon,,,,,descripcion
-TWEH0006,Headphone,No,TW,,H,Microsoft,,,Cables,Asignado,Pepe Fernandez,,,,1 unid,descripcion
-TWEI0001,Infrastructure devices,No,TW,MB056692129,I,SONY,PLAY STATION PS4,,Office&Devices,Asignado,Pepe Fernandez,,,,,descripcion
-TWAI0001,Infrastructure devices,Si,TW,FGL172041CF,I,Cisco,Cisco ASA 5515-X,11/23/2013,Cables,Asignado,Pepe Fernandez,,,,Server room,descripcion
-TWEI0002,Infrastructure devices,No,TW,RENK3800556,I,Epson,H476A,,Cables,Dado de baja,Pepe Fernandez,,,,,descripcion
-TWAI0002,Infrastructure devices,Si,TW,FGL172041BL,I,Cisco,Cisco ASA 5515-X,11/23/2013,Cables,Asignado,Pepe Fernandez,,,,Server room,descripcion
-TWAI0003,Infrastructure devices,Si,TW,37742318102,I,Dell,PowerEdge R320,8/29/2014,Cables,Asignado,Pepe Fernandez,,,,Server room,descripcion
-TWAI0004,Infrastructure devices,Si,TW,FOC1724Z0R0,I,Cisco,Cisco WS-C3850-24P,11/23/2014,Cables,Asignado,Pepe Fernandez,,,,Server room,descripcion
-TWAI0005,Infrastructure devices,Si,TW,FOC1720Y0K9,I,Cisco,Cisco WS-C2960S-48TS-L,11/23/2013,Cables,Asignado,Pepe Fernandez,,,,Server room,descripcion
-TWAI0006,Infrastructure devices,Si,TW,FOC1720Y0K5,I,Cisco,Cisco WS-C2960S-48TS-L,11/23/2013,Cables,Asignado,Pepe Fernandez,,,,Server room,descripcion
-TWAI0007,Infrastructure devices,Si,TW,FOC1906S5YZ,I,Cisco,Cisco WS-C2960X-48LPS-L,4/1/2015,Cables,Asignado,Pepe Fernandez,,,,Server room,descripcion
-TWAI0008,Infrastructure devices,Si,TW,FCW1851A6BW,I,Cisco,Cisco WS-C2960X-48TS-LL,4/1/2015,Cables,Asignado,Pepe Fernandez,,,,Server room,descripcion
-TWAI0009,Infrastructure devices,Si,TW,QS1319272134,I,APC,8000KLT,1/23/2014,Cables,Asignado,Pepe Fernandez,,,,Server room,descripcion
-TWAI0010,Infrastructure devices,Si,TW,QS1332172107,I,APC,5000KLT,7/23/2014,Cables,Asignado,Pepe Fernandez,,,,Server room,descripcion
-TWAI0011,Infrastructure devices,Si,TW,FTX1723R1WU,I,Cisco,AIR-CAP3602I-T-K9,11/23/2013,Cables,Asignado,Pepe Fernandez,,,,,descripcion
-TWAI0012,Infrastructure devices,Si,TW,FTX1723GM0V,I,Cisco,AIR-CAP3602I-T-K9,11/23/2013,Cables,Asignado,Pepe Fernandez,,,,,descripcion
-TWAI0013,Infrastructure devices,Si,TW,FCW1838J9GZ,I,Cisco,AIR-CAP3602I-T-K9,11/23/2013,Cables,Asignado,Pepe Fernandez,,,,,descripcion
-TWAI0014,Infrastructure devices,Si,TW,FCW1838J9H4,I,Cisco,AIR-CAP3602I-T-K9,11/23/2013,Cables,Asignado,Pepe Fernandez,,,,,descripcion
-TWAI0015,Infrastructure devices,Si,TW,FCW1838J9H2,I,Cisco,AIR-CAP3602I-T-K9,4/1/2015,Cables,Asignado,Pepe Fernandez,,,,,descripcion
-TWAI0016,Infrastructure devices,Si,TW,FCW1838J9KG,I,Cisco,AIR-CAP3602I-T-K9,4/1/2015,Cables,Asignado,Pepe Fernandez,,,,,descripcion
-TWAI0017,Infrastructure devices,Si,TW,FTX1723GM0K,I,Cisco,AIR-CAP3602I-T-K9,4/1/2015,Cables,Asignado,Pepe Fernandez,,,,,descripcion
-TWAI0018,Infrastructure devices,Si,TW,FTX1723GLZW,I,Cisco,AIR-CAP3602I-T-K9,4/1/2015,Cables,Asignado,Pepe Fernandez,,,,,descripcion
-CTEK0001,Keyboard,No,CT,,K,Dell,,,Proyecto3,Asignado,Don Ramon,,,,,descripcion
-CTEK0002,Keyboard,No,CT,,K,Logitech,,,Proyecto3,Asignado,Don Ramon,,,,,descripcion
-CTEK0003,Keyboard,No,CT,,K,Logitech,,,Proyecto3,Asignado,Don Ramon,,,,,descripcion
-CTEK0004,Keyboard,No,CT,,K,Logitech,,,Proyecto3,Asignado,Don Ramon,,,,,descripcion
-CTEK0005,Keyboard,No,CT,,K,Logitech,,,Proyecto3,Asignado,Don Ramon,,,,,descripcion
-CTEK0006,Keyboard,No,CT,,K,Dell,,,Proyecto3,Asignado,Don Ramon,,,,,descripcion
-CTEK0007,Keyboard,No,CT,,K,Logitech,,,Proyecto3,Asignado,Don Ramon,,,,,descripcion
-CTEK0008,Keyboard,No,CT,,K,Logitech,,,Proyecto3,Asignado,Don Ramon,,,,,descripcion
-CTEK0009,Keyboard,No,CT,,K,Logitech,,,Proyecto3,Asignado,Don Ramon,,,,,descripcion
-CTEK0010,Keyboard,No,CT,,K,Logitech,,,Proyecto3,Asignado,Don Ramon,,,,,descripcion
-CTEK0011,Keyboard,No,CT,,K,Logitech,,,Proyecto3,Asignado,Don Ramon,,,,,descripcion
-CTEK0012,Keyboard,No,CT,,K,Logitech,,,Proyecto3,Asignado,Don Ramon,,,,,descripcion
-TWEK0001,Keyboard,No,TW,,K,Apple,,,Proyecto6,Asignado,Florinda Mesa,,,,,descripcion
-TWEK0002,Keyboard,No,TW,,K,Dell,,,Contractor,Asignado,Ivan Paez,,,,,descripcion
-TWEK0003,Keyboard,No,TW,,K,Genius,,,Proyecto5,Asignado,Pamela Jimenez,,,,,descripcion
-TWEK0004,Keyboard,No,TW,,K,Apple,,,Proyecto4,Asignado,Samuel Jabon,,,,,descripcion
-TWEK0005,Keyboard,No,TW,,K,Apple,,,Proyecto4,Asignado,Samuel Jabon,,,,,descripcion
-TWEK0006,Keyboard,No,TW,,K,Apple,,,Proyecto4,Asignado,Samuel Jabon,,,,,descripcion
-TWEK0007,Keyboard,No,TW,,K,Logitech,,,Proyecto1 ,Asignado,Ramon Valdez,,,,,descripcion
-TWEK0008,Keyboard,No,TW,,K,Apple,,,Operations,Asignado,Josefa Villavicencio,,,,,descripcion
-TWEK0009,Keyboard,No,TW,,K,Logitech,,,Operations,Asignado,Luci Samaniego,,,,,descripcion
-TWEK0010,Keyboard,No,TW,,K,Genius,,,Operations,Asignado,Pepa Nunez,,,,,descripcion
-TWEK0011,Keyboard,No,TW,,K,Logitech,,,Operations,Asignado,Pepe Fernandez,,,,,descripcion
-TWEK0012,Keyboard,No,TW,,K,Logitech,,,Operations,Asignado,Roberto Cortez,,,,,descripcion
-TWEK0013,Keyboard,No,TW,,K,Genius,,,Cables,Disponible,Pepe Fernandez,,,,,descripcion
-TWEK0013,Keyboard,No,TW,,K,Genius,,,Cables,Disponible,Pepe Fernandez,,,,,descripcion repetido
+Código,Equipo,Activo (Sí o No),TEAM TW/CT,SERIAL,Tipo,Marca,Modelo,Fecha de Compra,Proyecto,Estado,Twer,Fecha Inicio,Fecha Fin,Proveedor,Observaciones,Descripción,Tipo de baja
+TWEA0007,Adaptadores,No,TW,,A,Gigaware,VGA Thunderbolt,,Techops,Disponible,Freddy Escobar,,,,,,
+TWEA0002,Adaptadores,No,TW,,A,Apple,,,Morgan Stanley,Asignado,Ramiro Castillo,,,,,Ethernet - Thunderbolt,
+TWEA0012,Adaptadores,No,TW,,A,Apple,,,Operations,Asignado,Freddy Escobar,,,,,Ethernet Thunderbolt,
+TWEA0013,Adaptadores,No,TW,,A,Apple,,,Operations,Asignado,Viviana Pérez,,,,,VDI,
+TWEA0014,Adaptadores,No,TW,,A,Apple,,,Operations,Asignado,Freddy Escobar,,,,,VDI - Thunderbolt,
+TWEA0015,Adaptadores,No,TW,,A,Apple,,,Operations,Asignado,Freddy Escobar,,,,,VDI - Thunderbolt,
+TWEA0016,Adaptadores,No,TW,,A,Apple,,,Techops,Asignado,Freddy Escobar,,,,,VDI HDMI,
+TWEA0003,Adaptadores,No,TW,,A,Apple,,,Morgan Stanley,Asignado,Ramiro Castillo,,,,,VDI-HDMI,
+TWEA0001,Adaptadores,No,TW,,A,Apple,,10/16/2013,Kushki,Asignado,Paola Jimenez,,,,,VGA Thunderbolt,
+TWEA0004,Adaptadores,No,TW,,A,Apple,,10/16/2013,Operations,Asignado,María Fernanda Escudero,,,,,VGA Thunderbolt,
+TWEA0005,Adaptadores,No,TW,,A,Apple,,10/16/2013,Techops,Disponible,Freddy Escobar,,,,,VGA Thunderbolt,
+TWEA0006,Adaptadores,No,TW,,A,Apple,,10/16/2013,Techops,Disponible,Freddy Escobar,,,,,VGA Thunderbolt,
+TWEA0008,Adaptadores,No,TW,,A,Apple,,,Morgan Stanley,Asignado,Ramiro Castillo,,,,,VGA Thunderbolt,
+TWEA0009,Adaptadores,No,TW,,A,Apple,,,Morgan Stanley,Asignado,Ramiro Castillo,,,,,VGA Thunderbolt,
+TWEA0010,Adaptadores,No,TW,,A,Apple,,,Morgan Stanley,Asignado,Ramiro Castillo,,,,,VGA Thunderbolt,
+TWEA0011,Adaptadores,No,TW,,A,Apple,,,Morgan Stanley,Asignado,Ramiro Castillo,,,,,VGA Thunderbolt,
+TWEA0017,Adaptadores,No,TW,,A,Apple,,,selene,Asignado,Elena Echeverría,,,,,VGA Thunderbolt,
+TWEA0018,Adaptadores,No,TW,,A,Apple,,,Strike,Asignado,Iván Pazmiño,,,,,VGA Thunderbolt,
+TWAC0001,Computador,Si,TW,C07MN3KPDWYL,C,Apple,MacMini,10/12/2015,Techops,Disponible,Freddy Escobar,,,,,,
+TWAC0002,Computador,Si,TW,C07NX9DZG1HW,C,Apple,MacMini,7/9/2015,Strike,Asignado,Iván Pazmiño,,,,,,
+TWAC0003,Computador,Si,TW,C07PK18EG1HV,C,Apple,MacMini,9/13/2014,Techops,Disponible,Freddy Escobar,,,,server room. Nueva,,
+TWAC0004,Computador,Si,TW,C07M35PMDWYL,C,Apple,MacMini,6/10/2014,Selene,Asignado,Elena Echeverría,,,,server room,,
+TWAC0005,Computador,Si,TW,C07KX1R7DWYL,C,Apple,MacMini,8/22/2013,Techops,Asignado,Freddy Escobar,,,,Deploy Studio,,
+TWAC0010,Computador,Si,TW,C07KW0XAVWYL,C,Apple,MacMini,8/21/2013,Office&Devices,Asignado,Freddy Escobar,,,,,,
+TWAC0007,Computador,Si,TW,C07L80E9DWYL,C,Apple,MacMini,10/25/2013,Office&Devices,Asignado,Freddy Escobar,,,,,,
+TWAC0008,Computador,Si,TW,C07NX03RG1HV,C,Apple,MacMini,11/20/2014,Office&Devices,Asignado,Freddy Escobar,,,,,,
+TWAC0009,Computador,Si,TW,C07PK16VG1HV,C,Apple,MacMini,10/12/2015,Office&Devices,Asignado,Freddy Escobar,,,,,,
+TWAC0006,Computador,Si,TW,C07N512NDWYL,C,Apple,MacMini,11/20/2014,Office&Devices,Asignado,Freddy Escobar,,,,,,
+CTEC0001,Computador,No,CT,7LVQBY1-D,C,Dell,,,Guggenheim,Asignado,Geykel Moreno,,,,,PC,
+CTEC0002,Computador,No,CT,7LVPBY1,C,Dell,,,Guggenheim,Asignado,Geykel Moreno,,,,,PC,
+CTEC0003,Computador,No,CT,7LTQBY1,C,Dell,,,Guggenheim,Asignado,Geykel Moreno,,,,,PC,
+CTEC0004,Computador,No,CT,7LTRBY1,C,Dell,,,Guggenheim,Asignado,Geykel Moreno,,,,,PC,
+CTEC0005,Computador,No,CT,7LWPBY1,C,Dell,,,Guggenheim,Asignado,Geykel Moreno,,,,,PC,
+CTEC0006,Computador,No,CT,7LVRBY1,C,Dell,,,Guggenheim,Asignado,Geykel Moreno,,,,,PC,
+CTEC0007,Computador,No,CT,7LTPBY1,C,Dell,,,Guggenheim,Asignado,Geykel Moreno,,,,,PC,
+TWAF0001,Aire acondicionado,Si,TW,AS18TUBANXL,F,Samsung,AS18TUBAN,12/30/2013,Office&Devices,Asignado,Freddy Escobar,,,,,,
+TWEH0001,Headphones,No,TW,,H,Genius,G500V,,LATAM,Asignado,Guilherme Prestes,,,,,,
+TWEH0002,Headphones,No,TW,,H,Microsoft,LX-3000,,LATAM,Asignado,Guilherme Prestes,,,,,,
+TWEH0003,Headphones,No,TW,,H,Microsoft,LX-3000,,LATAM,Asignado,Guilherme Prestes,,,,,,
+TWEH0004,Headphones,No,TW,,H,Microsoft,LX-3000,,LATAM,Asignado,Guilherme Prestes,,,,,,
+TWEH0005,Headphones,No,TW,,H,Microsoft,LX-3000,,LATAM,Asignado,Guilherme Prestes,,,,,,
+CTEH0006,Headphones,No,CT,,H,Sennheiser,,,Guggenheim,Asignado,Geykel Moreno,,,,,,
+CTEH0007,Headphones,No,CT,,H,Sennheiser,,,Guggenheim,Asignado,Geykel Moreno,,,,,,
+CTEH0008,Headphones,No,CT,,H,Sennheiser,,,Guggenheim,Asignado,Geykel Moreno,,,,,,
+CTEH0009,Headphones,No,CT,,H,Sennheiser,,,Guggenheim,Asignado,Geykel Moreno,,,,,,
+CTEH0010,Headphones,No,CT,,H,Sennheiser,,,Guggenheim,Asignado,Geykel Moreno,,,,,,
+CTEH0011,Headphones,No,CT,,H,Sennheiser,,,Guggenheim,Asignado,Geykel Moreno,,,,,,
+CTEH0012,Headphones,No,CT,,H,Sennheiser,,,Guggenheim,Asignado,Geykel Moreno,,,,,,
+CTEH0013,Headphones,No,CT,,H,Sennheiser,,,Guggenheim,Asignado,Geykel Moreno,,,,,,
+CTEH0014,Headphones,No,CT,,H,Sennheiser,,,Guggenheim,Asignado,Geykel Moreno,,,,,,
+CTEH0015,Headphones,No,CT,,H,Sennheiser,,,Guggenheim,Asignado,Geykel Moreno,,,,,,
+CTEH0016,Headphones,No,CT,,H,Sennheiser,,,Guggenheim,Asignado,Geykel Moreno,,,,,,
+CTEH0017,Headphones,No,CT,,H,Sennheiser,,,Guggenheim,Asignado,Geykel Moreno,,,,,,
+TWEH0006,Headphones,No,TW,,H,Microsoft,,,Techops,Asignado,Freddy Escobar,,,,1 unid,,
+TWEI0001,Infrastructure devices,No,TW,MB056692129,I,SONY,PS4,,Video game room,Asignado,Freddy Escobar,,,,,PLAY STATION,
+TWAI0001,Infrastructure devices,Si,TW,FGL172041CF,I,Cisco,Cisco ASA 5515-X,11/23/2013,Techops,Asignado,Freddy Escobar,,,,Server room,Primary Firewall (UIO-FW-1),
+TWEI0002,Infrastructure devices,No,TW,RENK3800556,I,Epson,H476A,,Techops,Dado de baja,Freddy Escobar,,,,,Proyector,Dañado
+TWAI0002,Infrastructure devices,Si,TW,FGL172041BL,I,Cisco,Cisco ASA 5515-X,11/23/2013,Techops,Asignado,Freddy Escobar,,,,Server room,Secondary Firewall (UIO-FW-1.1),
+TWAI0003,Infrastructure devices,Si,TW,37742318102,I,Dell,PowerEdge R320,8/29/2014,Techops,Asignado,Freddy Escobar,,,,Server room,Servidor,
+TWAI0004,Infrastructure devices,Si,TW,FOC1724Z0R0,I,Cisco,Cisco WS-C3850-24P,11/23/2014,Techops,Asignado,Freddy Escobar,,,,Server room,SW Core and WLC,
+TWAI0005,Infrastructure devices,Si,TW,FOC1720Y0K9,I,Cisco,Cisco WS-C2960S-48TS-L,11/23/2013,Techops,Asignado,Freddy Escobar,,,,Server room,Switch(UIO-SW-1),
+TWAI0006,Infrastructure devices,Si,TW,FOC1720Y0K5,I,Cisco,Cisco WS-C2960S-48TS-L,11/23/2013,Techops,Asignado,Freddy Escobar,,,,Server room,Switch(UIO-SW-2),
+TWAI0007,Infrastructure devices,Si,TW,FOC1906S5YZ,I,Cisco,Cisco WS-C2960X-48LPS-L,4/1/2015,Techops,Asignado,Freddy Escobar,,,,Server room,Switch(UIO-SW-3),
+TWAI0008,Infrastructure devices,Si,TW,FCW1851A6BW,I,Cisco,Cisco WS-C2960X-48TS-LL,4/1/2015,Techops,Asignado,Freddy Escobar,,,,Server room,Switch(UIO-SW4),
+TWAI0009,Infrastructure devices,Si,TW,QS1319272134,I,APC,8000KLT,1/23/2014,Techops,Asignado,Freddy Escobar,,,,Server room,UPS,
+TWAI0010,Infrastructure devices,Si,TW,QS1332172107,I,APC,5000KLT,7/23/2014,Techops,Asignado,Freddy Escobar,,,,Server room,UPS,
+TWAI0011,Infrastructure devices,Si,TW,FTX1723R1WU,I,Cisco,AIR-CAP3602I-T-K9,11/23/2013,Techops,Asignado,Freddy Escobar,,,,,Access Point,
+TWAI0012,Infrastructure devices,Si,TW,FTX1723GM0V,I,Cisco,AIR-CAP3602I-T-K9,11/23/2013,Techops,Asignado,Freddy Escobar,,,,,Access Point,
+TWAI0013,Infrastructure devices,Si,TW,FCW1838J9GZ,I,Cisco,AIR-CAP3602I-T-K9,11/23/2013,Techops,Asignado,Freddy Escobar,,,,,Access Point,
+TWAI0014,Infrastructure devices,Si,TW,FCW1838J9H4,I,Cisco,AIR-CAP3602I-T-K9,11/23/2013,Techops,Asignado,Freddy Escobar,,,,,Access Point,
+TWAI0015,Infrastructure devices,Si,TW,FCW1838J9H2,I,Cisco,AIR-CAP3602I-T-K9,4/1/2015,Techops,Asignado,Freddy Escobar,,,,,Access Point,
+TWAI0016,Infrastructure devices,Si,TW,FCW1838J9KG,I,Cisco,AIR-CAP3602I-T-K9,4/1/2015,Techops,Asignado,Freddy Escobar,,,,,Access Point,
+TWAI0017,Infrastructure devices,Si,TW,FTX1723GM0K,I,Cisco,AIR-CAP3602I-T-K9,4/1/2015,Techops,Asignado,Freddy Escobar,,,,,Access Point,
+TWAI0018,Infrastructure devices,Si,TW,FTX1723GLZW,I,Cisco,AIR-CAP3602I-T-K9,4/1/2015,Techops,Asignado,Freddy Escobar,,,,,Access Point,
+CTEK0001,Keyboard,No,CT,,K,Dell,,,Guggenheim,Asignado,Geykel Moreno,,,,,,
+CTEK0002,Keyboard,No,CT,,K,Logitech,,,Guggenheim,Asignado,Geykel Moreno,,,,,,
+CTEK0003,Keyboard,No,CT,,K,Logitech,,,Guggenheim,Asignado,Geykel Moreno,,,,,,
+CTEK0004,Keyboard,No,CT,,K,Logitech,,,Guggenheim,Asignado,Geykel Moreno,,,,,,
+CTEK0005,Keyboard,No,CT,,K,Logitech,,,Guggenheim,Asignado,Geykel Moreno,,,,,,
+CTEK0006,Keyboard,No,CT,,K,Dell,,,Guggenheim,Asignado,Geykel Moreno,,,,,,
+CTEK0007,Keyboard,No,CT,,K,Logitech,,,Guggenheim,Asignado,Geykel Moreno,,,,,,
+CTEK0008,Keyboard,No,CT,,K,Logitech,,,Guggenheim,Asignado,Geykel Moreno,,,,,,
+CTEK0009,Keyboard,No,CT,,K,Logitech,,,Guggenheim,Asignado,Geykel Moreno,,,,,,
+CTEK0010,Keyboard,No,CT,,K,Logitech,,,Guggenheim,Asignado,Geykel Moreno,,,,,,
+CTEK0011,Keyboard,No,CT,,K,Logitech,,,Guggenheim,Asignado,Geykel Moreno,,,,,,
+CTEK0012,Keyboard,No,CT,,K,Logitech,,,Guggenheim,Asignado,Geykel Moreno,,,,,,
+TWEK0001,Keyboard,No,TW,,K,Apple,,,Strike,Asignado,Iván Pazmiño,,,,,,
+TWEK0002,Keyboard,No,TW,,K,Dell,,,Contractor,Asignado,Ivonne Paez,,,,,,
+TWEK0003,Keyboard,No,TW,,K,Genius,,,Kushki,Asignado,Paola Jimenez,,,,,,
+TWEK0004,Keyboard,No,TW,,K,Apple,,,LATAM,Asignado,Guilherme Prestes,,,,,,
+TWEK0005,Keyboard,No,TW,,K,Apple,,,LATAM,Asignado,Guilherme Prestes,,,,,,
+TWEK0006,Keyboard,No,TW,,K,Apple,,,LATAM,Asignado,Guilherme Prestes,,,,,,
+TWEK0007,Keyboard,No,TW,,K,Logitech,,,Morgan Stanley,Asignado,Ramiro Castillo,,,,,,
+TWEK0008,Keyboard,No,TW,,K,Apple,,,Operations,Asignado,Daniela Villavicencio,,,,,,
+TWEK0009,Keyboard,No,TW,,K,Logitech,,,Operations,Asignado,Lina Samaniego,,,,,,
+TWEK0010,Keyboard,No,TW,,K,Genius,,,Operations,Asignado,Luisa Nunez,,,,,,
+TWEK0011,Keyboard,No,TW,,K,Logitech,,,Operations,Asignado,Freddy Escobar,,,,,,
+TWEK0012,Keyboard,No,TW,,K,Logitech,,,Operations,Asignado,Gaby Cortez,,,,,,
+TWEK0013,Keyboard,No,TW,,K,Genius,,,Techops,Disponible,Freddy Escobar,,,,,,
+TWEK0014,Keyboard,No,TW,,K,Logitech,,,Techops,Disponible,Freddy Escobar,,,,,,
+TWEK0015,Keyboard,No,TW,,K,Apple,,,Strike,Asignado,Iván Pazmiño,,,,,,
+TWEK0016,Keyboard,No,TW,,K,Apple,,,Operations,Asignado,Viviana Pérez,,,,,,
+TWEK0017,Keyboard,No,TW,,K,Genius,,,Strike,Asignado,Iván Pazmiño,,,,,,
+TWEK0018,Keyboard,No,TW,,K,Genius,,,Techops,Disponible,Freddy Escobar,,,,,,
+TWEK0019,Keyboard,No,TW,,K,Logitech,,,Strike,Asignado,Iván Pazmiño,,,,,,
+TWEK0027,Keyboard,No,TW,,K,Belkin,,,Morgan Stanley,Asignado,Ramiro Castillo,,,,Propiedad de Morgan,,
+TWEK0028,Keyboard,No,TW,,K,Belkin,,,Morgan Stanley,Asignado,Ramiro Castillo,,,,Propiedad de Morgan,,
+TWEK0029,Keyboard,No,TW,,K,Belkin,,,Morgan Stanley,Asignado,Ramiro Castillo,,,,,,
+TWEK0030,Keyboard,No,TW,,K,Amazon Basics,,,Kushki,Asignado,Paola Jimenez,,,,,,
+TWEK0031,Keyboard,No,TW,,K,Belkin,,,Morgan Stanley,Asignado,Ramiro Castillo,,,,,,
+TWEK0032,Keyboard,No,TW,,K,Belkin,,,Morgan Stanley,Asignado,Ramiro Castillo,,,,,,
+TWEK0033,Keyboard,No,TW,,K,Belkin,,,Morgan Stanley,Asignado,Ramiro Castillo,,,,,,
+TWEK0034,Keyboard,No,TW,,K,Belkin,,,Morgan Stanley,Asignado,Ramiro Castillo,,,,,,
+TWEK0035,Keyboard,No,TW,,K,Belkin,,,Morgan Stanley,Asignado,Ramiro Castillo,,,,,,
+TWEK0036,Keyboard,No,TW,,K,Belkin,,,Morgan Stanley,Asignado,Ramiro Castillo,,,,,,
+TWEK0037,Keyboard,No,TW,,K,Belkin,,,Morgan Stanley,Asignado,Ramiro Castillo,,,,,,
+CTEK0014,Keyboard,No,CT,,K,Dell,,,Guggenheim,Asignado,Geykel Moreno,,,,Dañado,,
+CTEK0013,Keyboard,No,CT,,K,Dell,,,Guggenheim,Asignado,Geykel Moreno,,,,Dañado,,
+TWEK0020,Keyboard,No,TW,,K,Apple,,,LATAM,Asignado,Guilherme Prestes,,,,Teclado wireless,,
+TWEK0021,Keyboard,No,TW,,K,Apple,,,Strike,Asignado,Iván Pazmiño,,,,Teclado wireless,,
+TWEK0022,Keyboard,No,TW,,K,Apple,,,VC - Cotopaxi,Asignado,Freddy Escobar,,,,Teclado wireless,,
+TWEK0023,Keyboard,No,TW,,K,Apple,,,VC-Orquidea,Asignado,Freddy Escobar,,,,Teclado wireless,,
+TWEK0024,Keyboard,No,TW,,K,Apple,,,VC-Quinde,Asignado,Freddy Escobar,,,,Teclado wireless,,
+TWEK0025,Keyboard,No,TW,,K,Apple,,,VC-Sala Piso 10,Asignado,Freddy Escobar,,,,Teclado wireless,,
+TWEK0026,Keyboard,No,TW,,K,Apple,,,VC-Warmi,Asignado,Freddy Escobar,,,,Teclado wireless,,
+,Laptop,No,TW,VVF52A01,L,Dell,,8/19/2015,Office&Devices,Dado de baja,Freddy Escobar,4/24/2012,4/24/2015,,Prestada por TW Brazil. Stock,,
+,Laptop,No,TW,3581884477,L,Dell,,,Office&Devices,Dado de baja,Freddy Escobar,4/28/2012,EOL,,Prestada por TW Brazil. Último usuario Ivonne Páez,,
+TWAL0002,Laptop,Si,TW,30081730393,L,Dell,,7/30/2013,Contractor,Asignado,Outsourcing Contable,,,,Prestada por TW Brazil. Utilizada por el asistente de contabilidad,,
+,Laptop,No,TW,C02L32EGFFRP,L,Apple,"Macbook Pro Retina 13""",,Office&Devices,Dado de baja,,8/18/2013,8/18/2015,,Último usuario Maria Fernanda Escudero. Vendida a Geykel Moreno,,
+,Laptop,No,TW,C02K45RRFFRP,L,Apple,"Macbook Pro Retina 13""",,Office&Devices,Dado de baja,,8/18/2013,8/18/2015,,Antigua comprada por TW INC. Ultimo Responsable Viviana Perez. Vendida a Viviana Pérez,,
+,Laptop,No,TW,C02KX1VNFFT0,L,Apple,"Macbook Pro Retina 15""",,Office&Devices,Dado de baja,,8/19/2013,8/19/2015,,"Antiguas compradas por TW INC, fueron reemplazadas. Último usuario Karina Mora. Vendida a Leslie Jarrín",,
+,Laptop,No,TW,C02K5JBVFFT0,L,Apple,"Macbook Pro Retina 15""",,Office&Devices,Dado de baja,,8/19/2013,8/19/2015,,"Antiguas compradas por TW INC, fueron reemplazadas. Último usuario Ernesto Delgado. Vendida a Luis Vargas",,
+,Laptop,No,TW,C02KW08AFFT0,L,Apple,"Macbook Pro Retina 15""",,Office&Devices,Dado de baja,,8/19/2013,8/19/2015,,Último usuario Sebastián Puente. Vendida a Ramiro Castillo.,,
+TWAL0003,Laptop,Si,TW,C02KX2K4FFT0,L,Apple,"Macbook Pro Retina 15""",8/21/2013,Kushki,Asignado,Paola Jimenez,8/19/2013,8/18/2016,,Último usuario Rodrigo Salazar,,
+TWAL0064,Laptop,Si,TW,C02KW086FFT0,L,Apple,"Macbook Pro Retina 15""",12/18/2015,Selene,Asignado,Elena Echeverría,8/19/2013,8/18/2016,,Antigua. Último usuario Iván Pazmiño.,,
+TWAL0066,Laptop,Si,TW,C02L32DVFFRP,L,Apple,"Macbook Pro Retina 13""",8/21/2013,Techops,Asignado,Freddy Escobar,8/19/2013,8/18/2016,,Esta en uso por Techops. sistema de monitoreo,,
+TWAL0067,Laptop,Si,TW,C02L4402FFRP,L,Apple,"Macbook Pro Retina 13""",9/21/2013,Techops,Asignado,Freddy Escobar,9/12/2013,9/11/2016,,Esta en uso por Techops. sistema de monitoreo,,
+,Laptop,No,TW,C02L68R6FFT0,L,Apple,"Macbook Pro Retina 15""",,Office&Devices,Dado de baja,,11/21/2013,11/21/2015,,Último usuario Fausto de la Torre. Vendida a Fausto de la Torre,,
+TWAL0010,Laptop,Si,TW,C02LLKGYFD56,L,Apple,"Macbook Pro Retina 15""",2/4/2014,Office&Devices,Asignado,Carla Suarez,1/6/2014,1/5/2017,,,,
+TWAL0043,Laptop,Si,TW,C02LK56XFH01,L,Apple,"Macbook Pro Retina 13""",12/5/2013,Office&Devices,Asignado,Ma. Jose Ormaza,1/6/2014,1/5/2017,,,,
+TWAL0015,Laptop,Si,TW,C02LXAVDFH01,L,Apple,"Macbook Pro Retina 13""",2/4/2014,Office&Devices,Asignado,Daniela Villavicencio,2/12/2014,2/11/2017,,,,
+TWAL0011,Laptop,Si,TW,C02LV3TYFD56,L,Apple,"Macbook Pro Retina 15""",2/4/2014,Office&Devices,Asignado,Carlos Fuentes,2/14/2014,2/13/2017,,,,
+TWAL0013,Laptop,Si,TW,C02LXAXBFH01,L,Apple,"Macbook Pro Retina 15""",2/4/2014,Office&Devices,Asignado,Chelsea Komlo,2/14/2014,2/13/2017,,usuario anterior Matheus Tait. Belén Sánchez.Asignación temporal,,
+TWAL0018,Laptop,Si,TW,C02LXAUEFH01,L,Apple,"Macbook Pro Retina 13""",2/4/2014,Office&Devices,Asignado,Diana Pinto,2/14/2014,2/13/2017,,,,
+TWAL0034,Laptop,Si,TW,C02LV3JAFD56,L,Apple,"Macbook Pro Retina 15""",2/4/2014,Office&Devices,Asignado,Jonathan Reyes,2/14/2014,2/13/2017,,,,
+TWAL0048,Laptop,Si,TW,C02LLKJFFD56,L,Apple,"Macbook Pro Retina 15""",2/4/2014,Office&Devices,Asignado,Pamela Chavez,2/14/2014,2/13/2017,,,,
+TWAL0049,Laptop,Si,TW,C02LXAWEFH01,L,Apple,"Macbook Pro Retina 13""",2/4/2014,Office&Devices,Asignado,Paola Jimenez,2/14/2014,2/13/2017,,,,
+TWAL0057,Laptop,Si,TW,C02L68PDFFT0,L,Apple,"Macbook Pro Retina 15""",2/4/2014,Office&Devices,Dado de baja,,2/14/2014,2/13/2017,,Último usuario. Rodrigo Vallejo.Vendida a Valentín Zapata,,
+TWAL0058,Laptop,Si,TW,C02LK59VFH01,L,Apple,"Macbook Pro Retina 13""",2/4/2014,Office&Devices,Dado de baja,,2/14/2014,2/13/2017,,último usuario Mauricio Murillo. Vendida a Mauricio Murillo,,
+TWAL0060,Laptop,Si,TW,C02LV3V1FD56,L,Apple,"Macbook Pro Retina 15""",2/4/2014,Office&Devices,Asignado,Tim Camper,2/14/2014,2/13/2017,,,,
+TWAL0005,Laptop,Si,TW,C02LV3V9FD56,L,Apple,"Macbook Pro Retina 15""",2/4/2014,Office&Devices,Asignado,Adis Rodriguez,5/6/2014,5/5/2017,,,,
+,Laptop,No,TW,C02MC6RUFD56,L,Apple,"Macbook Pro Retina 15""",,Office&Devices,Dado de baja,,5/27/2014,5/26/2016,,Vendida a Edem Kudomzi,,
+TWAL0056,Laptop,Si,TW,C02K5J6VFFT0,L,Apple,"Macbook Pro Retina 15""",12/15/2015,Office&Devices,Asignado,Nelson Jumbo,6/10/2014,6/9/2017,,"Antiguas compradas por TW INC, fueron reemplazadas. Asignado temporalmente a Nelson Jumbo",,
+TWAL0014,Laptop,Si,TW,C02ML6LWFD56,L,Apple,"Macbook Pro Retina 13""",7/30/2014,Office&Devices,Asignado,Cristian Pinto,6/16/2014,6/15/2017,,,,
+TWAL0059,Laptop,Si,TW,C02MR3SMFH00,L,Apple,"Macbook Pro Retina 13""",7/3/2015,Office&Devices,Asignado,Carlos Lopes,7/24/2014,7/23/2017,,Usuario Anterior Jessica Morales,,
+TWAL0001,Laptop,Si,TW,C02ML6KKFD56,L,Apple,"Macbook Pro Retina 15""",7/30/2014,Contractor,Asignado,Ivonne Paez,8/1/2014,7/31/2017,,Usuario anterior Marcos Ramírez,,
+TWAL0023,Laptop,Si,TW,C02ML6LJFD56,L,Apple,"Macbook Pro Retina 15""",7/30/2014,Office&Devices,Asignado,Fausto Castañeda,8/1/2014,7/31/2017,,,,
+TWAL0027,Laptop,Si,TW,C02MP5DYFH00,L,Apple,"Macbook Pro Retina 13""",7/30/2014,Office&Devices,Asignado,Freddy Escobar,8/1/2014,7/31/2017,,,,
+TWAL0029,Laptop,Si,TW,C02MQC2VFH00,L,Apple,"Macbook Pro Retina 13""",7/30/2014,Office&Devices,Asignado,Gabriela Cortez,8/1/2014,7/31/2017,,,,
+TWAL0008,Laptop,Si,TW,C02MQ3PNFD56,L,Apple,"Macbook Pro Retina 15""",8/25/2014,Office&Devices,Disponible,Freddy Escobar,8/24/2014,8/23/2017,,server room. Último usuario Batman,,
+TWAL0004,Laptop,Si,TW,C02MR3U6FH00,L,Apple,"Macbook Pro Retina 13""",8/25/2014,LATAM,Asignado,Guilherme Prestes ,9/1/2014,8/31/2017,,Prestada a Latam. Último usuario Bryan Jiménez,,
+TWAL0037,Laptop,Si,TW,C02L13VNF6T6,L,Apple,"Macbook Air 13""",12/11/2013,Office&Devices,Asignado,Leslie Jarrin,9/18/2014,9/17/2017,,Comprada por TW INC,,
+TWAL0032,Laptop,Si,TW,C02MC6SKFD56,L,Apple,"Macbook Pro Retina 15""",4/25/2014,Office&Devices,Asignado,Gustavo Egüez,9/24/2014,9/23/2017,,,,
+,Laptop,No,TW,C02MC6RKFD56,L,Apple,"Macbook Pro Retina 15""",,Office&Devices,Dado de baja,,10/7/2014,10/6/2017,,Dañada - usuario anterior Jesus,,Dañado
+TWAL0030,Laptop,Si,TW,C02MT1A6FD56,L,Apple,"Macbook Pro Retina 15""",8/25/2014,Office&Devices,Asignado,Geykel Moreno,10/24/2014,10/23/2017,,,,
+TWAL0065,Laptop,Si,TW,C02MC6LXFD56,L,Apple,"Macbook Pro Retina 15""",4/25/2014,Strike,Asignado,Iván Pazmiño,12/14/2014,12/13/2017,,Último Usuario. Marcelo Oliveira ,,
+TWAL0040,Laptop,Si,TW,C02MQ3R4FD56,L,Apple,"Macbook Pro Retina 15""",8/25/2014,Office&Devices,Asignado,Luisa Emme,1/5/2015,1/4/2018,,,,
+TWAL0007,Laptop,Si,TW,C02N3DBRG3QC,L,Apple,"Macbook Pro Retina 15""",1/12/2015,Office&Devices,Asignado,Ariam García,1/10/2015,1/9/2018,,,,
+TWAL0020,Laptop,Si,TW,C02N3D6SG3QC,L,Apple,"Macbook Pro Retina 15""",1/12/2015,Office&Devices,Asignado,Diego Villacis,1/12/2015,1/11/2018,,Usuario anterior Pedro C.,,
+TWAL0025,Laptop,Si,TW,C02MQ3KCFD56,L,Apple,"Macbook Pro Retina 15""",8/25/2014,Office&Devices,Asignado,Felipe Ureta,1/12/2015,1/11/2018,,,,
+TWAL0052,Laptop,Si,TW,C02NVFDAG3QC,L,Apple,"Macbook Pro Retina 15""",1/12/2015,Office&Devices,Asignado,Roberto Paredes,2/18/2015,2/17/2018,,,,
+TWAL0047,Laptop,Si,TW,C02NP8SLG3QC,L,Apple,"Macbook Pro Retina 15""",1/12/2015,Office&Devices,Asignado,Miguel Rueda,3/23/2015,3/22/2018,,,,
+TWAL0054,Laptop,Si,TW,C02NF67FG3QC,L,Apple,"Macbook Pro Retina 15""",3/19/2015,Office&Devices,Asignado,Saúl Piña,3/23/2015,3/22/2018,,Anterior usuario Santiago Lazo,,
+TWAL0016,Laptop,Si,TW,C02P49BDG3QC,L,Apple,"Macbook Pro Retina 15""",3/26/2015,Office&Devices,Asignado,David Corrales,3/27/2015,3/26/2018,,,,
+TWAL0028,Laptop,Si,TW,C02P4A76G3QC,L,Apple,"Macbook Pro Retina 15""",3/26/2015,Office&Devices,Asignado,Gabriela Chasifan,4/27/2015,4/26/2018,,,,
+TWAL0051,Laptop,Si,TW,C02P4A59G3QC,L,Apple,"Macbook Pro Retina 15""",3/26/2015,Office&Devices,Asignado,Reinaldo Junior,6/15/2015,6/14/2018,,,,
+TWAL0026,Laptop,Si,TW,C02MT35QFH00,L,Apple,"Macbook Pro Retina 13""",8/25/2014,Office&Devices,Asignado,Ramiro Castillo,6/18/2015,6/17/2018,,,,
+TWAL0017,Laptop,Si,TW,C17PN2XWG8WN,L,Apple,"Macbook Pro Retina 15""",7/3/2015,Office&Devices,Asignado,Diana Garcia,7/31/2015,7/30/2018,,,,
+TWAL0012,Laptop,Si,TW,C17PN4F6G8WN,L,Apple,"Macbook Pro Retina 15""",7/3/2015,Office&Devices,Asignado,Carlos Oquendo,8/2/2015,8/1/2018,,,,
+TWAL0022,Laptop,Si,TW,C02PVK3SG8WN,L,Apple,"Macbook Pro Retina 15""",7/3/2015,Office&Devices,Asignado,Ernesto Delgado,8/2/2015,8/1/2018,Bitlogic,,,
+TWAL0019,Laptop,Si,TW,C02Q3J3SG8WN,L,Apple,"Macbook Pro Retina 15""",8/7/2015,Office&Devices,Asignado,Diego Alcocer,8/22/2015,8/21/2018,Bitlogic,,,
+TWAL0041,Laptop,Si,TW,C02Q3CXXG8WN,L,Apple,"Macbook Pro Retina 15""",8/7/2015,Office&Devices,Asignado,Luz Marina Unda,8/24/2015,8/23/2018,Bitlogic,,,
+TWAL0033,Laptop,Si,TW,C02P495EG3QC,L,Apple,"Macbook Pro Retina 15""",3/26/2015,Office&Devices,Asignado,Juan Manuel Cornejo,8/26/2015,8/25/2018,,,,
+TWAL0035,Laptop,Si,TW,C02PVK5HG8W,L,Apple,"Macbook Pro Retina 15""",8/7/2015,Office&Devices,Asignado,Jose Silva,8/26/2015,8/25/2018,,,,
+TWAL0036,Laptop,Si,TW,C02Q3CVBG8WN,L,Apple,"Macbook Pro Retina 15""",3/7/2015,Office&Devices,Asignado,Karina Mora,8/26/2015,8/25/2018,Bitlogic,,,
+TWAL0038,Laptop,Si,TW,DWZVM31,L,Dell,Latitude E7440,8/19/2015,Office&Devices,Asignado,Lina Samaniego,8/26/2015,8/25/2018,,,,
+TWAL0044,Laptop,Si,TW,C02P9Q6FFVH5,L,Apple,"Macbook Pro Retina 13""",7/3/2015,Office&Devices,Asignado,Mafer Escudero,8/26/2015,8/25/2018,Bitlogic,,,
+TWAL0042,Laptop,Si,TW,C02Q3J44G8WN,L,Apple,"Macbook Pro Retina 15""",10/2/2015,Office&Devices,Asignado,Ma. Elena Dueñas,10/2/2015,10/1/2018,Bitlogic,,,
+TWAL0050,Laptop,Si,TW,C02Q3J3MG8WN,L,Apple,"Macbook Pro Retina 15""",8/7/2015,Office&Devices,Asignado,Ramiro Castillo,11/12/2015,11/11/2018,,,,
+TWAL0009,Laptop,Si,TW,C02PVADYG8WN,L,Apple,"Macbook Pro Retina 15""",11/20/2015,Office&Devices,Asignado,Byron Torres,11/21/2015,11/20/2018,Bitlogic,,,
+TWAL0063,Laptop,Si,TW,C02P9Q85FVH5,L,Apple,"Macbook Pro Retina 13""",7/3/2015,Office&Devices,Asignado,Viviana Perez,11/23/2015,11/22/2018,,,,
+TWAL0039,Laptop,Si,TW,C17PN2J9G8WN,L,Apple,"Macbook Pro Retina 15""",7/3/2015,Office&Devices,Asignado,Tania Silva,12/14/2015,12/13/2018,Bitlogic,Usuario anterior Luis Vargas,,
+TWAL0062,Laptop,Si,TW,C02PVAF6G8WN,L,Apple,"Macbook Pro Retina 15""",11/20/2015,Office&Devices,Asignado,Verónica Rodriguez,12/14/2015,12/13/2018,Bitlogic,,,
+TWAL0006,Laptop,Si,TW,C17QL2KUFVH5,L,Apple,"Macbook Pro Retina 13""",12/18/2015,Office&Devices,Asignado,Andrés Espinosa,12/16/2015,12/15/2018,Bitlogic,Fact. 32976,,
+TWAL0024,Laptop,Si,TW,C02PTBXSG8WP,L,Apple,"Macbook Pro Retina 15""",12/15/2015,Office&Devices,Asignado,Fausto de la Torre,12/16/2015,12/15/2018,Bitlogic,Fact. 32976,,
+TWAL0021,Laptop,Si,TW,C17QL78ZFVH5,L,Apple,"Macbook Pro Retina 13""",12/15/2015,Office&Devices,Asignado,Elena Echeverría,1/5/2016,1/4/2019,Bitlogic,,,
+TWAL0055,Laptop,Si,TW,C02QP2M9G8WN,L,Apple,"Macbook Pro Retina 15""",12/15/2015,Office&Devices,Asignado,Sofía Celi,1/5/2016,1/4/2019,Bitlogic,,,
+TWAL0061,Laptop,Si,TW,C02QP2K0G8WN,L,Apple,"Macbook Pro Retina 15""",12/15/2015,Office&Devices,Asignado,Valentin Zapata,1/5/2016,1/4/2019,Bitlogic,,,
+TWAL0053,Laptop,Si,TW,C17PR20XG8WP,L,Apple,"Macbook Pro Retina 15""",1/14/2016,Office&Devices,Asignado,Rodrigo Vallejo,1/6/2016,1/5/2019,Bitlogic,Fact. 32976,,
+TWAL0046,Laptop,Si,TW,C02QP2HCG8WN,L,Apple,"Macbook Pro Retina 15""",3/17/2016,Office&Devices,Asignado,Mauricio Murillo,1/26/2016,1/25/2019,Bitlogic,,,
+TWAL0031,Laptop,Si,TW,C02Q3CKMG8WN,L,Apple,"Macbook Pro Retina 15""",1/14/2016,Office&Devices,Asignado,Guilherme Prestes ,1/27/2016,1/26/2019,Bitlogic,Fact. 32976,,
+TWAL0045,Laptop,Si,TW,C02QP4F6G8WN,L,Apple,"Macbook Pro Retina 15""",1/14/2016,Office&Devices,Asignado,Mauricio Machicado,2/2/2016,2/1/2019,Bitlogic,,,
+TWAL0068,Laptop,Si,TW,C02QR505G8WN,L,Apple,"Macbook Pro Retina 15""",1/14/2016,Office&Devices,Asignado,Iván Pazmiño,3/18/2016,3/18/2019,Bitlogic,,,
+TWAL0069,Laptop,Si,TW,C02QR33MG8WN,L,Apple,"Macbook Pro Retina 15""",3/17/2016,Office&Devices,Asignado,Pamela Pluas,3/28/2016,3/28/2019,Bitlogic,Pamela Pluas,,
+TWAL0070,Laptop,Si,TW,C02QN6M8G8WN,L,Apple,"Macbook Pro Retina 15""",3/17/2016,Office&Devices,Asignado,Andrés Salazar,3/28/2016,3/28/2019,Bitlogic,Andrés Salazar,,
+TWAL0071,Laptop,Si,TW,C02QP2HFG8WN,L,Apple,"Macbook Pro Retina 15""",3/17/2016,Office&Devices,Asignado,Yakira Dixon,4/4/2016,4/4/2019,Bitlogic,,,
+TWAL0072,Laptop,Si,TW,C02QP2GUG8WN,L,Apple,"Macbook Pro Retina 15""",1/14/2016,Office&Devices,Asignado,Steven Suarez,4/4/2016,4/4/2019,Bitlogic,,,
+TWAL0073,Laptop,Si,TW,C02R309ZFVH5,L,Apple,"Macbook Pro Retina 13""",4/1/2016,Office&Devices,Disponible,Freddy Escobar,,,,,,
+TWAL0074,Laptop,Si,TW,C02R309CFVH5,L,Apple,"Macbook Pro Retina 13""",4/2/2016,Office&Devices,Asignado,Maria Jose Reyes,,,,,,
+TWAL0075,Laptop,Si,TW,C02QN6MPG8WN,L,Apple,"Macbook Pro Retina 15""",4/3/2016,Office&Devices,Asignado,David Román,,,,,,
+TWAL0076,Laptop,Si,TW,C02QN6KXG8WN,L,Apple,"Macbook Pro Retina 15""",4/4/2016,Office&Devices,Asignado,Fanny Barco,,,,,,
+,Laptop,No,TW,C02MC6R8FD56,L,Apple,"Macbook Pro Retina 15""",,Office&Devices,Dado de baja,,,,,último usuario Nelson Jumbo,,Dañado
+,Laptop,No,TW,C02LKAP5FD56,L,Apple,"Macbook Pro Retina 15""",,Office&Devices,Dado de baja,,,,,usuario anterior Cris Pinto,,Robado
+CTEM0001,Mouse,No,CT,,M,Dell,,,Guggenheim,Asignado,Geykel Moreno,,,,,,
+CTEM0002,Mouse,No,CT,,M,Dell,,,Guggenheim,Asignado,Geykel Moreno,,,,,,
+CTEM0003,Mouse,No,CT,,M,Dell,,,Guggenheim,Asignado,Geykel Moreno,,,,,,
+CTEM0004,Mouse,No,CT,,M,Dell,,,Guggenheim,Asignado,Geykel Moreno,,,,,,
+CTEM0005,Mouse,No,CT,,M,Dell,,,Guggenheim,Asignado,Geykel Moreno,,,,,,
+CTEM0006,Mouse,No,CT,,M,Dell,,,Guggenheim,Asignado,Geykel Moreno,,,,,,
+CTEM0007,Mouse,No,CT,,M,Dell,,,Guggenheim,Asignado,Geykel Moreno,,,,,,
+CTEM0008,Mouse,No,CT,,M,Dell,,,Guggenheim,Asignado,Geykel Moreno,,,,,,
+CTEM0009,Mouse,No,CT,,M,Dell,,,Guggenheim,Asignado,Geykel Moreno,,,,,,
+CTEM0010,Mouse,No,CT,,M,Dell,,,Guggenheim,Asignado,Geykel Moreno,,,,,,
+CTEM0011,Mouse,No,CT,,M,Dell,,,Guggenheim,Asignado,Geykel Moreno,,,,,,
+TWEM0001,Mouse,No,TW,,M,Maxell,,,Techops,Asignado,Freddy Escobar,,,,,,
+TWEM0002,Mouse,No,TW,,M,Genius,,,Strike,Asignado,Iván Pazmiño,,,,,,
+TWEM0003,Mouse,No,TW,,M,Genius,,,Strike,Asignado,Iván Pazmiño,,,,,,
+TWEM0004,Mouse,No,TW,,M,Genius,,,Strike,Asignado,Iván Pazmiño,,,,,,
+TWEM0005,Mouse ,No,TW,,M,Logitech,,,Morgan Stanley,Asignado,Ramiro Castillo,,,,Gaby Chasifán,,
+TWEM0006,Mouse ,No,TW,,M,Logitech,,,Morgan Stanley,Asignado,Ramiro Castillo,,,,Miguel Rueda,,
+TWEM0007,Mouse ,No,TW,,M,Logitech,,,Techops,Dado de baja,Freddy Escobar,,,,Gustavo Egüez,,Dañado
+TWEM0008,Mouse ,No,TW,,M,Logitech,,,Operations,Asignado,Freddy Escobar,,,,,,
+TWEM0009,Mouse ,No,TW,,M,Logitech,,,Operations,Asignado,Gaby Cortez,,,,,,
+TWEM0010,Mouse,No,TW,,M,Dell,,,Operations,Asignado,Viviana Pérez,,,,,Inalámbrico,
+TWEM0011,Mouse,No,TW,,M,Genius,,,Kushki,Asignado,Paola Jimenez,,,,,USB,
+TWEM0012,Mouse,No,TW,,M,Klip xtreme,,,LATAM,Asignado,Guilherme Prestes,,,,,USB,
+TWEM0013,Mouse,No,TW,,M,Klip,,,Morgan Stanley,Asignado,Ramiro Castillo,,,,,USB,
+TWEM0014,Mouse,No,TW,,M,Genius,,,Techops,Disponible,Ramiro Castillo,,,,,USB,
+TWEM0015,Mouse,No,TW,,M,Klip,,,Techops,Disponible,Ramiro Castillo,,,,,USB,
+TWEM0016,Mouse,No,TW,,M,Klip,,,Morgan Stanley,Asignado,Ramiro Castillo,,,,,USB,
+TWEM0017,Mouse,No,TW,,M,Klip,,,Morgan Stanley,Asignado,Ramiro Castillo,,,,,USB,
+TWEM0018,Mouse,No,TW,,M,Genius,,,Morgan Stanley,Asignado,Ramiro Castillo,,,,,USB,
+TWEM0019,Mouse,No,TW,,M,Genius,,,Morgan Stanley,Asignado,Ramiro Castillo,,,,,USB,
+TWEM0020,Mouse,No,TW,,M,Microsoft,,,Operations,Asignado,Lina Samaniego,,,,,USB,
+TWEM0021,Mouse,No,TW,,M,KLIP,,,Operations,Asignado,María Fernanda Escudero,,,,,USB,
+TWEM0022,Mouse,No,TW,,M,Genius,,,Operations,Asignado,Andrés Espinosa,,,,,USB,
+TWEM0023,Mouse,No,TW,,M,Dell,,,Operations,Asignado,Viviana Pérez,,,,,wireless,
+TWEM0024,Mouse,No,TW,,M,Mac,,,LATAM,Asignado,Guilherme Prestes,,,,,wireless,
+TWEM0025,Mouse,No,TW,,M,Dell,,,Techops,Disponible,Freddy Escobar,,,,,wireless,
+TWEM0026,Mouse,No,TW,,M,Mac,,,Lupera,Asignado,Ariam Garcia,,,,nunca devolvió,wireless,
+TWEM0031,Mouse,No,TW,,M,Genius,,,VC-Orquidea,Asignado,Freddy Escobar,3/17/2016,,SAVE,,wireless,
+TWEM0032,Mouse,No,TW,,M,Genius,,,Techops,Disponible,Freddy Escobar,,,,,wireless,
+TWEM0033,Mouse,No,TW,,M,Genius,,,Techops,Disponible,Freddy Escobar,,,,,wireless,
+TWEM0034,Mouse,No,TW,,M,Apple,,,VC - Cotopaxi,Asignado,Freddy Escobar,,,,,Trackpad,
+TWEM0027,Mouse,No,TW,,M,Apple,,,VC-Orquidea,Dado de baja,Freddy Escobar,,,,Dañado,Trackpad,
+TWEM0028,Mouse,No,TW,,M,Apple,,,VC-Quinde,Asignado,Freddy Escobar,,,,,Trackpad,
+TWEM0029,Mouse,No,TW,,M,Apple,,,VC-Sala Piso 10,Asignado,Freddy Escobar,,,,,Trackpad,
+TWEM0030,Mouse,No,TW,,M,Apple,,,VC-Warmi,Asignado,Freddy Escobar,,,,,Trackpad,
+TWEP0001,Printer,No,TW,,P,Brother,PT-H100,,Techops,Disponible,Freddy Escobar,,,,,Etiquetadora,
+TWAP0003,Printer,Si,TW,898E16791,P,Xerox ,WorkCentre 5330,7/8/2015,Operations,Asignado,Freddy Escobar,,,,,B/N,
+TWAP0002,Printer,Si,TW,CNB2Q29015,P,HP ,LaserJetCP1025nW,12/4/2014,Operations,Asignado,Freddy Escobar,,,,,Color,
+TWAP0001,Printer,Si,TW,Q75Y000613,P,Epson ,LX-350,8/22/2013,Contractor,Asignado,Outsourcing Contable,,,,,Matricial,
+CTES0001,Screen,No,CT,MX-0YK37H-74446-39K-709S,S,Dell,,,Guggenheim,Asignado,Geykel Moreno,,,,,,
+CTES0002,Screen,No,CT,MX-0YK37H-74446-39K-705S,S,Dell,,,Guggenheim,Asignado,Geykel Moreno,,,,,,
+CTES0003,Screen,No,CT,CN-0FP04F-72872-38J-CAYS,S,Dell,,,Guggenheim,Asignado,Geykel Moreno,,,,,,
+CTES0004,Screen,No,CT,MX-OYK37H-74446-39K-684S,S,Dell,,,Guggenheim,Asignado,Geykel Moreno,,,,,,
+CTES0005,Screen,No,CT,CN-0FP04F-72872-38J-A3CS,S,Dell,,,Guggenheim,Asignado,Geykel Moreno,,,,,,
+CTES0006,Screen,No,CT,CN-0FP04F-72872-38J-A31S,S,Dell,,,Guggenheim,Asignado,Geykel Moreno,,,,,,
+CTES0007,Screen,No,CT,MX-0YK37H-74446-39K-694S,S,Dell,,,Guggenheim,Asignado,Geykel Moreno,,,,,,
+CTES0008,Screen,No,CT,CN-0FP04F-72872-38J-CAWS,S,Dell,,,Guggenheim,Asignado,Geykel Moreno,,,,,,
+CTES0009,Screen,No,CT,CN-OFPO4F-72872-38J-A36S,S,Dell,,,Guggenheim,Asignado,Geykel Moreno,,,,,,
+CTES0010,Screen,No,CT,CN-OFPO4F-72872-38J-A37S,S,Dell,,,Guggenheim,Asignado,Geykel Moreno,,,,,,
+CTES0011,Screen,No,CT,CN-OFPO4F-72872-38J-A33S,S,Dell,,,Guggenheim,Asignado,Geykel Moreno,,,,,,
+CTES0012,Screen,No,CT,MX-OYK37H-74446-39K-7075,S,Dell,,,Guggenheim,Asignado,Geykel Moreno,,,,,,
+CTES0013,Screen,No,CT,MX-0YK37H-74446-39K-676S,S,Dell,,,Guggenheim,Asignado,Geykel Moreno,,,,,,
+TWES0001,Screen,No,TW,TST135001074,S,ViewSonic,VS15453,5/28/2014,Techops,Disponible,Freddy Escobar,,,,,,
+TWES0002,Screen,No,TW,ETN4E00462019,S,BENQ,,3/26/2015,Morgan Stanley,Asignado,Ramiro Castillo,,,,,,
+TWES0003,Screen,No,TW,406NDCRDC803,S,LG,,10/21/2014,Techops,Disponible,Ramiro Castillo,,,,,,
+TWES0004,Screen,No,TW,406ND8PDC797,S,LG,,10/21/2014,Morgan Stanley,Asignado,Ramiro Castillo,,,,,,
+TWES0005,Screen,No,TW,BN68-01570A-00,S,Samsung,,10/15/2013,Techops,Disponible,Freddy Escobar,,,,,,
+TWES0006,Screen,No,TW,02EYHCLF400345H,S,Samsung,,11/27/2014,Morgan Stanley,Asignado,Ramiro Castillo,,,,,,
+TWES0007,Screen,No,TW,02EYHCKF500168F,S,Samsung,,11/27/2014,Morgan Stanley,Asignado,Ramiro Castillo,,,,,,
+TWES0008,Screen,No,TW,02EYHCLF400535L,S,Samsung,,11/27/2014,Techops,Disponible,Freddy Escobar,,,,,,
+TWES0009,Screen,No,TW,TST135001071,S,ViewSonic,,5/28/2014,Morgan Stanley,Asignado,Ramiro Castillo,,,,,,
+TWES0010,Screen,No,TW,TST135001076,S,View Sonic,,5/28/2014,Techops,Disponible,Freddy Escobar,,,,,,
+TWES0011,Screen,No,TW,TST135001070,S,ViewSonic,VA2446M,5/28/2014,Strike,Asignado,Iván Pazmiño,,,,,,
+TWES0012,Screen,No,TW,TST135001068,S,ViewSonic,,5/28/2014,Strike,Asignado,Iván Pazmiño,,,,,,
+TWES0013,Screen,No,TW,TST135001078,S,ViewSonic,,5/28/2014,Strike,Asignado,Iván Pazmiño,,,,,,
+TWES0014,Screen,No,TW,ETN4E00477019,S,BenQ,,3/26/2015,Strike,Asignado,Iván Pazmiño,,,,,,
+TWES0015,Screen,No,TW,ETN4E00485019,S,BenQ,VW2245Z,3/26/2015,Selene,Asignado,Elena Echeverría,,,,,,
+TWES0016,Screen,No,TW,02EYHCLF400581L,S,Samsung,S220300NY,11/27/2014,LATAM,Asignado,Guilherme Prestes ,,,,,,
+TWES0017,Screen,No,TW,406NDYGDC802,S,LG,22M35AA,10/21/2014,LATAM,Asignado,Guilherme Prestes ,,,,,,
+TWES0018,Screen,No,TW,ZYSTH4LD800338Z,S,Samsung,S22C150N,10/15/2013,LATAM,Asignado,Guilherme Prestes ,,,,,,
+TWES0019,Screen,No,TW,02EYHCLF400410,S,Samsung,S22D300NY,11/27/2014,Kushki,Asignado,Paola Jimenez,,,,,,
+TWES0020,Screen,No,TW,02EYHCLF400563,S,Samsung,S22D300NY,11/27/2014,Kushki,Asignado,Paola Jimenez,,,,,,
+CTET0001,TV,No,CT,Z59S3CXD700017J,T,Samsung,UN46EH5000G,8/7/2015,Guggenheim,Asignado,Geykel Moreno,,,,,,
+TWET0001,TV,No,TW,Z6N43CXD700761Y,T,Samsung,UN46F66400AF,,Guggenheim,Asignado,Geykel Moreno,,,,,,
+TWAT0002,TV,Si,TW,9503076,T,Sony,KDL-48W609B,8/7/2015,Office&Devices,Asignado,Freddy Escobar,,,,,,
+TWAT0003,TV,Si,TW,9531017,T,Sony,KDL-32R429B,1/13/2015,Office&Devices,Asignado,Freddy Escobar,,,,,32'',
+TWAT0004,TV,Si,TW,9556999,T,Sony,KDL-32R429B,8/7/2015,Techops,Asignado,Freddy Escobar,,,,,32'',
+TWAT0005,TV,Si,TW,9555387,T,Sony,KDL-32R429B,8/7/2015,Techops,Asignado,Freddy Escobar,,,,,32'',
+TWAT0006,TV,Si,TW,9583273,T,Sony,KDL-32R429B,6/4/2015,Techops,Asignado,Freddy Escobar,,,,,32'',
+TWAT0007,TV,Si,TW,9537356,T,Sony,KDL-32R429B,6/4/2015,Techops,Asignado,Freddy Escobar,,,,,32'',
+TWAT0008,TV,Si,TW,Z55E3CBD7001137,T,Samsung,UN40EH5000G,10/15/2013,Office&Devices,Asignado,Freddy Escobar,,,,,40'',
+TWAT0009,TV,Si,TW,502MXNUNQ671,T,LG,42LB5800-SB,3/26/2015,Techops,Asignado,Freddy Escobar,,,,,"42""",
+TWAT0010,TV,Si,TW,Z6M43CVD900305A,T,Samsung,UN46F6400,7/17/2014,Office&Devices,Asignado,Freddy Escobar,,,,,46'',
+TWAT0011,TV,Si,TW,9504355,T,Sony,KDL-48W609B,1/13/2015,LATAM,Asignado,Guilherme Prestes,,,,,"48""",
+TWAT0012,TV,Si,TW,9502064,T,Sony,,1/13/2015,Kushki,Asignado,Paola Jimenez,,,,,"48""",
+TWAT0013,TV,Si,TW,9501072,T,Sony ,Bravia,10/21/2014,Strike,Asignado,Iván Pazmiño,,,,,"48""",
+TWAT0014,TV,Si,TW,502RMBW0Y885,T,LG,50LB6500,12/8/2014,Office&Devices,Asignado,Freddy Escobar,,,,,"50""",
+TWAT0015,TV,Si,TW,Z52C3CYCC00030F,T,Samsung,UN55ES6500G,2/24/2014,Office&Devices,Asignado,Freddy Escobar,,,,,58'',
+TWAT0016,TV,Si,TW,036L3CRG301163X,T,Samsung,UN58H5203AHXPA,2/24/2014,Office&Devices,Asignado,Freddy Escobar,,,,,"58""",
+TWEV0001,Voice devices,No,TW,,V,Genius,,,Morgan Stanley,Asignado,Ramiro Castillo,,,,,Speaker ,
+TWEV0016,Voice devices,No,TW,,V,Samson,,,Techops,Dado de baja,Freddy Escobar,,,,Parlante/ Micrófono para conferencias,Speaker ,
+TWEV0002,Voice devices,No,TW,,V,Clear one,Chat 160,,Techops,Disponible,Freddy Escobar,,,,,Speaker ,
+TWEV0003,Voice devices,No,TW,,V,Clear one,Chat 150,,Techops,Disponible,Freddy Escobar,,,,,Speaker ,
+TWEV0004,Voice devices,No,TW,,V,Clear one,Chat 160,,Techops,Disponible,Freddy Escobar,,,,,Speaker ,
+TWEV0005,Voice devices,No,TW,,V,Clear one,Chat 160,,Techops,Disponible,Freddy Escobar,,,,,Speaker ,
+TWEV0006,Voice devices,No,TW,,V,Clear one,Chat 160,,Techops,Disponible,Freddy Escobar,,,,,Speaker ,
+TWEV0007,Voice devices,No,TW,,V,Clear one,Chat 160,,Techops,Disponible,Freddy Escobar,,,,,Speaker ,
+TWEV0008,Voice devices,No,TW,,V,Polycom,Soundstation2,,Techops,Disponible,Freddy Escobar,,,,,Speaker ,
+TWEV0009,Voice devices,No,TW,,V,Clear one,Chat 60,,Techops,Disponible,Freddy Escobar,,,,,Speaker ,
+TWEV0012,Voice devices,No,TW,,V,Jabra,PHS002W,,VC - Cotopaxi,Asignado,Freddy Escobar,,,,,Speaker ,
+TWEV0013,Voice devices,No,TW,,V,Jabra,PHS002W,,VC-Orquidea,Asignado,Freddy Escobar,,,,,Speaker ,
+TWEV0014,Voice devices,No,TW,,V,Jabra,PHS002W,,VC-Quinde,Asignado,Freddy Escobar,,,,,Speaker ,
+TWEV0015,Voice devices,No,TW,,V,Philips,AECS7000/37,,VC-Warmi,Asignado,Freddy Escobar,,,,,Speaker ,
+TWEV0017,Voice devices,No,TW,,V,Philips,,,Techops,Disponible,Freddy Escobar,,,,Negro (Morgan),Speaker ,
+TWEV0010,Voice devices,No,TW,,V,Jabra,PHS002W,,LATAM,Asignado,Guilherme Prestes,,,,,Speaker ,
+TWEV0011,Voice devices,No,TW,,V,jabra,PHS002W,,VC-Sala Piso 10,Asignado,Freddy Escobar,,,,,Speaker ,
+TWEW0001,Webcam,No,TW,,W,Logitech,,,VC-Orquidea,Asignado,Freddy Escobar,,,,,,
+TWEW0002,Webcam,No,TW,,W,Logitech,,,VC-Quinde,Asignado,Freddy Escobar,,,,,,
+TWEW0003,Webcam,No,TW,,W,Logitech,,,VC-Warmi,Asignado,Freddy Escobar,,,,,,
+TWEW0004,Webcam,No,TW,,W,Logitech,,,VC - Cotopaxi,Asignado,Freddy Escobar,,,,,,
+TWEW0005,Webcam,No,TW,,W,Logitech,,,VC-Sala Piso 10,Asignado,Freddy Escobar,,,,,,
+CTEW0001,Webcam,No,CT,,W,Microsoft,,,Guggenheim,Asignado,Geykel Moreno,,,,,,
+CTEW0002,Webcam,No,CT,,W,Microsoft,,,Guggenheim,Asignado,Geykel Moreno,,,,,,
+CTEW0003,Webcam,No,CT,,W,Microsoft,,,Guggenheim,Asignado,Geykel Moreno,,,,,,
+CTEW0004,Webcam,No,CT,,W,Microsoft,,,Guggenheim,Asignado,Geykel Moreno,,,,,,
+CTEW0005,Webcam,No,CT,,W,Microsoft,,,Guggenheim,Asignado,Geykel Moreno,,,,,,
+CTEW0006,Webcam,No,CT,,W,Microsoft,,,Guggenheim,Asignado,Geykel Moreno,,,,,,
+TWEW0006,Webcam,No,TW,,W,Logitech,C270,,Techops,Disponible,Freddy Escobar,,,,5 und,,
+TWEW0007,Webcam,No,TW,,W,imexx,,,Techops,Disponible,Freddy Escobar,,,,,,
+TWEX0001,External drives,No,TW,,X,LG,GP50,,Techops,Disponible,Freddy Escobar,,,,Server Room,DVD Writer Portable,

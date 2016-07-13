@@ -37,8 +37,8 @@ class MainPage(BasePage):
                  'ingresar_button': '.main-panel form a[type="submit"]',
                  'page_header': '.main-panel .page-header h1',
                  'Guardar': '.main-panel a#save',
-                 'Asignar': '.main-panel .panel-heading a[href$="assign_device"]',
-                 'Registrar': '.main-panel .panel-heading a[href$="device_form"]',
+                 'Asignar': '.main-panel a[href$="assign_device"]',
+                 'Registrar': '.main-panel a[href$="device_form"]',
                  'Aceptar': '.main-panel a[href$="assigned_device_list"]'
         }
 
