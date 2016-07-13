@@ -47,7 +47,7 @@ class DeviceViewSet(viewsets.ModelViewSet):
 class ChangeDeviceStatus(generics.UpdateAPIView):
     def patch(self, request):
         device = models.Device.objects.get(pk=request.data['id'])
-        if services.DeviceService.change_device_status(device, request.data['new_device_status']):
+        if services.DeviceService.change_device_status(device, request.data['new_device_status'], request.data['new_device_end_status_type'], request.data['new_device_end_status_comment']):
             message = 'El dispositivo: '+device.full_code()+' tiene el estado '+device.device_status.name
             return Response(status=status.HTTP_202_ACCEPTED, data={'message': message})
 

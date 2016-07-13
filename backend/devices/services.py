@@ -22,7 +22,7 @@ class DeviceEndStatusTypeService:
 
 
 class DeviceService:
-    CHANGE_STATUS_ERROR_MESSAGE = 'No se puede cambiar el estado de un dispositivo que está dado de baja'
+    CHANGE_STATUS_ERROR_MESSAGE = 'No se pudo cambiar el estado del dispositivo'
 
     @staticmethod
     def set_actual_return_date_of_device_assignment(device):
@@ -33,13 +33,18 @@ class DeviceService:
             device_assignment.save()
 
     @staticmethod
-    def change_device_status(device, new_status_id):
+    def change_device_status(device, new_status_id, new_device_end_status_type_id, new_device_end_status_type_comment):
         if device.device_status.name != models.DeviceStatus.DADO_DE_BAJA:
             if device.device_status.name == models.DeviceStatus.ASIGNADO:
                 DeviceService.set_actual_return_date_of_device_assignment(device)
             new_status = models.DeviceStatus.objects.get(pk=new_status_id)
             device.device_status = new_status
-            device.save()
+            device.device_end_status_type = new_device_end_status_type_id
+            device.device_end_status_comment = new_device_end_status_type_comment
+            try:
+                device.save()
+            except ValidationError:
+                return False
             DeviceStatusService.create_status_change_log(device)
             return True
         return False
