@@ -42,6 +42,7 @@ class DeviceAssignmentSerializer(serializers.ModelSerializer):
 
 class DeviceSerializer(serializers.ModelSerializer):
     device_type_name = serializers.CharField(read_only=True)
+    device_end_status_type_name = serializers.CharField(read_only=True)
     device_brand_name = serializers.CharField(read_only=True)
     device_status_name = serializers.CharField(read_only=True)
     full_code = serializers.CharField(read_only=True)
@@ -62,7 +63,7 @@ class DeviceSerializer(serializers.ModelSerializer):
                   'ownership', 'serial_number', 'model', 'purchase_date',
                   'device_status', 'device_status_name',
                   'life_start_date_or_assignment_date', 'life_end_date',
-                  'description')
+                  'description', 'device_end_status_type', 'device_end_status_comment', 'device_end_status_type_name')
 
 
 class AssignmentSerializer(serializers.ModelSerializer):

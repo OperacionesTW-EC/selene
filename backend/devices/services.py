@@ -39,7 +39,7 @@ class DeviceService:
                 DeviceService.set_actual_return_date_of_device_assignment(device)
             new_status = models.DeviceStatus.objects.get(pk=new_status_id)
             device.device_status = new_status
-            device.device_end_status_type = new_device_end_status_type_id
+            device.device_end_status_type = models.DeviceEndStatusType.objects.get(pk=new_device_end_status_type_id)
             device.device_end_status_comment = new_device_end_status_type_comment
             try:
                 device.save()

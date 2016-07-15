@@ -109,6 +109,11 @@ class Device(models.Model):
     def device_status_name(self):
         return self.device_status.name
 
+    def device_end_status_type_name(self):
+        if self.device_end_status_type:
+            return self.device_end_status_type.name
+        return None
+
     def full_code(self):
         return self.generate_code() + '{0:04d}'.format(self.sequence)
 
@@ -163,7 +168,7 @@ class Device(models.Model):
     device_status = models.ForeignKey('DeviceStatus')
     life_start_date = models.DateField(blank=True, null=True)
     description = models.CharField(max_length=250, null=True, blank=True)
-    device_end_status_type = models.IntegerField(null=True, blank=True)
+    device_end_status_type = models.ForeignKey('DeviceEndStatusType', null=True, blank=True)
     device_end_status_comment = models.CharField(max_length=250, null=True, blank=True)
 
 
