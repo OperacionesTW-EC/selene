@@ -51,7 +51,7 @@ class TestChangeDeviceStatusView(APITestCase):
 
     def test_should_not_update_the_status_if_current_status_is_DADO_DE_BAJA(self):
         self.device.device_status = models.DeviceStatus.objects.get(name=models.DeviceStatus.DADO_DE_BAJA)
-        self.device.device_end_status_type=1
+        self.device.device_end_status_type=models.DeviceEndStatusType.objects.get(name=models.DeviceEndStatusType.DAÑADO)
         self.device.save()
         response = self.client.patch('/devices/change_status', self.data, format='json')
         self.device.refresh_from_db()
@@ -92,7 +92,7 @@ class TestChangeDeviceStatusView(APITestCase):
         response = self.client.patch('/devices/change_status', self.data_dado_de_baja, format='json')
         self.device.refresh_from_db()
         self.assertEqual(self.device.device_status.name, models.DeviceStatus.DADO_DE_BAJA)
-        self.assertEqual(self.device.device_end_status_type, 2)
+        self.assertEqual(self.device.device_end_status_type.id, 2)
         self.assertEqual(response.status_code, status.HTTP_202_ACCEPTED)
 
     def test_should_update_the_status_DADO_DE_BAJA_if_end_status_type_is_not_empty_and_end_status_comment_is_not_empty(self):
@@ -100,6 +100,6 @@ class TestChangeDeviceStatusView(APITestCase):
         response = self.client.patch('/devices/change_status', self.data_dado_de_baja, format='json')
         self.device.refresh_from_db()
         self.assertEqual(self.device.device_status.name, models.DeviceStatus.DADO_DE_BAJA)
-        self.assertEqual(self.device.device_end_status_type, 2)
+        self.assertEqual(self.device.device_end_status_type.id, 2)
         self.assertEqual(self.device.device_end_status_comment, 'Comentarios')
         self.assertEqual(response.status_code, status.HTTP_202_ACCEPTED)
