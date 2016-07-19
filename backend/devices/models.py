@@ -4,6 +4,7 @@ from django.core.exceptions import ValidationError
 from django.db import models
 from django.utils.translation import ugettext_lazy as _
 from django.utils import timezone
+from datetime import date
 import datetime
 
 
@@ -145,6 +146,12 @@ class Device(models.Model):
         if query_set:
             return query_set.first().assignment_date
 
+    def is_Asignado(self):
+        return self.device_status.name == DeviceStatus.ASIGNADO
+
+    def is_Dado_Baja(self):
+        return self.device_status.name == DeviceStatus.DADO_DE_BAJA
+
     def save(self, *args, **kwargs):
         self.clean()
         if not self.pk and self.sequence is None:
@@ -246,6 +253,9 @@ class DeviceAssignment(models.Model):
         Para otros se devuelve la fecha de asignación
         """
         return self.device.life_start_date or self.assignment_date
+
+    def update_return_date_to_today(self):
+        self.actual_return_date = date.today()
 
     class Meta:
         verbose_name = _(u'Asignación de Dispositivos')

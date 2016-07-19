@@ -4,7 +4,7 @@ from rest_framework.response import Response
 from rest_framework import status
 from devices import models
 from devices import services
-
+from django.core.exceptions import ValidationError
 
 class DeviceTypeViewSet(viewsets.ModelViewSet):
     queryset = models.DeviceType.objects.all()
@@ -47,11 +47,12 @@ class DeviceViewSet(viewsets.ModelViewSet):
 class ChangeDeviceStatus(generics.UpdateAPIView):
     def patch(self, request):
         device = models.Device.objects.get(pk=request.data['id'])
-        if services.DeviceService.change_device_status(device, request.data['new_device_status'], request.data['new_device_end_status_type'], request.data['new_device_end_status_comment']):
+        try:
+            services.DeviceService.change_device_status(device, request.data['new_device_status'], request.data['new_device_end_status_type'], request.data['new_device_end_status_comment'])
             message = 'El dispositivo: '+device.full_code()+' tiene el estado '+device.device_status.name
             return Response(status=status.HTTP_202_ACCEPTED, data={'message': message})
-
-        return Response(status=status.HTTP_400_BAD_REQUEST, data={'message': services.DeviceService.CHANGE_STATUS_ERROR_MESSAGE})
+        except ValidationError:
+            return Response(status=status.HTTP_400_BAD_REQUEST, data={'message': services.DeviceService.CHANGE_STATUS_ERROR_MESSAGE})
 
 
 class ProjectViewSet(viewsets.ModelViewSet):
