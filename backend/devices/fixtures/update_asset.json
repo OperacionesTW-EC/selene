@@ -1,0 +1,39 @@
+[
+  {"model": "devices.device",
+    "pk": 140,
+    "fields": {
+      "device_type": 1,
+      "device_brand": 2,
+      "asset": 0,
+      "ownership": "TW",
+      "serial_number": "C02L68PDFFT0",
+      "model": "\"Macbook Pro Retina 15\"\"\"",
+      "purchase_date": "2014-02-04",
+      "sequence": 57,
+      "code": "TWAL",
+      "device_status": 4,
+      "life_start_date": null,
+      "description": "",
+      "device_end_status_type": null,
+      "device_end_status_comment": null
+    }
+  },
+  {"model": "devices.device",
+    "pk": 141,
+    "fields": {
+      "device_type": 1,
+      "device_brand": 2,
+      "asset": 0,
+      "ownership": "TW",
+      "serial_number": "C02LK59VFH01",
+      "model": "\"Macbook Pro Retina 13\"\"\"",
+      "purchase_date": "2014-02-04",
+      "sequence": 58, "code": "TWAL",
+      "device_status": 4,
+      "life_start_date": null,
+      "description": "",
+      "device_end_status_type": null,
+      "device_end_status_comment": null
+    }
+  }
+]
