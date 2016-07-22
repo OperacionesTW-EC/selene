@@ -1,0 +1,143 @@
+[
+  {"model": "devices.device",
+    "pk": 126,
+    "fields": {
+      "device_type": 1,
+      "device_brand": 3,
+      "asset": 1,
+      "ownership": "TW",
+      "serial_number": "30081730393",
+      "model": "30081730393",
+      "purchase_date": "2013-07-30",
+      "sequence": 2,
+      "code": "TWAL",
+      "device_status": 2,
+      "life_start_date": "2013-07-30",
+      "description": "",
+      "device_end_status_type": null,
+      "device_end_status_comment": null
+    }
+  },
+  {"model": "devices.deviceassignment",
+    "pk": 117,
+    "fields": {
+      "device": 126,
+      "assignment": 117,
+      "assignment_date": "2013-07-30",
+      "actual_return_date": null
+    }
+  },
+  {"model": "devices.device",
+    "pk": 199,
+    "fields": {
+      "device_type": 1,
+      "device_brand": 2,
+      "asset": 1,
+      "ownership":
+      "TW",
+      "serial_number": "C02R309CFVH5",
+      "model": "\"Macbook Pro Retina 13\"\"\"",
+      "purchase_date": "2016-04-02",
+      "sequence": 74,
+      "code": "TWAL",
+      "device_status": 2,
+      "life_start_date": "2016-05-02",
+      "description": "",
+      "device_end_status_type": null,
+      "device_end_status_comment": null
+    }
+  },
+  {"model": "devices.deviceassignment",
+    "pk": 186,
+    "fields": {
+      "device": 199,
+      "assignment": 186,
+      "assignment_date": "2016-05-02",
+      "actual_return_date": null
+    }
+  },
+  {"model": "devices.device",
+    "pk": 200,
+    "fields": {
+      "device_type": 1,
+      "device_brand": 2,
+      "asset": 1,
+      "ownership": "TW",
+      "serial_number": "C02QN6MPG8WN",
+      "model": "\"Macbook Pro Retina 15\"\"\"",
+      "purchase_date": "2016-04-03",
+      "sequence": 75,
+      "code": "TWAL",
+      "device_status": 2,
+      "life_start_date": "2016-05-16",
+      "description": "",
+      "device_end_status_type": null,
+      "device_end_status_comment": null
+    }
+  },
+  {"model": "devices.deviceassignment",
+    "pk": 187,
+    "fields": {
+      "device": 200,
+      "assignment": 187,
+      "assignment_date": "2016-05-16",
+      "actual_return_date": null
+    }
+   },
+  {"model": "devices.device",
+    "pk": 201,
+    "fields": {
+      "device_type": 1,
+      "device_brand": 2,
+      "asset": 1,
+      "ownership": "TW",
+      "serial_number": "C02QN6KXG8WN",
+      "model": "\"Macbook Pro Retina 15\"\"\"",
+      "purchase_date": "2016-04-04",
+      "sequence": 76,
+      "code": "TWAL",
+      "device_status": 2,
+      "life_start_date": "2016-05-23",
+      "description": "",
+      "device_end_status_type": null,
+      "device_end_status_comment": null
+    }
+  },
+  {"model": "devices.deviceassignment",
+    "pk": 188,
+    "fields": {
+      "device": 201,
+      "assignment": 188,
+      "assignment_date": "2016-05-23",
+      "actual_return_date": null
+    }
+  },
+  {"model": "devices.device",
+    "pk": 334,
+    "fields": {
+      "device_type": 1,
+      "device_brand": 2,
+      "asset": 1,
+      "ownership": "TW",
+      "serial_number": "C02QN6Q2G8WN",
+      "model": "Macbook Pro Retina 15\"",
+      "purchase_date": "2016-04-01",
+      "sequence": 77,
+      "code": "TWAL",
+      "device_status": 2,
+      "life_start_date": "2016-06-20",
+      "description": "Macbook Pro Retina 15\"",
+      "device_end_status_type": null,
+      "device_end_status_comment": null
+    }
+  },
+  {"model": "devices.deviceassignment",
+    "pk": 299,
+    "fields": {
+      "device": 334,
+      "assignment": 299,
+      "assignment_date": "2016-06-20",
+      "actual_return_date": null
+    }
+  }
+]
