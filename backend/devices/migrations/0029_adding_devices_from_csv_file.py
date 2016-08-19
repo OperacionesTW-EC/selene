@@ -2,7 +2,7 @@ from __future__ import unicode_literals
 
 from django.db import migrations
 from django.db import transaction
-from devices.models import *  # NOQA
+from devices.models import *;
 from datetime import date, datetime
 import os
 import sys
@@ -15,6 +15,15 @@ def insert_from_csv(apps, schema_editor):
     except Exception:
         migrations_abs_path = os.path.dirname(os.path.realpath(__file__))
         FILE_PATH = '%s/devices.csv' % migrations_abs_path
+
+    DeviceHistoric = apps.get_model("devices", "Device")
+    ProjectHistoric = apps.get_model("devices", "Project")
+    AssignmentHistoric = apps.get_model("devices", "Assignment")
+    DeviceAssignmentHistoric = apps.get_model("devices", "DeviceAssignment")
+    DeviceTypeHistoric = apps.get_model("devices", "DeviceType")
+    DeviceBrandHistoric = apps.get_model("devices", "DeviceBrand")
+    DeviceStatusHistoric = apps.get_model("devices", "DeviceStatus")
+
 
     FILE_COLUMNS = {'full_code': 0,
                     'device_type_name': 1,
@@ -32,6 +41,18 @@ def insert_from_csv(apps, schema_editor):
                     'description': 16
                     }
 
+    def has_lifetime(device_type):
+        if device_type.life_time is None:
+            return False
+        return True
+
+    def has_lifetime_and_life_has_not_begun(device):
+        return has_lifetime(device.device_type) and device.life_start_date in (None, '')
+
+    def assign(device, date=None):
+        if has_lifetime_and_life_has_not_begun(device):
+            device.life_start_date = date or datetime.date.today()
+
     def create_assignment(parts, device):
         project = Project.objects.get_or_create(name=get_column_value(parts, 'project_name').capitalize())[0]
         assignment_date = get_column_value(parts, 'assignment_date')
@@ -42,7 +63,9 @@ def insert_from_csv(apps, schema_editor):
         assignee_name = get_column_value(parts, 'assignee')
         assignment = Assignment(assignee_name=assignee_name, project=project)
         assignment.save()
-        device.assign(assignment_date)
+
+        assign(device, assignment_date)
+
         device.save()
         device_assignment = DeviceAssignment(device=device, assignment=assignment, assignment_date=assignment_date)
         device_assignment.save()
@@ -109,10 +132,8 @@ def insert_from_csv(apps, schema_editor):
         if full_code in (None, '') or device_is_present(full_code):
             return
         device = create_device(parts)
-        if not is_code_device_valid(device):
-            print_log_device_does_not_migrate(device)
-            return
-        if device.device_status.name == DeviceStatus.ASIGNADO:
+
+        if device.device_status.name == 'Asignado':
             create_assignment(parts, device)
         else:
             device.save()
@@ -124,7 +145,6 @@ def insert_from_csv(apps, schema_editor):
     for line in file:
         parse_line(line)
     file.close()
-
 
 class Migration(migrations.Migration):
 

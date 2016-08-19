@@ -125,6 +125,7 @@ class Device(models.Model):
     def life_end_date(self):
         return self.calculate_life_end_date()
 
+
     def generate_code(self):
         return self.ownership.upper() + ("A" if self.asset else "E") + self.device_type.code.upper()
 
