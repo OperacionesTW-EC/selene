@@ -54,20 +54,20 @@ def insert_from_csv(apps, schema_editor):
             device.life_start_date = date or datetime.date.today()
 
     def create_assignment(parts, device):
-        project = Project.objects.get_or_create(name=get_column_value(parts, 'project_name').capitalize())[0]
+        project = ProjectHistoric.objects.get_or_create(name=get_column_value(parts, 'project_name').capitalize())[0]
         assignment_date = get_column_value(parts, 'assignment_date')
         if assignment_date not in (None, ''):
             assignment_date = datetime.strptime(assignment_date, "%m/%d/%Y").date()
         else:
             assignment_date = date.today()
         assignee_name = get_column_value(parts, 'assignee')
-        assignment = Assignment(assignee_name=assignee_name, project=project)
+        assignment = AssignmentHistoric(assignee_name=assignee_name, project=project)
         assignment.save()
 
         assign(device, assignment_date)
 
         device.save()
-        device_assignment = DeviceAssignment(device=device, assignment=assignment, assignment_date=assignment_date)
+        device_assignment = DeviceAssignmentHistoric(device=device, assignment=assignment, assignment_date=assignment_date)
         device_assignment.save()
 
     def is_code_device_valid(device):
@@ -100,7 +100,7 @@ def insert_from_csv(apps, schema_editor):
 
         if purchase_date not in (None, ''):
             device_data['purchase_date'] = datetime.strptime(purchase_date, '%m/%d/%Y')
-        device = Device(**device_data)
+        device = DeviceHistoric(**device_data)
 
         return device
 
@@ -108,19 +108,19 @@ def insert_from_csv(apps, schema_editor):
         return parts[FILE_COLUMNS[name_column]].strip()
 
     def create_device_type(parts):
-        return DeviceType.objects.get_or_create(name=get_column_value(parts, 'device_type_name').capitalize(),
+        return DeviceTypeHistoric.objects.get_or_create(name=get_column_value(parts, 'device_type_name').capitalize(),
                                          code=get_column_value(parts, 'device_type_code').upper())[0]
 
     def create_device_brand(parts):
-        return DeviceBrand.objects.get_or_create(name=get_column_value(parts, 'device_brand_name').capitalize())[0]
+        return DeviceBrandHistoric.objects.get_or_create(name=get_column_value(parts, 'device_brand_name').capitalize())[0]
 
     def create_devices_status(parts):
-        return DeviceStatus.objects.get_or_create(name=get_column_value(parts, 'device_status_name').capitalize())[0]
+        return DeviceStatusHistoric.objects.get_or_create(name=get_column_value(parts, 'device_status_name').capitalize())[0]
 
     def device_is_present(full_code):
         code = full_code[0:4]
         sequence = int(full_code[4:])
-        device = Device.objects.filter(code=code, sequence=sequence)
+        device = DeviceHistoric.objects.filter(code=code, sequence=sequence)
         if device:
             print('El dispositivo con código %s no se insertó, ya está presente en la base de datos' % full_code)
             return True
@@ -133,7 +133,7 @@ def insert_from_csv(apps, schema_editor):
             return
         device = create_device(parts)
 
-        if device.device_status.name == 'Asignado':
+        if device.device_status.name == DeviceStatus.ASIGNADO:
             create_assignment(parts, device)
         else:
             device.save()
