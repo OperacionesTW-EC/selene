@@ -29,9 +29,3 @@ end
 describe command('PGPASSWORD=postgres psql -U postgres -tAc "SELECT 1 FROM pg_database WHERE datname=\'selene\'"') do
   its (:stdout) { should match /1/ }
 end
-
-#describe command('psql postgres -tAc "SELECT 1 FROM pg_roles WHERE rolname=\'postgres\'"') do
-  #its (:stderr) { should match /xxx/ }
-#end
-
-
