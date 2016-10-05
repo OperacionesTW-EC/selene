@@ -1,0 +1,5 @@
+---
+- name: selene-api-dev
+  hosts: all
+  roles:
+    - postgres

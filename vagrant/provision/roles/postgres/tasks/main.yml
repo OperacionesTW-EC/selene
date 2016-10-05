@@ -1,0 +1,23 @@
+- name: install postgres
+  apt: name={{ item }} state=present update_cache=yes
+  become: true
+  with_items:
+  - postgresql
+  - python-psycopg2
+  - acl
+
+- name: change password
+  postgresql_user: name=postgres password=postgres role_attr_flags=SUPERUSER
+  become: true
+  become_user: postgres
+
+- name: enables md5 based autentication to postgres user
+  lineinfile: dest=/etc/postgresql/9.1/main/pg_hba.conf regexp='local   all             postgres                                peer' line='local   all             postgres                                md5' backrefs=yes
+  become: true
+
+- name: restart service
+  service: name=postgresql state=restarted
+  become: true
+
+- name: create selene database
+  postgresql_db: name=selene state=present login_user=postgres login_password=postgres
