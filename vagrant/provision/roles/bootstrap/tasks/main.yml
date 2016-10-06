@@ -1,0 +1,36 @@
+- name: inject env DB_1_ENV_POSTGRES_DB
+  lineinfile: dest=/etc/environment
+    regexp="DB_1_ENV_POSTGRES_DB"
+    line="DB_1_ENV_POSTGRES_DB=selene"
+  become: true
+
+- name: inject env DB_1_ENV_POSTGRES_USER
+  lineinfile: dest=/etc/environment
+    regexp="DB_1_ENV_POSTGRES_USER"
+    line="DB_1_ENV_POSTGRES_USER=postgres"
+  become: true
+
+- name: inject env DB_1_ENV_POSTGRES_PASSWORD
+  lineinfile: dest=/etc/environment
+    regexp="DB_1_ENV_POSTGRES_PASSWORD"
+    line="DB_1_ENV_POSTGRES_PASSWORD=postgres"
+  become: true
+
+- name: inject env DB_PORT_5432_TCP_ADDR
+  lineinfile: dest=/etc/environment
+    regexp="DB_PORT_5432_TCP_ADDR"
+    line="DB_PORT_5432_TCP_ADDR=127.0.0.1"
+  become: true
+
+- name: inject env DB_PORT_5432_TCP_PORT
+  lineinfile: dest=/etc/environment
+    regexp="DB_PORT_5432_TCP_PORT"
+    line="DB_PORT_5432_TCP_PORT=5432"
+  become: true
+
+- name: install pip requirements
+  shell: cd /usr/backend && pip3 install -r requirements.txt
+  become: true
+
+- name: execute migrations
+  shell: /usr/backend/./manage.py migrate

@@ -1,10 +1,22 @@
+- name: dev locale
+  action: command sudo update-locale LC_ALL=en_US.UTF-8
+
+- name: set default locale
+  become: true
+  lineinfile: dest=/etc/default/locale
+    regexp="LC_ALL"
+    line="LC_ALL=\"en_US.UTF-8\""
+
 - name: install postgres
   apt: name={{ item }} state=present update_cache=yes
   become: true
   with_items:
-  - postgresql
+  - postgresql-9.3
   - python-psycopg2
-  - acl
+
+- name: start service
+  service: name=postgresql state=started
+  become: true
 
 - name: change password
   postgresql_user: name=postgres password=postgres role_attr_flags=SUPERUSER
@@ -12,7 +24,10 @@
   become_user: postgres
 
 - name: enables md5 based autentication to postgres user
-  lineinfile: dest=/etc/postgresql/9.1/main/pg_hba.conf regexp='local   all             postgres                                peer' line='local   all             postgres                                md5' backrefs=yes
+  lineinfile: dest=/etc/postgresql/9.3/main/pg_hba.conf
+    regexp='local   all             postgres                                peer'
+    line='local   all             postgres                                md5'
+    backrefs=yes
   become: true
 
 - name: restart service

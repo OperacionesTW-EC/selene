@@ -4,3 +4,4 @@
   roles:
     - postgres
     - packages
+    - bootstrap
